@@ -819,6 +819,115 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 .backup-progress svg { flex-shrink: 0; }
 
 
+
+/* --- Cloud Sync Modal --- */
+.modal-cloud { max-width: 520px; }
+
+.cloud-section { margin-bottom: 6px; }
+
+.cloud-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.cloud-section-header svg { color: var(--accent); flex-shrink: 0; }
+.cloud-section-header h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin: 0; }
+
+.cloud-section p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.55;
+}
+
+.cloud-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 16px 0;
+}
+
+.cloud-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+  margin-top: 8px;
+}
+.cloud-link:hover { text-decoration: underline; }
+
+.cloud-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cloud-status {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  display: none;
+}
+.cloud-status.show { display: flex; align-items: center; gap: 8px; }
+
+.cloud-status.success {
+  background: rgba(39, 174, 96, 0.12);
+  color: var(--success);
+}
+.cloud-status.error {
+  background: rgba(231, 76, 60, 0.12);
+  color: var(--danger);
+}
+.cloud-status.info {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.cloud-sync-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.cloud-sync-stat {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  text-align: center;
+}
+
+.cloud-sync-stat-wide {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+}
+
+.cloud-sync-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.cloud-sync-value {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cloud-sync-stat-wide .cloud-sync-label { margin-bottom: 0; font-size: 0.8rem; }
+.cloud-sync-stat-wide .cloud-sync-value { font-size: 0.85rem; }
+
 /* --- Forms --- */
 .form-group {
   margin-bottom: 16px;

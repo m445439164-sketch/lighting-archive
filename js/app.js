@@ -28,6 +28,14 @@ const app = {
     this.$('btnExportBackup').addEventListener('click', () => this._exportBackup());
     this.$('btnImportBackup').addEventListener('click', () => this.$('backupFileInput').click());
     this.$('backupFileInput').addEventListener('change', (e) => this._importBackup(e));
+    this.$('navCloud').addEventListener('click', () => this._openCloudSync());
+    this.$('btnCloudUpload').addEventListener('click', () => this._uploadToCloud());
+    this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
+    this.$('githubToken').addEventListener('change', (e) => {
+      localStorage.setItem('github_token', e.target.value.trim());
+      this._setCloudStatus('Token 已保存', 'success');
+      setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
+    });
     
     // Sidebar
     this.$('sidebarToggle').addEventListener('click', () => this._toggleSidebar());
@@ -901,6 +909,147 @@ const app = {
       setTimeout(() => {
         importBtn.textContent = '选择备份文件';
       }, 2000);
+    }
+  },
+
+  _formatDate(dateStr) {
+    const d = new Date(dateStr);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y} 年 ${m} 月 ${day} 日`;
+  },
+
+  /* --- Cloud Sync (GitHub) --- */
+
+  GITHUB_OWNER: 'm445439164-sketch',
+  GITHUB_REPO: 'lighting-archive',
+  GITHUB_BRANCH: 'main',
+  GITHUB_PATH: 'sync-data.json',
+
+  _getToken() {
+    return localStorage.getItem('github_token') || '';
+  },
+
+  _setCloudStatus(msg, type) {
+    const el = this.$('cloudStatus');
+    el.textContent = msg;
+    el.className = 'cloud-status show ' + (type || 'info');
+  },
+
+  async _openCloudSync() {
+    // Load saved token
+    const savedToken = this._getToken();
+    if (savedToken) this.$('githubToken').value = savedToken;
+
+    // Update sync info
+    const lastUpload = localStorage.getItem('cloud_last_upload');
+    const lastDownload = localStorage.getItem('cloud_last_download');
+    this.$('cloudLastUpload').textContent = lastUpload || '从未';
+    this.$('cloudLastDownload').textContent = lastDownload || '从未';
+
+    this.$('cloudStatus').className = 'cloud-status';
+    this._openModal('cloudModal');
+  },
+
+  async _githubApi(method, endpoint, body) {
+    const token = this._getToken();
+    if (!token) throw new Error('请先配置 GitHub Token');
+
+    const url = `https://api.github.com/repos/${this.GITHUB_OWNER}/${this.GITHUB_REPO}${endpoint}`;
+    const headers = {
+      'Authorization': `token ${token}`,
+      'Accept': 'application/vnd.github.v3+json'
+    };
+    if (body) headers['Content-Type'] = 'application/json';
+
+    const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+    return data;
+  },
+
+  async _uploadToCloud() {
+    this._setCloudStatus('正在准备数据...', 'info');
+    try {
+      // Export all data
+      const exportData = await store.exportAll();
+      const jsonStr = JSON.stringify(exportData, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+      this._setCloudStatus('正在上传到 GitHub...', 'info');
+
+      // Check if file already exists to get SHA
+      let sha = null;
+      try {
+        const existing = await this._githubApi('GET', `/contents/${this.GITHUB_PATH}?ref=${this.GITHUB_BRANCH}`);
+        sha = existing.sha;
+      } catch (e) {
+        // File doesn't exist yet, will create new
+      }
+
+      // Create or update file
+      await this._githubApi('PUT', `/contents/${this.GITHUB_PATH}`, {
+        message: `sync: 数据同步 ${new Date().toLocaleString('zh-CN')}`,
+        content: base64Content,
+        sha: sha,
+        branch: this.GITHUB_BRANCH
+      });
+
+      // Update status
+      const now = new Date().toLocaleString('zh-CN');
+      localStorage.setItem('cloud_last_upload', now);
+      this.$('cloudLastUpload').textContent = now;
+      this._setCloudStatus('✓ 上传成功！云端数据已更新', 'success');
+
+      // Also save to local as backup reference
+      localStorage.setItem('cloud_data_hash', btoa(jsonStr.substring(0, 100)));
+    } catch (e) {
+      this._setCloudStatus('✗ 上传失败：' + e.message, 'error');
+    }
+  },
+
+  async _downloadFromCloud() {
+    this._setCloudStatus('正在从云端下载...', 'info');
+    try {
+      const token = this._getToken();
+
+      // Fetch from raw GitHub
+      const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
+      const headers = token ? { 'Authorization': `token ${token}` } : {};
+      const res = await fetch(rawUrl, { headers });
+
+      if (!res.ok) {
+        if (res.status === 404) throw new Error('云端暂无数据，请先上传');
+        throw new Error(`下载失败 (HTTP ${res.status})`);
+      }
+
+      const backupData = await res.json();
+
+      if (!backupData.version || !backupData.data) {
+        throw new Error('云端数据格式无效');
+      }
+
+      // Confirm restore
+      if (!confirm('将用云端数据替换当前本地数据，确定继续吗？')) return;
+
+      this._setCloudStatus('正在恢复数据...', 'info');
+
+      await store.importAll(backupData);
+
+      // Update status
+      const now = new Date().toLocaleString('zh-CN');
+      localStorage.setItem('cloud_last_download', now);
+      this.$('cloudLastDownload').textContent = now;
+      this._setCloudStatus('✓ 下载成功！数据已恢复到本地', 'success');
+
+      // Refresh UI
+      this._closeModal('cloudModal');
+      await this._renderAll();
+      if (this.currentView !== 'brands') this.navigateTo('brands');
+
+    } catch (e) {
+      this._setCloudStatus('✗ ' + e.message, 'error');
     }
   },
 
