@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>灯位图归档 · 摄影作品管理</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top-bar">
+    <button class="btn-icon sidebar-toggle" id="sidebarToggle" aria-label="展开菜单">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="top-bar-brand">
+      <svg class="top-bar-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <span class="top-bar-title">灯位图归档</span>
+    </div>
+    <nav class="top-bar-nav">
+      <button class="btn btn-ghost btn-active" data-view="brands" id="navBrands">品牌</button>
+      <button class="btn btn-ghost" id="navBackup">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        备份
+      </button>
+      <button class="btn btn-ghost" id="navAbout" onclick="alert('灯位图归档 v1.0\n用于整理和管理各品牌拍摄的成片与灯位图。')">关于</button>
+    </nav>
+    <div class="top-bar-actions">
+      <button class="btn btn-primary" id="btnAddBrand">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        新建品牌
+      </button>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>品牌列表</h2>
+      <button class="btn-icon" id="sidebarClose" aria-label="收起菜单">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="sidebar-list" id="sidebarBrandList">
+      <div class="sidebar-empty">暂无品牌，点击右上角新建</div>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <main class="main-content" id="mainContent">
+    <section class="view active" id="viewBrands">
+      <div class="view-header">
+        <h1>品牌</h1>
+        <p class="view-subtitle">管理所有拍摄过的品牌及其灯位图档案</p>
+      </div>
+      <div class="brand-grid" id="brandGrid">
+        <div class="empty-state">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <h3>还没有品牌</h3>
+          <p>点击「新建品牌」开始整理你的拍摄档案</p>
+          <button class="btn btn-primary" id="btnAddBrandEmpty">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            新建品牌
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="viewBrandDetail">
+      <div class="detail-header">
+        <button class="btn btn-ghost btn-back" id="btnBackFromBrand">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          返回
+        </button>
+        <div class="detail-brand-info">
+          <h1 id="detailBrandName"></h1>
+          <p id="detailBrandDesc" class="text-secondary"></p>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" id="btnEditBrand">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            编辑
+          </button>
+          <button class="btn btn-primary" id="btnAddSession">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            新建期次
+          </button>
+        </div>
+      </div>
+      <div class="detail-content">
+        <div class="sessions-list" id="sessionsList">
+          <div class="empty-state">
+            <h3>还没有拍摄期次</h3>
+            <p>点击「新建期次」添加这个品牌的拍摄记录</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="viewSessionDetail">
+      <div class="detail-header">
+        <button class="btn btn-ghost btn-back" id="btnBackFromSession">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          返回
+        </button>
+        <div class="detail-brand-info">
+          <h1 id="sessionDetailTitle"></h1>
+          <p id="sessionDetailMeta" class="text-secondary"></p>
+        </div>
+        <div class="detail-actions">
+          <button class="btn btn-secondary" id="btnEditSession">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            编辑
+          </button>
+        </div>
+      </div>
+      <div class="detail-content">
+        <div class="session-assets" id="sessionAssets">
+          <div class="asset-filters">
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-filter="all">全部</button>
+              <button class="filter-tab" data-filter="photo">成片</button>
+              <button class="filter-tab" data-filter="lighting_diagram">灯位图</button>
+            </div>
+            <div class="asset-upload-zone">
+              <button class="btn btn-primary" id="btnUploadAssets">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                上传
+              </button>
+            </div>
+          </div>
+          <div class="asset-grid" id="assetGrid">
+            <div class="empty-state">
+              <h3>还没有图片</h3>
+              <p>点击「上传」添加成片或灯位图</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="brandFormModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="brandFormTitle">新建品牌</h2>
+        <button class="btn-icon modal-close" data-modal="brandFormModal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="brandForm">
+          <input type="hidden" id="brandFormId">
+          <div class="form-group">
+            <label for="brandName">品牌名称 *</label>
+            <input type="text" id="brandName" class="form-input" placeholder="例如：NIKE、苹果" required>
+          </div>
+          <div class="form-group">
+            <label for="brandDesc">品牌描述</label>
+            <textarea id="brandDesc" class="form-input" rows="3" placeholder="品牌所属行业、合作时间等"></textarea>
+          </div>
+          <div class="form-group">
+            <label>品牌封面</label>
+            <div class="cover-upload" id="brandCoverUpload">
+              <input type="file" accept="image/*" hidden id="brandCoverInput">
+              <div class="cover-placeholder" id="brandCoverPlaceholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>点击上传封面图</span>
+              </div>
+              <img class="cover-preview hidden" id="brandCoverPreview" alt="品牌封面">
+              <button class="btn btn-ghost btn-sm cover-remove hidden" id="brandCoverRemove">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                移除
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="brandFormModal">取消</button>
+        <button class="btn btn-primary" id="brandFormSubmit">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="sessionFormModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="sessionFormTitle">新建拍摄期次</h2>
+        <button class="btn-icon modal-close" data-modal="sessionFormModal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="sessionForm">
+          <input type="hidden" id="sessionFormId">
+          <div class="form-group">
+            <label for="sessionTitle">期次名称 *</label>
+            <input type="text" id="sessionTitle" class="form-input" placeholder="例如：2025 春夏 campaign" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sessionDate">拍摄日期</label>
+              <input type="date" id="sessionDate" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="sessionClient">客户/甲方</label>
+              <input type="text" id="sessionClient" class="form-input" placeholder="品牌方对接人">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sessionDesc">拍摄说明</label>
+            <textarea id="sessionDesc" class="form-input" rows="3" placeholder="拍摄背景、风格要求、特殊布光等"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="sessionFormModal">取消</button>
+        <button class="btn btn-primary" id="sessionFormSubmit">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal modal-upload">
+      <div class="modal-header">
+        <h2>上传图片</h2>
+        <button class="btn-icon modal-close" data-modal="uploadModal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="upload-dropzone" id="uploadDropzone">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>拖拽图片到此处，或点击选择文件</p>
+          <span class="text-secondary" style="font-size:13px">支持 JPG / PNG / WebP</span>
+          <input type="file" accept="image/*" multiple id="uploadFileInput" hidden>
+        </div>
+        <div class="upload-preview-list" id="uploadPreviewList"></div>
+      </div>
+      <div class="modal-footer upload-footer">
+        <div class="upload-type-selector">
+          <label class="radio-label">
+            <input type="radio" name="uploadType" value="photo" checked>
+            <span>标记为成片</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="uploadType" value="lighting_diagram">
+            <span>标记为灯位图</span>
+          </label>
+        </div>
+        <div class="upload-footer-actions">
+          <button class="btn btn-ghost" data-modal="uploadModal">取消</button>
+          <button class="btn btn-primary" id="uploadConfirm" disabled>上传 (0)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay lightbox" id="lightbox">
+    <button class="btn-icon lightbox-close" data-modal="lightbox">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" alt="">
+      <div class="lightbox-info" id="lightboxInfo"></div>
+    </div>
+  </div>
+
+
+  <!-- Backup Modal -->
+  <div class="modal-overlay" id="backupModal">
+    <div class="modal modal-backup">
+      <div class="modal-header">
+        <h2>数据备份</h2>
+        <button class="btn-icon modal-close" data-modal="backupModal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="backup-section">
+          <div class="backup-section-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <h3>导出备份</h3>
+          </div>
+          <p>将所有品牌、拍摄期次和图片（含灯位图）导出为一个 JSON 文件。可将文件存到 iCloud、Dropbox 等云盘。</p>
+          <button class="btn btn-primary" id="btnExportBackup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            下载备份文件
+          </button>
+        </div>
+        <div class="backup-divider"></div>
+        <div class="backup-section">
+          <div class="backup-section-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="3 8 8 3 13 8"/><line x1="8" y1="3" x2="8" y2="15"/></svg>
+            <h3>恢复备份</h3>
+          </div>
+          <p>从之前导出的备份文件恢复数据。恢复将替换当前所有数据，请谨慎操作。</p>
+          <input type="file" accept=".json" id="backupFileInput" hidden>
+          <button class="btn btn-secondary" id="btnImportBackup">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="3 8 8 3 13 8"/><line x1="8" y1="3" x2="8" y2="15"/></svg>
+            选择备份文件
+          </button>
+        </div>
+        <div class="backup-divider"></div>
+        <div class="backup-section">
+          <div class="backup-section-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <h3>存储概况</h3>
+          </div>
+          <div class="backup-stats" id="backupStats">
+            <div class="backup-stat">
+              <span class="backup-stat-label">数据容量</span>
+              <span class="backup-stat-value" id="backupDataSize">-</span>
+            </div>
+            <div class="backup-stat">
+              <span class="backup-stat-label">品牌数量</span>
+              <span class="backup-stat-value" id="backupBrandCount">-</span>
+            </div>
+            <div class="backup-stat">
+              <span class="backup-stat-label">拍摄期次</span>
+              <span class="backup-stat-value" id="backupSessionCount">-</span>
+            </div>
+            <div class="backup-stat">
+              <span class="backup-stat-label">图片总数</span>
+              <span class="backup-stat-value" id="backupAssetCount">-</span>
+            </div>
+            <div class="backup-stat backup-stat-wide">
+              <span class="backup-stat-label">上次备份</span>
+              <span class="backup-stat-value" id="backupLastBackupTime">暂无</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="backupModal">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2>确认删除</h2>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage">确定要删除吗？此操作不可撤销。</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="confirmModal">取消</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">删除</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
