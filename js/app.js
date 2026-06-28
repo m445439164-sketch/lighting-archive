@@ -977,11 +977,15 @@ const app = {
     this.$('cloudLastDownload').textContent = lastDownload || '从未';
 
     this.$('cloudStatus').className = 'cloud-status';
-    // Load OSS credentials
+    // Load OSS credentials (preserve HTML defaults if localStorage empty)
     const akIdEl = this.$('ossAkId');
     const akSecEl = this.$('ossAkSecret');
-    if (akIdEl) akIdEl.value = localStorage.getItem('oss_ak_id') || '';
-    if (akSecEl) akSecEl.value = localStorage.getItem('oss_ak_secret') || '';
+    const idSaved = localStorage.getItem('oss_ak_id');
+    const secSaved = localStorage.getItem('oss_ak_secret');
+    if (akIdEl) akIdEl.value = idSaved || akIdEl.getAttribute('value') || '';
+    if (akSecEl) akSecEl.value = secSaved || akSecEl.getAttribute('value') || '';
+    if (akIdEl && !idSaved && akIdEl.getAttribute('value')) localStorage.setItem('oss_ak_id', akIdEl.getAttribute('value'));
+    if (akSecEl && !secSaved && akSecEl.getAttribute('value')) localStorage.setItem('oss_ak_secret', akSecEl.getAttribute('value'));
     this._openModal('cloudModal');
   },
 
