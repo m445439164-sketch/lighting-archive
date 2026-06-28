@@ -35,10 +35,25 @@ const app = {
     this.$('navCloud').addEventListener('click', () => this._openCloudSync());
     this.$('btnCloudUpload').addEventListener('click', () => this._uploadToCloud());
     this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
-    this.$('githubToken').addEventListener('change', (e) => {
+    this.$('githubToken').addEventListener('input', (e) => {
       localStorage.setItem('github_token', e.target.value.trim());
-      this._setCloudStatus('Token 已保存', 'success');
-      setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
+    });
+    this.$('githubToken').addEventListener('blur', (e) => {
+      if (e.target.value.trim()) {
+        const savedEl = document.getElementById('cloudStatus');
+        savedEl.textContent = 'Token 已保存';
+        savedEl.className = 'cloud-status show success';
+        setTimeout(() => savedEl.classList.remove('show'), 2000);
+      }
+    });
+    // Also load token into input on cloud modal open
+    this.$('githubToken').addEventListener('blur', (e) => {
+      const val = e.target.value.trim();
+      localStorage.setItem('github_token', val);
+      if (val) {
+        this._setCloudStatus('Token 已保存', 'success');
+        setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
+      }
     });
     
     // Sidebar
@@ -1007,9 +1022,15 @@ const app = {
   },
 
   async _openCloudSync() {
-    // Load saved token
+    // Load saved token into input
     const savedToken = this._getToken();
     if (savedToken) this.$('githubToken').value = savedToken;
+    // Show confirmation that token is loaded
+    if (savedToken) {
+      this.$('cloudStatus').textContent = 'Token 已配置';
+      this.$('cloudStatus').className = 'cloud-status show success';
+      setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 3000);
+    }
 
     // Update sync info
     const lastUpload = localStorage.getItem('cloud_last_upload');
@@ -1031,6 +1052,11 @@ const app = {
       'Accept': 'application/vnd.github.v3+json'
     };
     if (body) headers['Content-Type'] = 'application/json';
+
+    // Remove null/undefined values (GitHub API rejects them)
+    if (body) {
+      Object.keys(body).forEach(k => { if (body[k] == null) delete body[k]; });
+    }
 
     const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json();
@@ -1062,6 +1088,7 @@ const app = {
         message: `sync: 数据同步 ${new Date().toLocaleString('zh-CN')}`,
         content: base64Content,
         sha: sha,
+        if (sha) bodyData.sha = sha;
         branch: this.GITHUB_BRANCH
       });
 
