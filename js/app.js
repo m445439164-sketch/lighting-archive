@@ -34,6 +34,7 @@ const app = {
     this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
     this.$('ossAkId').addEventListener('input', (e) => { localStorage.setItem('oss_ak_id', e.target.value.trim()); });
     this.$('ossAkSecret').addEventListener('input', (e) => { localStorage.setItem('oss_ak_secret', e.target.value.trim()); });
+// #    this.$('githubToken').addEventListener('input', (e) => {
       localStorage.setItem('github_token', e.target.value.trim());
       this._setCloudStatus('Token 已保存', 'success');
       setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
@@ -954,7 +955,7 @@ const app = {
   GITHUB_BRANCH: 'main',
   GITHUB_PATH: 'sync-data.json',
 
-  _getToken() {
+// #  _getToken() {
     return localStorage.getItem('github_token') || '';
   },
 
@@ -966,8 +967,8 @@ const app = {
 
   async _openCloudSync() {
     // Load saved token
-//     const savedToken = this._getToken();
-//     if (savedToken) this.$('githubToken').value = savedToken;
+// #    const savedToken = this._getToken();
+// #    if (savedToken) this.$('githubToken').value = savedToken;
 
     // Update sync info
     const lastUpload = localStorage.getItem('cloud_last_upload');
@@ -985,7 +986,7 @@ const app = {
   },
 
   async _githubApi(method, endpoint, body) {
-    const token = this._getToken();
+// #    const token = this._getToken();
     if (!token) throw new Error('请先配置 GitHub Token');
 
     const url = `https://api.github.com/repos/${this.GITHUB_OWNER}/${this.GITHUB_REPO}${endpoint}`;
@@ -1091,7 +1092,7 @@ const app = {
   async _downloadFromCloud() {
     this._setCloudStatus('正在从云端下载...', 'info');
     try {
-      const token = this._getToken();
+// #      const token = this._getToken();
 
       // Fetch from raw GitHub
       const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
@@ -1135,7 +1136,7 @@ const app = {
   _autoSyncTimer: null,
 
   async _autoSync() {
-    const token = this._getToken();
+// #    const token = this._getToken();
     if (!token) return;
 
     // Debounce: wait 3s after last change
@@ -1170,7 +1171,7 @@ const app = {
 
   async _checkCloudData() {
     try {
-      const token = this._getToken();
+// #      const token = this._getToken();
       const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
       const headers = token ? { 'Authorization': `token ${token}` } : {};
       const res = await fetch(rawUrl, { headers });
