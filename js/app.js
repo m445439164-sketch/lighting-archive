@@ -333,8 +333,9 @@ const app = {
       });
     });
     grid.addEventListener('dragover', (e) => {
+      e.preventDefault();
       const card = e.target.closest('.brand-card');
-      if (card) { e.preventDefault(); card.classList.add('drag-over'); }
+      if (card) card.classList.add('drag-over');
     });
     grid.addEventListener('dragleave', (e) => {
       const card = e.target.closest('.brand-card');
@@ -450,8 +451,9 @@ const app = {
       });
     });
     list.addEventListener('dragover', (e) => {
+      e.preventDefault();
       const card = e.target.closest('.session-card');
-      if (card) { e.preventDefault(); card.classList.add('drag-over'); }
+      if (card) card.classList.add('drag-over');
     });
     list.addEventListener('dragleave', (e) => {
       const card = e.target.closest('.session-card');
