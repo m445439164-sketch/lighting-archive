@@ -988,6 +988,46 @@ const app = {
     const sizeKB = (new Blob([jsonStr]).size / 1024).toFixed(1);
     this.$('backupDataSize').textContent = sizeKB < 1024 ? `${sizeKB} KB` : `${(sizeKB / 1024).toFixed(1)} MB`;
   },
+  async _moveBrandUp(id) {
+    const brands = await store.getAllBrands();
+    brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
+    const idx = brands.findIndex(b => b.id === id);
+    if (idx <= 0) return;
+    [brands[idx-1], brands[idx]] = [brands[idx], brands[idx-1]];
+    for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
+    await this._renderBrandGrid();
+  },
+  async _moveBrandDown(id) {
+    const brands = await store.getAllBrands();
+    brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
+    const idx = brands.findIndex(b => b.id === id);
+    if (idx < 0 || idx >= brands.length - 1) return;
+    [brands[idx], brands[idx+1]] = [brands[idx+1], brands[idx]];
+    for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
+    await this._renderBrandGrid();
+  },
+  async _reorderBrands(draggedId, targetId) {
+    const brands = await store.getAllBrands();
+    brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
+    const draggedIdx = brands.findIndex(b => b.id === draggedId);
+    const targetIdx = brands.findIndex(b => b.id === targetId);
+    if (draggedIdx < 0 || targetIdx < 0) return;
+    const [moved] = brands.splice(draggedIdx, 1);
+    brands.splice(targetIdx, 0, moved);
+    for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
+    await this._renderBrandGrid();
+  },
+  async _reorderSessions(draggedId, targetId) {
+    const sessions = await store.getSessionsByBrand(this.currentBrandId);
+    sessions.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
+    const draggedIdx = sessions.findIndex(s => s.id === draggedId);
+    const targetIdx = sessions.findIndex(s => s.id === targetId);
+    if (draggedIdx < 0 || targetIdx < 0) return;
+    const [moved] = sessions.splice(draggedIdx, 1);
+    sessions.splice(targetIdx, 0, moved);
+    for (let i = 0; i < sessions.length; i++) { sessions[i].sortOrder = (sessions.length - i) * 1000; await store.saveSession(sessions[i]); }
+    await this._renderBrandDetail(this.currentBrandId);
+  },
 
   async _exportBackup() {
     const backupBtn = this.$('btnExportBackup');
