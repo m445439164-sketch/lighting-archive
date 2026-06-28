@@ -1093,7 +1093,9 @@ const app = {
     try {
       const client = this._getOSSClient();
       const result = await client.get('lighting-archive/sync-data.json');
-      const text = await result.content.text();
+      let buf = result.content;
+      if (buf instanceof Blob) buf = await buf.arrayBuffer();
+      const text = new TextDecoder('utf-8').decode(buf);
       const backupData = JSON.parse(text);
       if (!backupData.version || !backupData.data) throw new Error('云端数据格式无效');
       if (!confirm('将用云端数据替换当前本地数据，确定继续吗？')) return;
