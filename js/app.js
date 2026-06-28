@@ -8,6 +8,8 @@ const app = {
   currentSessionId: null,
   currentFilter: 'all',
   pendingUploadFiles: [],
+  _coverAssets: [],
+  _coverAssetsLoaded: false,
   
   /* --- Initialization --- */
   
@@ -92,6 +94,7 @@ const app = {
       this._handleBrandCover(e.target.files[0]);
     });
     this.$('brandCoverRemove').addEventListener('click', () => this._removeBrandCover());
+    this.$('btnSelectCover').addEventListener('click', () => this._openCoverSelector());
     
     // Session form
     this.$('sessionFormSubmit').addEventListener('click', () => this._saveSession());
@@ -485,6 +488,45 @@ const app = {
   
   /* --- Brand Form --- */
   
+  async _loadCoverAssets(brandId) {
+    this._coverAssets = [];
+    const sessions = await store.getSessionsByBrand(brandId);
+    for (const s of sessions) {
+      const assets = await store.getAssetsBySession(s.id);
+      this._coverAssets.push(...assets);
+    }
+  },
+
+  async _openCoverSelector() {
+    const grid = this.$('coverSelectGrid');
+    if (this._coverAssets.length === 0) {
+      grid.innerHTML = '<div class="cover-select-empty">暂无已上传的图片，请先上传一些图片</div>';
+    } else {
+      grid.innerHTML = this._coverAssets.map(a => {
+        const src = a.qiniuUrl || a.dataUrl || '';
+        return '<div class="cover-select-item" data-asset-id="' + a.id + '"><img src="' + src + '" alt="" loading="lazy"></div>';
+      }).join('');
+      grid.querySelectorAll('.cover-select-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const asset = this._coverAssets.find(a => a.id === el.dataset.assetId);
+          if (asset) this._selectCover(asset);
+        });
+      });
+    }
+    this._openModal('coverSelectModal');
+  },
+
+  _selectCover(asset) {
+    const src = asset.qiniuUrl || asset.dataUrl || '';
+    if (!src) return;
+    this._brandCoverData = src;
+    this.$('brandCoverPlaceholder').classList.add('hidden');
+    this.$('brandCoverPreview').src = src;
+    this.$('brandCoverPreview').classList.remove('hidden');
+    this.$('brandCoverRemove').classList.remove('hidden');
+    this._closeModal('coverSelectModal');
+  },
+
   showBrandForm(brandId) {
     this.$('brandFormId').value = '';
     this.$('brandName').value = '';
@@ -498,8 +540,10 @@ const app = {
     if (brandId) {
       this.$('brandFormTitle').textContent = '编辑品牌';
       this._loadBrandForEdit(brandId);
+      this._loadCoverAssets(brandId);
     } else {
       this.$('brandFormTitle').textContent = '新建品牌';
+      this._coverAssets = [];
     }
     
     this._openModal('brandFormModal');
