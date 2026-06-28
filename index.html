@@ -382,22 +382,25 @@
         </div>
         <div class="cloud-divider"></div>
         
-        <!-- OSS Settings -->
+        <!-- Qiniu Settings -->
         <div class="cloud-section">
           <div class="cloud-section-header">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
-            <h3>阿里云 OSS 图片存储</h3>
+            <h3>七牛云图片存储</h3>
           </div>
-          <p>上传图片到阿里云 OSS，图片永久保存，HTTPS 直接可用。</p>
-          <div class="cloud-sync-stats" style="margin-top:0">
-            <div class="cloud-sync-stat cloud-sync-stat-wide">
-              <span class="cloud-sync-label">Bucket</span>
-              <span class="cloud-sync-value">lighting-photos (华南1-深圳)</span>
-            </div>
+          <p>上传图片到七牛云，再同步到云端。图片存七牛，文字信息同步到 GitHub。</p>
+          <div class="form-group">
+            <label for="qiniuDomain">存储空间域名</label>
+            <input type="text" id="qiniuDomain" class="form-input" value="thcdzq25m.hn-bkt.clouddn.com" placeholder="例如：xxx.bkt.clouddn.com">
           </div>
-          <div style="margin-top:8px;font-size:0.82rem;color:var(--text-muted)">
-            图片地址：<span style="color:var(--accent)">https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/图片名</span>
+          <div class="form-group">
+            <label for="qiniuToken">上传凭证 (Upload Token)</label>
+            <input type="password" id="qiniuToken" class="form-input" placeholder="从七牛云控制台获取">
           </div>
+          <a href="https://portal.qiniu.com/bucket/resource" target="_blank" class="cloud-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            去七牛云创建 Token
+          </a>
         </div>
         <div class="cloud-divider"></div>
         
@@ -465,7 +468,6 @@
     </div>
   </div>
 
-  <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.18.0.min.js"></script>
   <script src="js/store.js"></script>
   <script src="js/app.js"></script>
 </body>
