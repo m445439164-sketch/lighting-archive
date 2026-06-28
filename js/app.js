@@ -7,6 +7,9 @@ const app = {
   currentBrandId: null,
   currentSessionId: null,
   currentFilter: 'all',
+  _lightboxAssets: [],
+  _lightboxIndex: 0,
+  _assetGridAspectRatio: '3-4',
   pendingUploadFiles: [],
   
   /* --- Initialization --- */
@@ -70,6 +73,18 @@ const app = {
       }
     });
     
+    // Ratio tabs (delegated)
+    this.$('sessionAssets').addEventListener('click', (e) => {
+      const tab = e.target.closest('.ratio-tab');
+      if (tab) {
+        this._setRatio(tab.dataset.ratio);
+      }
+    });
+    
+    // Lightbox navigation
+    this.$('lightboxPrev').addEventListener('click', () => this._lightboxPrev());
+    this.$('lightboxNext').addEventListener('click', () => this._lightboxNext());
+    
     // Brand form
     this.$('brandFormSubmit').addEventListener('click', () => this._saveBrand());
     this.$('brandCoverUpload').addEventListener('click', (e) => {
@@ -131,10 +146,15 @@ const app = {
     
     // Keyboard: Escape to close modals
     document.addEventListener('keydown', (e) => {
+      const lightboxOpen = document.getElementById('lightbox').classList.contains('open');
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.open').forEach(el => {
           el.classList.remove('open');
         });
+      }
+      if (lightboxOpen) {
+        if (e.key === 'ArrowLeft') this._lightboxPrev();
+        if (e.key === 'ArrowRight') this._lightboxNext();
       }
     });
   },
@@ -429,8 +449,10 @@ const app = {
       return;
     }
     
-    grid.innerHTML = assets.map(a => `
-      <div class="asset-item" data-asset-id="${a.id}">
+    this._lightboxAssets = assets;
+
+    grid.innerHTML = assets.map((a, idx) => `
+      <div class="asset-item" data-index="${idx}">
         <span class="asset-badge ${a.type}">${a.type === 'photo' ? '成片' : '灯位图'}</span>
         <button class="asset-delete-btn asset-delete" data-asset-id="${a.id}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -440,12 +462,15 @@ const app = {
       </div>
     `).join('');
     
+    // Apply aspect ratio
+    grid.classList.add(`ratio-${this._assetGridAspectRatio}`);
+    
     // Lightbox click
     grid.querySelectorAll('.asset-item').forEach(item => {
       item.addEventListener('click', (e) => {
         if (e.target.closest('.asset-delete')) return;
-        const asset = assets.find(a => a.id === item.dataset.assetId);
-        if (asset) this._openLightbox(asset);
+        const idx = parseInt(item.dataset.index);
+        if (!isNaN(idx)) this._openLightbox(idx);
       });
     });
     
@@ -710,11 +735,50 @@ const app = {
   
   /* --- Lightbox --- */
   
-  _openLightbox(asset) {
+  _openLightbox(index) {
+    this._lightboxIndex = index;
+    this._updateLightbox();
+    this._openModal('lightbox');
+  },
+  
+  _updateLightbox() {
+    const assets = this._lightboxAssets;
+    if (!assets.length) return;
+    const asset = assets[this._lightboxIndex];
+    if (!asset) return;
+    
     this.$('lightboxImg').src = asset.dataUrl;
     const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
-    this.$('lightboxInfo').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
-    this._openModal('lightbox');
+    this.$('lightboxLabel').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
+    this.$('lightboxCounter').textContent = `${this._lightboxIndex + 1} / ${assets.length}`;
+    
+    this.$('lightboxPrev').style.display = this._lightboxIndex > 0 ? 'flex' : 'none';
+    this.$('lightboxNext').style.display = this._lightboxIndex < assets.length - 1 ? 'flex' : 'none';
+  },
+  
+  _lightboxPrev() {
+    if (this._lightboxIndex > 0) {
+      this._lightboxIndex--;
+      this._updateLightbox();
+    }
+  },
+  
+  _lightboxNext() {
+    if (this._lightboxIndex < this._lightboxAssets.length - 1) {
+      this._lightboxIndex++;
+      this._updateLightbox();
+    }
+  },
+  
+  _setRatio(ratio) {
+    this._assetGridAspectRatio = ratio;
+    const grid = this.$('assetGrid');
+    grid.classList.remove('ratio-3-4', 'ratio-4-5');
+    grid.classList.add('ratio-' + ratio);
+    
+    this.$('sessionAssets').querySelectorAll('.ratio-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.ratio === ratio);
+    });
   },
   
   /* --- Delete Confirmations --- */

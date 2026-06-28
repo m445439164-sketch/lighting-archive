@@ -562,6 +562,35 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 }
 
 .filter-tab:hover { color: var(--text-primary); }
+
+.ratio-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.ratio-tab {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.ratio-tab:hover { color: var(--text-primary); }
+.ratio-tab.active {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
 .filter-tab.active {
   background: var(--accent-dim);
   color: var(--accent);
@@ -581,11 +610,21 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
   position: relative;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: auto;
   cursor: pointer;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   transition: all var(--transition);
+}
+
+.asset-grid.ratio-3-4 .asset-item { aspect-ratio: 3 / 4; }
+.asset-grid.ratio-4-5 .asset-item { aspect-ratio: 4 / 5; }
+
+.asset-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .asset-item:hover {
@@ -1115,14 +1154,16 @@ textarea.form-input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
-  max-width: 90vw;
+  max-width: 75vw;
   max-height: 90vh;
+  position: relative;
 }
 
 .lightbox img {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 85vh;
   object-fit: contain;
   border-radius: var(--radius-sm);
 }
@@ -1131,7 +1172,38 @@ textarea.form-input {
   text-align: center;
   color: var(--text-secondary);
   font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.lightbox-info #lightboxCounter {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* 导航箭头 */
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  transition: all var(--transition);
+  z-index: 5;
+  border-radius: var(--radius-sm);
+}
+.lightbox-nav:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+.lightbox-prev { left: 12px; }
+.lightbox-next { right: 12px; }
 
 .lightbox-close {
   position: fixed;
