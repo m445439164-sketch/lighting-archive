@@ -40,17 +40,6 @@ const app = {
     });
     this.$('githubToken').addEventListener('blur', (e) => {
       if (e.target.value.trim()) {
-        const savedEl = document.getElementById('cloudStatus');
-        savedEl.textContent = 'Token 已保存';
-        savedEl.className = 'cloud-status show success';
-        setTimeout(() => savedEl.classList.remove('show'), 2000);
-      }
-    });
-    // Also load token into input on cloud modal open
-    this.$('githubToken').addEventListener('blur', (e) => {
-      const val = e.target.value.trim();
-      localStorage.setItem('github_token', val);
-      if (val) {
         this._setCloudStatus('Token 已保存', 'success');
         setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
       }
