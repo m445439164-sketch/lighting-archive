@@ -1010,7 +1010,7 @@ const app = {
     formData.append('key', key);
     formData.append('file', file);
     
-    const res = await fetch('https://upload.qiniup.com/', { method: 'POST', body: formData });
+    const res = await fetch('https://up-z2.qiniup.com/', { method: 'POST', body: formData });
     const data = await res.json();
     if (data.key) {
       const d = domain || 'thccsq8c2.hn-bkt.clouddn.com';
