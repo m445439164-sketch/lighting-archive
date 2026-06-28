@@ -1135,22 +1135,36 @@ const app = {
   },
 
   async _downloadFromCloud() {
-    this._setCloudStatus('正在从云端下载...', 'info');
+    this._setCloudStatus('\u6b63\u5728\u4ece\u4e91\u7aef\u4e0b\u8f7d...', 'info');
     try {
+      // Save local covers before they get overwritten
+      const localBrands = await store.getAllBrands();
+      const localCovers = {};
+      for (const b of localBrands) { if (b.cover) localCovers[b.id] = b.cover; }
+      const localAssets = await Promise.all(localBrands.map(b => store.getSessionsByBrand(b.id).then(ss => Promise.all(ss.map(s => store.getAssetsBySession(s.id))))));
+      
       const client = this._getOSSClient();
       const result = await client.get('lighting-archive/sync-data.json');
       let buf = result.content;
       if (buf instanceof Blob) buf = await buf.arrayBuffer();
       const text = new TextDecoder('utf-8').decode(buf);
       const backupData = JSON.parse(text);
-      if (!backupData.version || !backupData.data) throw new Error('云端数据格式无效');
-      if (!confirm('将用云端数据替换当前本地数据，确定继续吗？')) return;
-      this._setCloudStatus('正在恢复数据...', 'info');
+      if (!backupData.version || !backupData.data) throw new Error('\u4e91\u7aef\u6570\u636e\u683c\u5f0f\u65e0\u6548');
+      
+      // Restore local covers if cloud data doesn't have them
+      for (const brand of (backupData.data.brands || [])) {
+        if (!brand.cover && localCovers[brand.id]) {
+          brand.cover = localCovers[brand.id];
+        }
+      }
+      
+      if (!confirm('\u5c06\u7528\u4e91\u7aef\u6570\u636e\u66ff\u6362\u5f53\u524d\u672c\u5730\u6570\u636e\uff0c\u786e\u5b9a\u7ee7\u7eed\u5417\uff1f')) return;
+      this._setCloudStatus('\u6b63\u5728\u6062\u590d\u6570\u636e...', 'info');
       await store.importAll(backupData);
       const now = new Date().toLocaleString('zh-CN');
       localStorage.setItem('cloud_last_download', now);
       this.$('cloudLastDownload').textContent = now;
-      this._setCloudStatus('OK 下载成功！数据已恢复到本地', 'success');
+      this._setCloudStatus('OK \u4e0b\u8f7d\u6210\u529f\uff01\u6570\u636e\u5df2\u6062\u590d\u5230\u672c\u5730', 'success');
       this._closeModal('cloudModal');
       await this._renderAll();
       if (this.currentView !== 'brands') this.navigateTo('brands');
