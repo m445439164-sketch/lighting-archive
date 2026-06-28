@@ -408,21 +408,30 @@ const app = {
     list.querySelectorAll('.session-card').forEach(card => {
       card.addEventListener('dragstart', (e) => {
         e.dataTransfer.setData('text/plain', card.dataset.sessionId);
+        e.dataTransfer.effectAllowed = 'move';
         card.classList.add('dragging');
       });
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
         list.querySelectorAll('.session-card').forEach(c => c.classList.remove('drag-over'));
       });
-      card.addEventListener('dragover', (e) => { e.preventDefault(); card.classList.add('drag-over'); });
-      card.addEventListener('dragleave', () => { card.classList.remove('drag-over'); });
-      card.addEventListener('drop', (e) => {
-        e.preventDefault();
-        card.classList.remove('drag-over');
-        const draggedId = e.dataTransfer.getData('text/plain');
-        const targetId = card.dataset.sessionId;
-        if (draggedId && targetId && draggedId !== targetId) this._reorderSessions(draggedId, targetId);
-      });
+    });
+    list.addEventListener('dragover', (e) => {
+      const card = e.target.closest('.session-card');
+      if (card) { e.preventDefault(); card.classList.add('drag-over'); }
+    });
+    list.addEventListener('dragleave', (e) => {
+      const card = e.target.closest('.session-card');
+      if (card) card.classList.remove('drag-over');
+    });
+    list.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const targetCard = e.target.closest('.session-card');
+      if (!targetCard) return;
+      targetCard.classList.remove('drag-over');
+      const draggedId = e.dataTransfer.getData('text/plain');
+      const targetId = targetCard.dataset.sessionId;
+      if (draggedId && targetId && draggedId !== targetId) this._reorderSessions(draggedId, targetId);
     });
   },
   
