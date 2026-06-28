@@ -971,7 +971,7 @@ const app = {
 
     const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+    if (!res.ok) throw new Error(`[${res.status}] ${data.message || ''}`);
     return data;
   },
 
@@ -1012,6 +1012,7 @@ const app = {
       localStorage.setItem('cloud_data_hash', btoa(jsonStr.substring(0, 100)));
     } catch (e) {
       this._setCloudStatus('✗ 上传失败：' + e.message, 'error');
+      console.error('Upload error:', e);
     }
   },
 
