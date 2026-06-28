@@ -32,8 +32,8 @@ const app = {
     this.$('navCloud').addEventListener('click', () => this._openCloudSync());
     this.$('btnCloudUpload').addEventListener('click', () => this._uploadToCloud());
     this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
-    this.$('qiniuToken').addEventListener('input', (e) => { localStorage.setItem('qiniu_token', e.target.value.trim()); });
-    this.$('qiniuDomain').addEventListener('input', (e) => { localStorage.setItem('qiniu_domain', e.target.value.trim()); });
+    this.$('ossAkId').addEventListener('input', (e) => { localStorage.setItem('oss_ak_id', e.target.value.trim()); });
+    this.$('ossAkSecret').addEventListener('input', (e) => { localStorage.setItem('oss_ak_secret', e.target.value.trim()); });
     this.$('githubToken').addEventListener('input', (e) => {
       localStorage.setItem('github_token', e.target.value.trim());
       this._setCloudStatus('Token 已保存', 'success');
@@ -682,22 +682,14 @@ const app = {
     this.$('uploadConfirm').disabled = true;
     this.$('uploadConfirm').textContent = '上传中...';
     
-    const qiniuToken = this._getQiniuToken();
-    const qiniuDomain = this.$('qiniuDomain') ? this.$('qiniuDomain').value.trim() : '';
-    const useQiniu = !!(qiniuToken && qiniuDomain);
-    
     for (const file of this.pendingUploadFiles) {
-      let qiniuUrl = '';
+      let ossUrl = '';
       let dataUrl = '';
       
-      if (useQiniu) {
-        try {
-          qiniuUrl = await this._uploadToQiniu(file, qiniuToken, qiniuDomain);
-        } catch(e) {
-          alert('七牛云上传失败，将以本地方式保存：' + e.message);
-          dataUrl = await this._fileToDataUrl(file);
-        }
-      } else {
+      try {
+        ossUrl = await this._uploadToOSS(file);
+      } catch(e) {
+        alert('上传到云端失败：' + e.message);
         dataUrl = await this._fileToDataUrl(file);
       }
       
@@ -705,8 +697,8 @@ const app = {
         id: store.generateId(),
         sessionId,
         type,
-        dataUrl,
-        qiniuUrl: qiniuUrl,
+        dataUrl: dataUrl,
+        qiniuUrl: ossUrl,
         caption: file.name.replace(/\.[^.]+$/, ''),
         createdAt: Date.now()
       };
@@ -976,6 +968,11 @@ const app = {
     this.$('cloudLastDownload').textContent = lastDownload || '从未';
 
     this.$('cloudStatus').className = 'cloud-status';
+    // Load OSS credentials
+    const akIdEl = this.$('ossAkId');
+    const akSecEl = this.$('ossAkSecret');
+    if (akIdEl) akIdEl.value = localStorage.getItem('oss_ak_id') || '';
+    if (akSecEl) akSecEl.value = localStorage.getItem('oss_ak_secret') || '';
     this._openModal('cloudModal');
   },
 
@@ -997,26 +994,27 @@ const app = {
     return data;
   },
 
-  _getQiniuToken() {
-    return localStorage.getItem('qiniu_token') || '';
-  },
 
-  async _uploadToQiniu(file, token, domain) {
+  async _uploadToOSS(file) {
+    const akId = localStorage.getItem('oss_ak_id');
+    const akSecret = localStorage.getItem('oss_ak_secret');
+    const region = localStorage.getItem('oss_region') || 'oss-cn-shenzhen';
+    const bucket = localStorage.getItem('oss_bucket') || 'lighting-photos';
+    if (!akId || !akSecret) throw new Error('请先在云端页面配置阿里云 OSS 密钥');
+    
     const ext = file.name.split('.').pop();
     const key = 'lighting/' + Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + ext;
     
-    const formData = new FormData();
-    formData.append('token', token);
-    formData.append('key', key);
-    formData.append('file', file);
+    const client = new OSS({
+      region: region,
+      accessKeyId: akId,
+      accessKeySecret: akSecret,
+      bucket: bucket,
+      secure: true
+    });
     
-    const res = await fetch('https://up-z2.qiniup.com/', { method: 'POST', body: formData });
-    const data = await res.json();
-    if (data.key) {
-      const d = domain || 'thccsq8c2.hn-bkt.clouddn.com';
-      return 'https://' + d + '/' + data.key;
-    }
-    throw new Error(data.error || data.message || '未知错误');
+    const result = await client.put(key, file);
+    return 'https://' + bucket + '.' + region + '.aliyuncs.com/' + encodeURIComponent(result.name);
   },
 
   async _uploadToCloud() {
