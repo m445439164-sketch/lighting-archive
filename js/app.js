@@ -350,16 +350,16 @@ const app = {
     const thumbData = {};
     for (const s of sessions) {
       const assets = await store.getAssetsBySession(s.id);
-      thumbData[s.id] = assets.slice(0, 5);
+      thumbData[s.id] = assets.slice(0, 8);
     }
     
     list.innerHTML = sessions.map(s => {
       const thumbs = thumbData[s.id] || [];
-      const thumbHtml = thumbs.slice(0, 4).map(a => 
+      const thumbHtml = thumbs.slice(0, 6).map(a => 
         `<img class="session-card-thumb" src="${a.qiniuUrl || a.dataUrl || ''}" alt="">`
       ).join('');
-      if (thumbs.length > 4) {
-        thumbHtml += `<div class="session-card-thumb-more">+${thumbs.length - 4}</div>`;
+      if (thumbs.length > 6) {
+        thumbHtml += `<div class="session-card-thumb-more">+${thumbs.length - 6}</div>`;
       }
       
       return `

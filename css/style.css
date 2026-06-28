@@ -493,33 +493,39 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 }
 
 .session-card-thumbnails {
-  display: flex;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px;
   margin-top: 12px;
-  flex-wrap: wrap;
 }
 
 .session-card-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 4px;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
   object-fit: cover;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
+  transition: transform 0.15s ease;
 }
+.session-card-thumb:hover { transform: scale(1.05); border-color: var(--accent); }
 
 .session-card-thumb-more {
-  width: 48px;
-  height: 48px;
-  border-radius: 4px;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
+.session-card-thumb-more:hover { background: var(--bg-hover); }
 
 .session-card-actions {
   display: flex;
