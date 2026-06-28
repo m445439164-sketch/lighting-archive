@@ -843,6 +843,8 @@ const app = {
 
     try {
       const exportData = await store.exportAll();
+      // Strip image data (too large for GitHub API)
+      for (const a of (exportData.data.assets || [])) delete a.dataUrl;
       const jsonStr = JSON.stringify(exportData, null, 2);
       const blob = new Blob([jsonStr], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
@@ -980,6 +982,8 @@ const app = {
     try {
       // Export all data
       const exportData = await store.exportAll();
+      // Strip image data (too large for GitHub API)
+      for (const a of (exportData.data.assets || [])) delete a.dataUrl;
       const jsonStr = JSON.stringify(exportData, null, 2);
       const contentBase64 = btoa(unescape(encodeURIComponent(jsonStr)));
 
