@@ -18,7 +18,6 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
-    this._checkCloudData();
   },
   
   /* --- UI Event Binding --- */
@@ -578,7 +577,6 @@ const app = {
     };
     
     await store.saveBrand(brand);
-    this._autoSync();
     this._closeModal('brandFormModal');
     
     if (this.currentView === 'brandDetail' && this.currentBrandId === id) {
@@ -639,7 +637,6 @@ const app = {
     };
     
     await store.saveSession(session);
-    this._autoSync();
     this._closeModal('sessionFormModal');
     
     if (this.currentView === 'sessionDetail') {
@@ -726,7 +723,6 @@ const app = {
     this._closeModal('uploadModal');
     await this._renderAssets(sessionId, this.currentFilter);
     await this._renderBrandDetail(this.currentBrandId);
-    this._autoSync();
   },
   
   _fileToDataUrl(file) {
@@ -834,7 +830,6 @@ const app = {
     }
     this._closeModal('confirmModal');
     await this._updateSidebar();
-    this._autoSync();
   },
   
   /* --- Modal Helpers --- */
@@ -1190,11 +1185,10 @@ const app = {
       const localBrands = await store.getAllBrands();
       if (localBrands.length > 0) return;
 
-      if (confirm('检测到云端有共享数据，是否加载到本地？')) {
-        await store.importAll(backupData);
-        await this._renderAll();
-        if (this.currentView !== 'brands') this.navigateTo('brands');
-      }
+      // Auto-load from cloud if local is empty
+      await store.importAll(backupData);
+      await this._renderAll();
+      if (this.currentView !== 'brands') this.navigateTo('brands');
     } catch (e) {
       // Silently fail - first time users won't have cloud data
     }
