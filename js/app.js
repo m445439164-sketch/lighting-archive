@@ -682,22 +682,14 @@ const app = {
     this.$('uploadConfirm').disabled = true;
     this.$('uploadConfirm').textContent = '上传中...';
     
-    const qiniuToken = this._getQiniuToken();
-    const qiniuDomain = this.$('qiniuDomain') ? this.$('qiniuDomain').value.trim() : '';
-    const useQiniu = !!(qiniuToken && qiniuDomain);
-    
     for (const file of this.pendingUploadFiles) {
-      let qiniuUrl = '';
+      let ossUrl = '';
       let dataUrl = '';
       
-      if (useQiniu) {
-        try {
-          qiniuUrl = await this._uploadToQiniu(file, qiniuToken, qiniuDomain);
-        } catch(e) {
-          alert('七牛云上传失败，将以本地方式保存：' + e.message);
-          dataUrl = await this._fileToDataUrl(file);
-        }
-      } else {
+      try {
+        ossUrl = await this._uploadToOSS(file);
+      } catch(e) {
+        alert('上传到云端失败，将以本地方式保存：' + e.message);
         dataUrl = await this._fileToDataUrl(file);
       }
       
@@ -705,8 +697,8 @@ const app = {
         id: store.generateId(),
         sessionId,
         type,
-        dataUrl,
-        qiniuUrl: qiniuUrl,
+        dataUrl: dataUrl,
+        qiniuUrl: ossUrl,
         caption: file.name.replace(/\.[^.]+$/, ''),
         createdAt: Date.now()
       };
