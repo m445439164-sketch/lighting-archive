@@ -15,8 +15,6 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
-    if (!localStorage.getItem('oss_ak_id')) localStorage.setItem('oss_ak_id', atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
-    if (!localStorage.getItem('oss_ak_secret')) localStorage.setItem('oss_ak_secret', atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
     this._checkCloudData();
   },
   
@@ -1034,18 +1032,6 @@ const app = {
     });
   },
 
-  _getOSSClient() {
-    let akId = localStorage.getItem('oss_ak_id');
-    let akSecret = localStorage.getItem('oss_ak_secret');
-    if (!akId || !akSecret) {
-      akId = atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy');
-      akSecret = atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR');
-      localStorage.setItem('oss_ak_id', akId);
-      localStorage.setItem('oss_ak_secret', akSecret);
-    }
-    return new OSS({ region: 'oss-cn-shenzhen', accessKeyId: akId, accessKeySecret: akSecret, bucket: 'lighting-photos', secure: true });
-  },
-
   async _uploadToOSS(file) {
     const akId = localStorage.getItem('oss_ak_id');
     const akSecret = localStorage.getItem('oss_ak_secret');
@@ -1102,28 +1088,85 @@ const app = {
     console.error('Upload error:', e);
     }
     },
+
   async _downloadFromCloud() {
-    this._setCloudStatus('\u6b63\u5728\u4ece\u4e91\u7aef\u4e0b\u8f7d...', 'info');
+    this._setCloudStatus('正在从云端下载...', 'info');
     try {
-      const client = this._getOSSClient();
-      const result = await client.get('lighting-archive/sync-data.json');
-      const text = await result.content.text();
-      const backupData = JSON.parse(text);
-      if (!backupData.version || !backupData.data) throw new Error('\u4e91\u7aef\u6570\u636e\u683c\u5f0f\u65e0\u6548');
-      if (!confirm('\u5c06\u7528\u4e91\u7aef\u6570\u636e\u66ff\u6362\u5f53\u524d\u672c\u5730\u6570\u636e\uff0c\u786e\u5b9a\u7ee7\u7eed\u5417\uff1f')) return;
-      this._setCloudStatus('\u6b63\u5728\u6062\u590d\u6570\u636e...', 'info');
+      const token = this._getToken();
+
+      // Fetch from raw GitHub
+      const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
+      const headers = token ? { 'Authorization': `token ${token}` } : {};
+      const res = await fetch(rawUrl, { headers });
+
+      if (!res.ok) {
+        if (res.status === 404) throw new Error('云端暂无数据，请先上传');
+        throw new Error(`下载失败 (HTTP ${res.status})`);
+      }
+
+      const backupData = await res.json();
+
+      if (!backupData.version || !backupData.data) {
+        throw new Error('云端数据格式无效');
+      }
+
+      // Confirm restore
+      if (!confirm('将用云端数据替换当前本地数据，确定继续吗？')) return;
+
+      this._setCloudStatus('正在恢复数据...', 'info');
+
       await store.importAll(backupData);
+
+      // Update status
       const now = new Date().toLocaleString('zh-CN');
       localStorage.setItem('cloud_last_download', now);
       this.$('cloudLastDownload').textContent = now;
-      this._setCloudStatus('\u2713 \u4e0b\u8f7d\u6210\u529f\uff01\u6570\u636e\u5df2\u6062\u590d\u5230\u672c\u5730', 'success');
+      this._setCloudStatus('✓ 下载成功！数据已恢复到本地', 'success');
+
+      // Refresh UI
       this._closeModal('cloudModal');
       await this._renderAll();
       if (this.currentView !== 'brands') this.navigateTo('brands');
+
     } catch (e) {
-      this._setCloudStatus('\u2717 ' + e.message, 'error');
+      this._setCloudStatus('✗ ' + e.message, 'error');
     }
   },
+
+  _autoSyncTimer: null,
+
+  async _autoSync() {
+    const token = this._getToken();
+    if (!token) return;
+
+    // Debounce: wait 3s after last change
+    if (this._autoSyncTimer) clearTimeout(this._autoSyncTimer);
+    this._autoSyncTimer = setTimeout(async () => {
+      try {
+        const exportData = await store.exportAll();
+        if (!exportData.data.brands.length && !exportData.data.sessions.length && !exportData.data.assets.length) return;
+        
+        const jsonStr = JSON.stringify(exportData, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+        let sha = null;
+        try {
+          const existing = await this._githubApi('GET', `/contents/${this.GITHUB_PATH}?ref=${this.GITHUB_BRANCH}`);
+          sha = existing.sha;
+        } catch (e) {}
+
+        await this._githubApi('PUT', `/contents/${this.GITHUB_PATH}`, {
+          message: `sync: 数据同步 ${new Date().toLocaleString('zh-CN')}`,
+          content: base64Content,
+          sha: sha,
+          branch: this.GITHUB_BRANCH
+        });
+
+        localStorage.setItem('cloud_last_upload', new Date().toLocaleString('zh-CN'));
+      } catch (e) {
+        console.warn('Auto-sync failed:', e.message);
+      }
+    }, 3000);
   },
 
   async _checkCloudData() {
