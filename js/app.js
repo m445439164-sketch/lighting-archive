@@ -15,8 +15,8 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
-    if (!localStorage.getItem('oss_ak_id')) localStorage.setItem('oss_ak_id', atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
-    if (!localStorage.getItem('oss_ak_secret')) localStorage.setItem('oss_ak_secret', atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
+    if (!localStorage.getItem('oss_ak_id')) localStorage.setItem('oss_ak_id', window.atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
+    if (!localStorage.getItem('oss_ak_secret')) localStorage.setItem('oss_ak_secret', window.atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
   },
   
   /* --- UI Event Binding --- */
@@ -1011,8 +1011,8 @@ const app = {
     let akId = localStorage.getItem('oss_ak_id');
     let akSecret = localStorage.getItem('oss_ak_secret');
     if (!akId || !akSecret) {
-      akId = atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy');
-      akSecret = atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR');
+      akId = window.atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy');
+      akSecret = window.atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR');
       localStorage.setItem('oss_ak_id', akId);
       localStorage.setItem('oss_ak_secret', akSecret);
     }
