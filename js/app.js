@@ -1118,7 +1118,7 @@ const app = {
     this._setCloudStatus('正在准备数据...', 'info');
     try {
       const exportData = await store.exportAll();
-      for (const b of (exportData.data.brands || [])) delete b.cover;
+      // keep brand cover (OSS URL or base64)
       for (const a of (exportData.data.assets || [])) delete a.dataUrl;
       const jsonStr = JSON.stringify(exportData);
       const blob = new Blob([jsonStr], { type: 'application/json' });
