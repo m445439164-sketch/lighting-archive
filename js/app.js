@@ -34,7 +34,6 @@ const app = {
     this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
     this.$('ossAkId').addEventListener('input', (e) => { localStorage.setItem('oss_ak_id', e.target.value.trim()); });
     this.$('ossAkSecret').addEventListener('input', (e) => { localStorage.setItem('oss_ak_secret', e.target.value.trim()); });
-    this.$('githubToken').addEventListener('input', (e) => {
       localStorage.setItem('github_token', e.target.value.trim());
       this._setCloudStatus('Token 已保存', 'success');
       setTimeout(() => document.getElementById('cloudStatus').classList.remove('show'), 2000);
@@ -967,8 +966,8 @@ const app = {
 
   async _openCloudSync() {
     // Load saved token
-    const savedToken = this._getToken();
-    if (savedToken) this.$('githubToken').value = savedToken;
+//     const savedToken = this._getToken();
+//     if (savedToken) this.$('githubToken').value = savedToken;
 
     // Update sync info
     const lastUpload = localStorage.getItem('cloud_last_upload');
