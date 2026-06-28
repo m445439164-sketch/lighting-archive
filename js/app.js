@@ -353,7 +353,7 @@ const app = {
     list.innerHTML = sessions.map(s => {
       const thumbs = thumbData[s.id] || [];
       const thumbHtml = thumbs.slice(0, 4).map(a => 
-        `<img class="session-card-thumb" src="${a.dataUrl}" alt="">`
+        `<img class="session-card-thumb" src="${a.qiniuUrl || a.dataUrl || ''}" alt="">`
       ).join('');
       if (thumbs.length > 4) {
         thumbHtml += `<div class="session-card-thumb-more">+${thumbs.length - 4}</div>`;
@@ -734,7 +734,7 @@ const app = {
   /* --- Lightbox --- */
   
   _openLightbox(asset) {
-    this.$('lightboxImg').src = asset.dataUrl;
+    this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
     const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
     this.$('lightboxInfo').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
     this._openModal('lightbox');
