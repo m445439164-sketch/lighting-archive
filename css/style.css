@@ -1370,3 +1370,6 @@ textarea.form-input {
 }
 .drag-handle:hover { color: var(--text-primary); background: var(--bg-hover); }
 .drag-handle:active { cursor: grabbing; }
+
+.brand-card.dragging { opacity: 0.3; }
+.brand-card.drag-over { border-color: var(--accent) !important; box-shadow: var(--shadow-md); }

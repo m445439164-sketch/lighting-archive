@@ -266,8 +266,8 @@ const app = {
       return;
     }
     
-    grid.innerHTML = brands.sort((a, b) => b.createdAt - a.createdAt).map(b => `
-      <div class="brand-card" data-brand-id="${b.id}">
+    grid.innerHTML = brands.sort((a, b) => { const ao = a.sortOrder || a.createdAt; const bo = b.sortOrder || b.createdAt; return bo - ao; }).map(b => `
+      <div class="brand-card" data-brand-id="${b.id}" draggable="true">
         ${b.cover 
           ? `<img class="brand-card-cover" src="${b.cover}" alt="${this._esc(b.name)}">`
           : `<div class="brand-card-cover-placeholder">
@@ -283,6 +283,9 @@ const app = {
           </div>
         </div>
         <div class="brand-card-actions">
+          <span class="drag-handle" title="拖动排序">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>
+          </span>
           <button class="btn btn-ghost btn-sm card-edit" data-brand-id="${b.id}">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             编辑
@@ -316,6 +319,36 @@ const app = {
         e.stopPropagation();
         this._confirmDeleteBrand(btn.dataset.brandId);
       });
+    });
+    // Brand drag & drop reorder
+    grid.querySelectorAll('.brand-card').forEach(card => {
+      card.addEventListener('dragstart', () => {
+        this._draggedBrandId = card.dataset.brandId;
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        grid.querySelectorAll('.brand-card').forEach(c => c.classList.remove('drag-over'));
+        this._draggedBrandId = null;
+      });
+    });
+    grid.addEventListener('dragover', (e) => {
+      const card = e.target.closest('.brand-card');
+      if (card) { e.preventDefault(); card.classList.add('drag-over'); }
+    });
+    grid.addEventListener('dragleave', (e) => {
+      const card = e.target.closest('.brand-card');
+      if (card) card.classList.remove('drag-over');
+    });
+    grid.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const targetCard = e.target.closest('.brand-card');
+      if (!targetCard) return;
+      targetCard.classList.remove('drag-over');
+      const draggedId = this._draggedBrandId;
+      const targetId = targetCard.dataset.brandId;
+      if (draggedId && targetId && draggedId !== targetId) this._reorderBrands(draggedId, targetId);
+      this._draggedBrandId = null;
     });
   },
   
@@ -636,6 +669,7 @@ const app = {
       name,
       description: this.$('brandDesc').value.trim(),
       cover: this._brandCoverData || null,
+      sortOrder: existing ? existing.sortOrder : Date.now(),
       createdAt: existing ? existing.createdAt : Date.now(),
       updatedAt: Date.now()
     };
