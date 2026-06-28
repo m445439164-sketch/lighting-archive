@@ -286,6 +286,12 @@ const app = {
           <span class="drag-handle" title="拖动排序">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>
           </span>
+          <button class="btn-icon btn-sm card-move-up" data-brand-id="${b.id}" title="上移" style="width:28px;height:28px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+          <button class="btn-icon btn-sm card-move-down" data-brand-id="${b.id}" title="下移" style="width:28px;height:28px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
           <button class="btn btn-ghost btn-sm card-edit" data-brand-id="${b.id}">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             编辑
@@ -350,6 +356,13 @@ const app = {
       const targetId = targetCard.dataset.brandId;
       if (draggedId && targetId && draggedId !== targetId) this._reorderBrands(draggedId, targetId);
       this._draggedBrandId = null;
+    });
+    // Up/Down buttons
+    grid.querySelectorAll('.card-move-up').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); this._moveBrandUp(btn.dataset.brandId); });
+    });
+    grid.querySelectorAll('.card-move-down').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.stopPropagation(); this._moveBrandDown(btn.dataset.brandId); });
     });
   },
   
