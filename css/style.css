@@ -563,34 +563,6 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 
 .filter-tab:hover { color: var(--text-primary); }
 
-.ratio-tabs {
-  display: flex;
-  gap: 4px;
-  background: var(--bg-surface);
-  border-radius: var(--radius-sm);
-  padding: 3px;
-  border: 1px solid var(--border-color);
-}
-
-.ratio-tab {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all var(--transition);
-  font-family: inherit;
-  font-weight: 500;
-}
-
-.ratio-tab:hover { color: var(--text-primary); }
-.ratio-tab.active {
-  background: var(--accent-dim);
-  color: var(--accent);
-}
-
 .filter-tab.active {
   background: var(--accent-dim);
   color: var(--accent);
@@ -616,9 +588,6 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
   border: 1px solid var(--border-color);
   transition: all var(--transition);
 }
-
-.asset-grid.ratio-3-4 .asset-item { aspect-ratio: 3 / 4; }
-.asset-grid.ratio-4-5 .asset-item { aspect-ratio: 4 / 5; }
 
 .asset-item img {
   width: 100%;
