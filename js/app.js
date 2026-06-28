@@ -404,16 +404,16 @@ const app = {
         this._confirmDeleteSession(btn.dataset.sessionId);
       });
     });
-    // Drag & drop reorder
+    // Drag & drop reorder (store draggedId globally for cross-browser)
     list.querySelectorAll('.session-card').forEach(card => {
-      card.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', card.dataset.sessionId);
-        e.dataTransfer.effectAllowed = 'move';
+      card.addEventListener('dragstart', () => {
+        this._draggedId = card.dataset.sessionId;
         card.classList.add('dragging');
       });
       card.addEventListener('dragend', () => {
         card.classList.remove('dragging');
         list.querySelectorAll('.session-card').forEach(c => c.classList.remove('drag-over'));
+        this._draggedId = null;
       });
     });
     list.addEventListener('dragover', (e) => {
@@ -429,9 +429,10 @@ const app = {
       const targetCard = e.target.closest('.session-card');
       if (!targetCard) return;
       targetCard.classList.remove('drag-over');
-      const draggedId = e.dataTransfer.getData('text/plain');
+      const draggedId = this._draggedId;
       const targetId = targetCard.dataset.sessionId;
       if (draggedId && targetId && draggedId !== targetId) this._reorderSessions(draggedId, targetId);
+      this._draggedId = null;
     });
   },
   
