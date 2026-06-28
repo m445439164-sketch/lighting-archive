@@ -15,6 +15,7 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
+    this._checkCloudData();
   },
   
   /* --- UI Event Binding --- */
@@ -548,6 +549,7 @@ const app = {
     };
     
     await store.saveBrand(brand);
+    this._autoSync();
     this._closeModal('brandFormModal');
     
     if (this.currentView === 'brandDetail' && this.currentBrandId === id) {
@@ -608,6 +610,7 @@ const app = {
     };
     
     await store.saveSession(session);
+    this._autoSync();
     this._closeModal('sessionFormModal');
     
     if (this.currentView === 'sessionDetail') {
@@ -694,6 +697,7 @@ const app = {
     this._closeModal('uploadModal');
     await this._renderAssets(sessionId, this.currentFilter);
     await this._renderBrandDetail(this.currentBrandId);
+    this._autoSync();
   },
   
   _fileToDataUrl(file) {
@@ -762,6 +766,7 @@ const app = {
     }
     this._closeModal('confirmModal');
     await this._updateSidebar();
+    this._autoSync();
   },
   
   /* --- Modal Helpers --- */
@@ -1050,6 +1055,68 @@ const app = {
 
     } catch (e) {
       this._setCloudStatus('✗ ' + e.message, 'error');
+    }
+  },
+
+  _autoSyncTimer: null,
+
+  async _autoSync() {
+    const token = this._getToken();
+    if (!token) return;
+
+    // Debounce: wait 3s after last change
+    if (this._autoSyncTimer) clearTimeout(this._autoSyncTimer);
+    this._autoSyncTimer = setTimeout(async () => {
+      try {
+        const exportData = await store.exportAll();
+        if (!exportData.data.brands.length && !exportData.data.sessions.length && !exportData.data.assets.length) return;
+        
+        const jsonStr = JSON.stringify(exportData, null, 2);
+        const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+        let sha = null;
+        try {
+          const existing = await this._githubApi('GET', `/contents/${this.GITHUB_PATH}?ref=${this.GITHUB_BRANCH}`);
+          sha = existing.sha;
+        } catch (e) {}
+
+        await this._githubApi('PUT', `/contents/${this.GITHUB_PATH}`, {
+          message: `sync: 数据同步 ${new Date().toLocaleString('zh-CN')}`,
+          content: base64Content,
+          sha: sha,
+          branch: this.GITHUB_BRANCH
+        });
+
+        localStorage.setItem('cloud_last_upload', new Date().toLocaleString('zh-CN'));
+      } catch (e) {
+        console.warn('Auto-sync failed:', e.message);
+      }
+    }, 3000);
+  },
+
+  async _checkCloudData() {
+    try {
+      const token = this._getToken();
+      const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
+      const headers = token ? { 'Authorization': `token ${token}` } : {};
+      const res = await fetch(rawUrl, { headers });
+      if (!res.ok) return;
+
+      const backupData = await res.json();
+      if (!backupData.version || !backupData.data) return;
+      if (!backupData.data.brands || backupData.data.brands.length === 0) return;
+
+      // Check if local data is empty vs cloud has data
+      const localBrands = await store.getAllBrands();
+      if (localBrands.length > 0) return;
+
+      if (confirm('检测到云端有共享数据，是否加载到本地？')) {
+        await store.importAll(backupData);
+        await this._renderAll();
+        if (this.currentView !== 'brands') this.navigateTo('brands');
+      }
+    } catch (e) {
+      // Silently fail - first time users won't have cloud data
     }
   },
 
