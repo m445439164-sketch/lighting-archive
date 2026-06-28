@@ -355,7 +355,7 @@ const app = {
     
     list.innerHTML = sessions.map(s => {
       const thumbs = thumbData[s.id] || [];
-      const thumbHtml = thumbs.slice(0, 6).map(a => 
+      let thumbHtml = thumbs.slice(0, 6).map(a => 
         `<img class="session-card-thumb" src="${a.qiniuUrl || a.dataUrl || ''}" alt="">`
       ).join('');
       if (thumbs.length > 6) {
