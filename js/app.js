@@ -32,6 +32,8 @@ const app = {
     this.$('navCloud').addEventListener('click', () => this._openCloudSync());
     this.$('btnCloudUpload').addEventListener('click', () => this._uploadToCloud());
     this.$('btnCloudDownload').addEventListener('click', () => this._downloadFromCloud());
+    this.$('qiniuToken').addEventListener('input', (e) => { localStorage.setItem('qiniu_token', e.target.value.trim()); });
+    this.$('qiniuDomain').addEventListener('input', (e) => { localStorage.setItem('qiniu_domain', e.target.value.trim()); });
     this.$('githubToken').addEventListener('input', (e) => {
       localStorage.setItem('github_token', e.target.value.trim());
       this._setCloudStatus('Token 已保存', 'success');
@@ -435,7 +437,7 @@ const app = {
         <button class="asset-delete-btn asset-delete" data-asset-id="${a.id}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <img src="${a.dataUrl}" alt="${this._esc(a.caption || '')}" loading="lazy">
+        <img src="${a.qiniuUrl || a.dataUrl || ''}" alt="${this._esc(a.caption || '')}" loading="lazy">
         ${a.caption ? `<div class="asset-caption">${this._esc(a.caption)}</div>` : ''}
       </div>
     `).join('');
@@ -680,13 +682,31 @@ const app = {
     this.$('uploadConfirm').disabled = true;
     this.$('uploadConfirm').textContent = '上传中...';
     
+    const qiniuToken = this._getQiniuToken();
+    const qiniuDomain = this.$('qiniuDomain') ? this.$('qiniuDomain').value.trim() : '';
+    const useQiniu = !!(qiniuToken && qiniuDomain);
+    
     for (const file of this.pendingUploadFiles) {
-      const dataUrl = await this._fileToDataUrl(file);
+      let qiniuUrl = '';
+      let dataUrl = '';
+      
+      if (useQiniu) {
+        try {
+          qiniuUrl = await this._uploadToQiniu(file, qiniuToken, qiniuDomain);
+        } catch(e) {
+          alert('七牛云上传失败，将以本地方式保存：' + e.message);
+          dataUrl = await this._fileToDataUrl(file);
+        }
+      } else {
+        dataUrl = await this._fileToDataUrl(file);
+      }
+      
       const asset = {
         id: store.generateId(),
         sessionId,
         type,
         dataUrl,
+        qiniuUrl: qiniuUrl,
         caption: file.name.replace(/\.[^.]+$/, ''),
         createdAt: Date.now()
       };
@@ -975,6 +995,28 @@ const app = {
     const data = await res.json();
     if (!res.ok) throw new Error(`[${res.status}] ${data.message || ''}`);
     return data;
+  },
+
+  _getQiniuToken() {
+    return localStorage.getItem('qiniu_token') || '';
+  },
+
+  async _uploadToQiniu(file, token, domain) {
+    const ext = file.name.split('.').pop();
+    const key = 'lighting/' + Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + ext;
+    
+    const formData = new FormData();
+    formData.append('token', token);
+    formData.append('key', key);
+    formData.append('file', file);
+    
+    const res = await fetch('https://upload.qiniup.com/', { method: 'POST', body: formData });
+    const data = await res.json();
+    if (data.key) {
+      const d = domain || 'thccsq8c2.hn-bkt.clouddn.com';
+      return 'https://' + d + '/' + data.key;
+    }
+    throw new Error(data.error || data.message || '未知错误');
   },
 
   async _uploadToCloud() {
