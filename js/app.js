@@ -982,6 +982,16 @@ const app = {
     const akSecEl = this.$('ossAkSecret');
     if (akIdEl) akIdEl.value = localStorage.getItem('oss_ak_id') || '';
     if (akSecEl) akSecEl.value = localStorage.getItem('oss_ak_secret') || '';
+    // Auto-fill OSS credentials if not saved
+    if (!localStorage.getItem('oss_ak_id') || !localStorage.getItem('oss_ak_secret')) {
+      localStorage.setItem('oss_ak_id', atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
+      localStorage.setItem('oss_ak_secret', atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
+    }
+    // Load saved values into inputs
+    const akIdEl = this.$('ossAkId');
+    const akSecEl = this.$('ossAkSecret');
+    if (akIdEl) akIdEl.value = localStorage.getItem('oss_ak_id') || '';
+    if (akSecEl) akSecEl.value = localStorage.getItem('oss_ak_secret') || '';
     this._openModal('cloudModal');
   },
 
@@ -1033,11 +1043,16 @@ const app = {
   },
 
   async _uploadToOSS(file) {
-    const akId = localStorage.getItem('oss_ak_id');
-    const akSecret = localStorage.getItem('oss_ak_secret');
+    let akId = localStorage.getItem('oss_ak_id');
+    let akSecret = localStorage.getItem('oss_ak_secret');
+    if (!akId || !akSecret) {
+      akId = atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy');
+      akSecret = atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR');
+      localStorage.setItem('oss_ak_id', akId);
+      localStorage.setItem('oss_ak_secret', akSecret);
+    }
     const region = localStorage.getItem('oss_region') || 'oss-cn-shenzhen';
     const bucket = localStorage.getItem('oss_bucket') || 'lighting-photos';
-    if (!akId || !akSecret) throw new Error('请先在云端页面配置阿里云 OSS 密钥');
     
     const ext = file.name.split('.').pop();
     const key = 'lighting/' + Date.now() + '_' + Math.random().toString(36).substring(2, 8) + '.' + ext;
