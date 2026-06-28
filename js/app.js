@@ -977,48 +977,80 @@ const app = {
     return data;
   },
 
-      async _uploadToCloud() {
+    async _uploadToCloud() {
     this._setCloudStatus('正在准备数据...', 'info');
     try {
+      // Export all data
       const exportData = await store.exportAll();
       
-      // Strip image data
+      // Strip image data explicitly (too large for GitHub API)
       const cleanAssets = [];
       for (const a of (exportData.data.assets || [])) {
         cleanAssets.push({
-          id: a.id, sessionId: a.sessionId, type: a.type,
-          caption: a.caption, createdAt: a.createdAt
+          id: a.id,
+          sessionId: a.sessionId,
+          type: a.type,
+          caption: a.caption,
+          createdAt: a.createdAt
         });
       }
       exportData.data.assets = cleanAssets;
       
       const jsonStr = JSON.stringify(exportData, null, 2);
-      
-      // Show approximate file size
-      const sizeKB = (new Blob([jsonStr]).size / 1024).toFixed(1);
-      this._setCloudStatus('上传中... 数据约 ' + sizeKB + ' KB', 'info');
 
-      // Try Contents API first (for small files)
-      let sha = null;
-      try {
-        const info = await this._githubApi('GET', '/contents/' + this.GITHUB_PATH + '?ref=' + this.GITHUB_BRANCH);
-        sha = info.sha;
-      } catch (e) {}
-      
-      const body = { message: 'sync: ' + new Date().toLocaleString('zh-CN'), content: btoa(unescape(encodeURIComponent(jsonStr))), branch: this.GITHUB_BRANCH };
-      if (sha) body.sha = sha;
-      await this._githubApi('PUT', '/contents/' + this.GITHUB_PATH, body);
+      this._setCloudStatus('正在上传到 GitHub...', 'info');
+
+      // Use Git Data API (supports files up to 100MB)
+      // Send as utf-8 to avoid base64 overhead
+      const blobRes = await this._githubApi('POST', '/git/blobs', {
+        content: jsonStr,
+        encoding: 'utf-8'
+      });
+      const blobSha = blobRes.sha;
+
+      // Get current branch reference
+      const refRes = await this._githubApi('GET', '/git/refs/heads/' + this.GITHUB_BRANCH);
+      const commitSha = refRes.object.sha;
+
+      // Get current commit for base tree
+      const commitRes = await this._githubApi('GET', '/git/commits/' + commitSha);
+      const baseTreeSha = commitRes.tree.sha;
+
+      // Create new tree with updated file
+      const treeRes = await this._githubApi('POST', '/git/trees', {
+        base_tree: baseTreeSha,
+        tree: [{
+          path: this.GITHUB_PATH,
+          mode: '100644',
+          type: 'blob',
+          sha: blobSha
+        }]
+      });
+      const newTreeSha = treeRes.sha;
+
+      // Create commit
+      const newCommitRes = await this._githubApi('POST', '/git/commits', {
+        message: 'sync: 数据同步 ' + new Date().toLocaleString('zh-CN'),
+        tree: newTreeSha,
+        parents: [commitSha]
+      });
+      const newCommitSha = newCommitRes.sha;
+
+      // Update branch reference
+      await this._githubApi('PATCH', '/git/refs/heads/' + this.GITHUB_BRANCH, {
+        sha: newCommitSha,
+        force: false
+      });
 
       const now = new Date().toLocaleString('zh-CN');
       localStorage.setItem('cloud_last_upload', now);
       this.$('cloudLastUpload').textContent = now;
-      this._setCloudStatus('OK 上传成功！云端数据已更新 (' + sizeKB + ' KB)', 'success');
+      this._setCloudStatus('\u2713 上传成功！云端数据已更新', 'success');
     } catch (e) {
-      const msg = e.message || '';
-      this._setCloudStatus('X 上传失败: ' + msg.substring(0, 80), 'error');
+      this._setCloudStatus('\u2717 上传失败：' + e.message, 'error');
       console.error('Upload error:', e);
     }
-  },,,,
+  },,,
 
   async _downloadFromCloud() {
     this._setCloudStatus('正在从云端下载...', 'info');
