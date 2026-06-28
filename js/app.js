@@ -63,6 +63,14 @@ const app = {
     // Upload
     this.$('btnUploadAssets').addEventListener('click', () => this._openUpload());
     this.$('uploadConfirm').addEventListener('click', () => this._confirmUpload());
+    this.$('compressToggle').addEventListener('change', (e) => {
+      const s = this.$('qualitySlider');
+      if (s) s.disabled = !e.target.checked;
+    });
+    this.$('qualitySlider').addEventListener('input', (e) => {
+      const l = this.$('qualityLabel');
+      if (l) l.textContent = e.target.value + '%';
+    });
     
     // Filter tabs (delegated)
     this.$('sessionAssets').addEventListener('click', (e) => {
@@ -683,14 +691,15 @@ const app = {
     this.$('uploadConfirm').textContent = '上传中...';
     
     for (const file of this.pendingUploadFiles) {
+      const compressedFile = await this._compressImage(file);
       let ossUrl = '';
       let dataUrl = '';
       
       try {
-        ossUrl = await this._uploadToOSS(file);
+        ossUrl = await this._uploadToOSS(compressedFile);
       } catch(e) {
         alert('上传到云端失败：' + e.message);
-        dataUrl = await this._fileToDataUrl(file);
+        dataUrl = await this._fileToDataUrl(compressedFile);
       }
       
       const asset = {
@@ -994,6 +1003,34 @@ const app = {
     return data;
   },
 
+
+  async _compressImage(file) {
+    const toggle = this.$('compressToggle');
+    if (!toggle || !toggle.checked) return file;
+    
+    const quality = parseInt((this.$('qualitySlider') || { value: 80 }).value) / 100;
+    const maxDim = 2048;
+    
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { w = maxDim; h = Math.round(h * maxDim / img.width); }
+          else { h = maxDim; w = Math.round(w * maxDim / img.height); }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob((blob) => {
+          resolve(new File([blob], file.name, { type: 'image/jpeg', lastModified: Date.now() }));
+        }, 'image/jpeg', quality);
+      };
+      img.onerror = () => resolve(file);
+      img.src = URL.createObjectURL(file);
+    });
+  },
 
   async _uploadToOSS(file) {
     const akId = localStorage.getItem('oss_ak_id');

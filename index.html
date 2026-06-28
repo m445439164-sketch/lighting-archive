@@ -254,6 +254,15 @@
             <span>标记为灯位图</span>
           </label>
         </div>
+        <div class="upload-quality">
+          <label class="radio-label">
+            <input type="checkbox" id="compressToggle" checked>
+            <span>压缩图片</span>
+          </label>
+          <input type="range" id="qualitySlider" min="10" max="100" value="80">
+          <span class="quality-value" id="qualityLabel">80%</span>
+          <span class="quality-hint">最大 2048px</span>
+        </div>
         <div class="upload-footer-actions">
           <button class="btn btn-ghost" data-modal="uploadModal">取消</button>
           <button class="btn btn-primary" id="uploadConfirm" disabled>上传 (0)</button>

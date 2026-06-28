@@ -1108,6 +1108,34 @@ textarea.form-input {
   justify-content: space-between;
 }
 
+.upload-quality {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  flex-wrap: wrap;
+}
+
+.upload-quality label { white-space: nowrap; }
+
+.upload-quality input[type="range"] {
+  width: 80px;
+  height: 4px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.quality-value {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 32px;
+}
+
+.quality-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
 .upload-type-selector {
   display: flex;
   gap: 16px;
