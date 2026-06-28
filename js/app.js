@@ -981,40 +981,63 @@ const app = {
       // Export all data
       const exportData = await store.exportAll();
       const jsonStr = JSON.stringify(exportData, null, 2);
-      const base64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+      const contentBase64 = btoa(unescape(encodeURIComponent(jsonStr)));
 
       this._setCloudStatus('正在上传到 GitHub...', 'info');
 
-      // Check if file already exists to get SHA
-      let sha = null;
-      try {
-        const existing = await this._githubApi('GET', `/contents/${this.GITHUB_PATH}?ref=${this.GITHUB_BRANCH}`);
-        sha = existing.sha;
-      } catch (e) {
-        // File doesn't exist yet, will create new
-      }
+      // Use Git Data API (supports files up to ~100MB, unlike Contents API's 1MB limit)
 
-      // Create or update file
-      await this._githubApi('PUT', `/contents/${this.GITHUB_PATH}`, {
-        message: `sync: 数据同步 ${new Date().toLocaleString('zh-CN')}`,
-        content: base64Content,
-        sha: sha,
-        branch: this.GITHUB_BRANCH
+      // Step 1: Create a blob with the file content
+      const blobRes = await this._githubApi('POST', '/git/blobs', {
+        content: contentBase64,
+        encoding: 'base64'
+      });
+      const blobSha = blobRes.sha;
+
+      // Step 2: Get the current branch reference (HEAD commit SHA)
+      const refRes = await this._githubApi('GET', '/git/refs/heads/' + this.GITHUB_BRANCH);
+      const commitSha = refRes.object.sha;
+
+      // Step 3: Get the current commit to find the base tree SHA
+      const commitRes = await this._githubApi('GET', '/git/commits/' + commitSha);
+      const baseTreeSha = commitRes.tree.sha;
+
+      // Step 4: Create a new tree with the updated file
+      const treeRes = await this._githubApi('POST', '/git/trees', {
+        base_tree: baseTreeSha,
+        tree: [{
+          path: this.GITHUB_PATH,
+          mode: '100644',
+          type: 'blob',
+          sha: blobSha
+        }]
+      });
+      const newTreeSha = treeRes.sha;
+
+      // Step 5: Create a commit with the new tree
+      const newCommitRes = await this._githubApi('POST', '/git/commits', {
+        message: 'sync: 数据同步 ' + new Date().toLocaleString('zh-CN'),
+        tree: newTreeSha,
+        parents: [commitSha]
+      });
+      const newCommitSha = newCommitRes.sha;
+
+      // Step 6: Update the branch reference to point to the new commit
+      await this._githubApi('PATCH', '/git/refs/heads/' + this.GITHUB_BRANCH, {
+        sha: newCommitSha,
+        force: false
       });
 
       // Update status
       const now = new Date().toLocaleString('zh-CN');
       localStorage.setItem('cloud_last_upload', now);
       this.$('cloudLastUpload').textContent = now;
-      this._setCloudStatus('✓ 上传成功！云端数据已更新', 'success');
-
-      // Also save to local as backup reference
-      localStorage.setItem('cloud_data_hash', btoa(jsonStr.substring(0, 100)));
+      this._setCloudStatus('\u2713 上传成功！云端数据已更新', 'success');
     } catch (e) {
-      this._setCloudStatus('✗ 上传失败：' + e.message, 'error');
+      this._setCloudStatus('\u2717 上传失败：' + e.message, 'error');
       console.error('Upload error:', e);
     }
-  },
+  },,
 
   async _downloadFromCloud() {
     this._setCloudStatus('正在从云端下载...', 'info');
