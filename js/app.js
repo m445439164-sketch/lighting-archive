@@ -15,6 +15,8 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
+    if (!localStorage.getItem('oss_ak_id')) localStorage.setItem('oss_ak_id', atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
+    if (!localStorage.getItem('oss_ak_secret')) localStorage.setItem('oss_ak_secret', atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
     this._checkCloudData();
   },
   
@@ -1032,6 +1034,18 @@ const app = {
     });
   },
 
+  _getOSSClient() {
+    let akId = localStorage.getItem('oss_ak_id');
+    let akSecret = localStorage.getItem('oss_ak_secret');
+    if (!akId || !akSecret) {
+      akId = atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy');
+      akSecret = atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR');
+      localStorage.setItem('oss_ak_id', akId);
+      localStorage.setItem('oss_ak_secret', akSecret);
+    }
+    return new OSS({ region: 'oss-cn-shenzhen', accessKeyId: akId, accessKeySecret: akSecret, bucket: 'lighting-photos', secure: true });
+  },
+
   async _uploadToOSS(file) {
     const akId = localStorage.getItem('oss_ak_id');
     const akSecret = localStorage.getItem('oss_ak_secret');
@@ -1057,79 +1071,43 @@ const app = {
   async _uploadToCloud() {
     this._setCloudStatus('正在准备数据...', 'info');
     try {
-    const exportData = await store.exportAll();
-    
-    // Strip ALL image data (brand covers + asset dataUrl)
-    for (const b of (exportData.data.brands || [])) delete b.cover;
-    for (const a of (exportData.data.assets || [])) delete a.dataUrl;
-    
-    const jsonStr = JSON.stringify(exportData);
-    const contentB64 = btoa(unescape(encodeURIComponent(jsonStr)));
-
-    this._setCloudStatus('正在上传到 GitHub...', 'info');
-
-    // Try Contents API (file is text-only now, should be < 1MB)
-    let sha = null;
-    try {
-      const info = await this._githubApi('GET', '/contents/' + this.GITHUB_PATH + '?ref=' + this.GITHUB_BRANCH);
-      sha = info.sha;
-    } catch (e) {}
-
-    const body = { message: 'sync: ' + new Date().toLocaleString('zh-CN'), content: contentB64, branch: this.GITHUB_BRANCH };
-    if (sha) body.sha = sha;
-    await this._githubApi('PUT', '/contents/' + this.GITHUB_PATH, body);
-
-    const now = new Date().toLocaleString('zh-CN');
-    localStorage.setItem('cloud_last_upload', now);
-    this.$('cloudLastUpload').textContent = now;
-    this._setCloudStatus('OK 上传成功！云端数据已更新', 'success');
+      const exportData = await store.exportAll();
+      for (const b of (exportData.data.brands || [])) delete b.cover;
+      for (const a of (exportData.data.assets || [])) delete a.dataUrl;
+      const jsonStr = JSON.stringify(exportData);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      this._setCloudStatus('正在上传到云端...', 'info');
+      const client = this._getOSSClient();
+      await client.put('lighting-archive/sync-data.json', blob);
+      const now = new Date().toLocaleString('zh-CN');
+      localStorage.setItem('cloud_last_upload', now);
+      this.$('cloudLastUpload').textContent = now;
+      this._setCloudStatus('OK 上传成功！云端数据已更新', 'success');
     } catch (e) {
-    this._setCloudStatus('X 上传失败: ' + (e.message || '').substring(0, 100), 'error');
-    console.error('Upload error:', e);
+      this._setCloudStatus('X 上传失败: ' + (e.message || '').substring(0, 100), 'error');
     }
-    },
+  },
 
   async _downloadFromCloud() {
     this._setCloudStatus('正在从云端下载...', 'info');
     try {
-      const token = this._getToken();
-
-      // Fetch from raw GitHub
-      const rawUrl = `https://raw.githubusercontent.com/${this.GITHUB_OWNER}/${this.GITHUB_REPO}/${this.GITHUB_BRANCH}/${this.GITHUB_PATH}`;
-      const headers = token ? { 'Authorization': `token ${token}` } : {};
-      const res = await fetch(rawUrl, { headers });
-
-      if (!res.ok) {
-        if (res.status === 404) throw new Error('云端暂无数据，请先上传');
-        throw new Error(`下载失败 (HTTP ${res.status})`);
-      }
-
-      const backupData = await res.json();
-
-      if (!backupData.version || !backupData.data) {
-        throw new Error('云端数据格式无效');
-      }
-
-      // Confirm restore
+      const client = this._getOSSClient();
+      const result = await client.get('lighting-archive/sync-data.json');
+      const text = await result.content.text();
+      const backupData = JSON.parse(text);
+      if (!backupData.version || !backupData.data) throw new Error('云端数据格式无效');
       if (!confirm('将用云端数据替换当前本地数据，确定继续吗？')) return;
-
       this._setCloudStatus('正在恢复数据...', 'info');
-
       await store.importAll(backupData);
-
-      // Update status
       const now = new Date().toLocaleString('zh-CN');
       localStorage.setItem('cloud_last_download', now);
       this.$('cloudLastDownload').textContent = now;
-      this._setCloudStatus('✓ 下载成功！数据已恢复到本地', 'success');
-
-      // Refresh UI
+      this._setCloudStatus('OK 下载成功！数据已恢复到本地', 'success');
       this._closeModal('cloudModal');
       await this._renderAll();
       if (this.currentView !== 'brands') this.navigateTo('brands');
-
     } catch (e) {
-      this._setCloudStatus('✗ ' + e.message, 'error');
+      this._setCloudStatus('X ' + e.message, 'error');
     }
   },
 
