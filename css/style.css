@@ -1359,3 +1359,14 @@ textarea.form-input {
     max-height: 85vh;
   }
 }
+
+/* --- Drag & Drop --- */
+.session-card.dragging { opacity: 0.3; }
+.session-card.drag-over { border-color: var(--accent) !important; background: var(--accent-dim) !important; }
+.drag-handle {
+  cursor: grab; display: inline-flex; align-items: center; padding: 4px 8px;
+  color: var(--text-muted); border-radius: 4px; user-select: none;
+  transition: color 0.15s;
+}
+.drag-handle:hover { color: var(--text-primary); background: var(--bg-hover); }
+.drag-handle:active { cursor: grabbing; }

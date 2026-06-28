@@ -342,8 +342,9 @@ const app = {
     
     // Sort sessions by date descending
     sessions.sort((a, b) => {
-      if (a.date && b.date) return b.date.localeCompare(a.date);
-      return b.createdAt - a.createdAt;
+      const ao = a.sortOrder || a.createdAt;
+      const bo = b.sortOrder || b.createdAt;
+      return bo - ao;
     });
     
     // Get up to 4 thumbnails per session
@@ -363,7 +364,7 @@ const app = {
       }
       
       return `
-        <div class="session-card" data-session-id="${s.id}">
+        <div class="session-card" data-session-id="${s.id}" draggable="true">
           <div class="session-card-header">
             <div>
               <div class="session-card-title">${this._esc(s.title)}</div>
@@ -374,6 +375,9 @@ const app = {
               </div>` : ''}
             </div>
             <div class="session-card-actions">
+              <span class="drag-handle" title="拖动排序">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>
+              </span>
               <button class="btn btn-ghost btn-sm session-delete" data-session-id="${s.id}">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
               </button>
@@ -398,6 +402,26 @@ const app = {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         this._confirmDeleteSession(btn.dataset.sessionId);
+      });
+    });
+    // Drag & drop reorder
+    list.querySelectorAll('.session-card').forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', card.dataset.sessionId);
+        card.classList.add('dragging');
+      });
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        list.querySelectorAll('.session-card').forEach(c => c.classList.remove('drag-over'));
+      });
+      card.addEventListener('dragover', (e) => { e.preventDefault(); card.classList.add('drag-over'); });
+      card.addEventListener('dragleave', () => { card.classList.remove('drag-over'); });
+      card.addEventListener('drop', (e) => {
+        e.preventDefault();
+        card.classList.remove('drag-over');
+        const draggedId = e.dataTransfer.getData('text/plain');
+        const targetId = card.dataset.sessionId;
+        if (draggedId && targetId && draggedId !== targetId) this._reorderSessions(draggedId, targetId);
       });
     });
   },
@@ -663,6 +687,7 @@ const app = {
       date: this.$('sessionDate').value || null,
       client: this.$('sessionClient').value.trim() || null,
       description: this.$('sessionDesc').value.trim() || null,
+      sortOrder: existing ? existing.sortOrder : Date.now(),
       createdAt: existing ? existing.createdAt : Date.now(),
       updatedAt: Date.now()
     };
