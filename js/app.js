@@ -498,6 +498,7 @@ const app = {
   },
 
   async _openCoverSelector() {
+    try {
     const grid = this.$('coverSelectGrid');
     if (this._coverAssets.length === 0) {
       grid.innerHTML = '<div class="cover-select-empty">暂无已上传的图片，请先上传一些图片</div>';
@@ -514,6 +515,7 @@ const app = {
       });
     }
     this._openModal('coverSelectModal');
+    } catch (e) { console.warn(e); }
   },
 
   _selectCover(asset) {
@@ -527,7 +529,7 @@ const app = {
     this._closeModal('coverSelectModal');
   },
 
-  showBrandForm(brandId) {
+  async showBrandForm(brandId) {
     this.$('brandFormId').value = '';
     this.$('brandName').value = '';
     this.$('brandDesc').value = '';
@@ -539,8 +541,8 @@ const app = {
     
     if (brandId) {
       this.$('brandFormTitle').textContent = '编辑品牌';
-      this._loadBrandForEdit(brandId);
-      this._loadCoverAssets(brandId);
+      await this._loadBrandForEdit(brandId);
+      await this._loadCoverAssets(brandId);
     } else {
       this.$('brandFormTitle').textContent = '新建品牌';
       this._coverAssets = [];
