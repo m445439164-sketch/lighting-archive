@@ -226,6 +226,7 @@ const app = {
   async _renderAll() {
     await this._updateSidebar();
     await this._renderBrandGrid();
+    await this._renderCategories();
   },
   
   async _updateSidebar() {
