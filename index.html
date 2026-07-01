@@ -49,8 +49,22 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <main class="main-content" id="mainContent">
-    <section class="view active" id="viewBrands">
+    
+    <!-- Category View -->
+    <section class="view active" id="viewCategories">
       <div class="view-header">
+        <h1>摄影归档</h1>
+        <p class="view-subtitle">选择一个分类查看拍摄档案</p>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+<section class="view" id="viewBrands">
+      <div class="view-header">
+        <button class="btn btn-ghost btn-back hidden" id="btnBackHome">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          返回首页
+        </button>
         <h1>品牌</h1>
         <p class="view-subtitle">管理所有拍摄过的品牌及其灯位图档案</p>
       </div>
@@ -161,6 +175,14 @@
           <div class="form-group">
             <label for="brandDesc">品牌描述</label>
             <textarea id="brandDesc" class="form-input" rows="3" placeholder="品牌所属行业、合作时间等"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="brandCategory">分类</label>
+            <select id="brandCategory" class="form-input">
+              <option value="model">模特图</option>
+              <option value="still-life">静物图</option>
+              <option value="video">视频</option>
+            </select>
           </div>
           <div class="form-group">
             <label>品牌封面</label>

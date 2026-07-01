@@ -50,6 +50,7 @@ const app = {
     this.$('sidebarOverlay').addEventListener('click', () => this._toggleSidebar());
     
     // Brand detail
+    this.$('btnBackHome').addEventListener('click', () => this.navigateTo('home'));
     this.$('btnBackFromBrand').addEventListener('click', () => this.navigateTo('brands'));
     this.$('btnEditBrand').addEventListener('click', () => {
       if (this.currentBrandId) this.showBrandForm(this.currentBrandId);
@@ -157,16 +158,34 @@ const app = {
   /* --- Navigation --- */
   
   navigateTo(view, param1, param2) {
-    // Hide all views
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    this.currentCategory = null;
     
     switch (view) {
+      case 'home':
+        this.currentView = 'home';
+        this.currentBrandId = null;
+        this.currentSessionId = null;
+        this.$('viewCategories').classList.add('active');
+        this._renderCategories();
+        break;
+        
       case 'brands':
         this.currentView = 'brands';
         this.currentBrandId = null;
         this.currentSessionId = null;
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid();
+        this._updateSidebar();
+        break;
+        
+      case 'category':
+        this.currentView = 'category';
+        this.currentCategory = param1;
+        this.currentBrandId = null;
+        this.currentSessionId = null;
+        this.$('viewBrands').classList.add('active');
+        this._renderBrandGrid(param1);
         this._updateSidebar();
         break;
         
@@ -211,7 +230,8 @@ const app = {
   
   async _updateSidebar() {
     const list = this.$('sidebarBrandList');
-    const brands = await store.getAllBrands();
+    const allBrands = await store.getAllBrands();
+    const brands = category ? allBrands.filter(b => b.category === category) : allBrands;
     
     if (brands.length === 0) {
       list.innerHTML = '<div class="sidebar-empty">暂无品牌</div>';
@@ -240,7 +260,21 @@ const app = {
     });
   },
   
-  async _renderBrandGrid() {
+  async _renderCategories() {
+    const brands = await store.getAllBrands();
+    const cats = [
+      { id: 'model', name: '\u6a21\u7279\u56fe', icon: '\ud83d\udcf7', count: brands.filter(b => b.category === 'model').length },
+      { id: 'still-life', name: '\u9759\u7269\u56fe', icon: '\ud83d\udcf8', count: brands.filter(b => b.category === 'still-life').length },
+      { id: 'video', name: '\u89c6\u9891', icon: '\ud83c\udfac', count: brands.filter(b => b.category === 'video').length }
+    ];
+    const grid = this.$('categoryGrid');
+    grid.innerHTML = cats.map(c => '<div class="category-card" data-category="' + c.id + '"><div class="category-card-icon">' + c.icon + '</div><div class="category-card-name">' + c.name + '</div><div class="category-card-count">' + c.count + ' \u4e2a\u54c1\u724c</div></div>').join('');
+    grid.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', () => this.navigateTo('category', card.dataset.category));
+    });
+  },
+
+  async _renderBrandGrid(category) {
     const grid = this.$('brandGrid');
     const brands = await store.getAllBrands();
     
@@ -249,6 +283,13 @@ const app = {
     for (const b of brands) {
       const sessions = await store.getSessionsByBrand(b.id);
       counts[b.id] = sessions.length;
+    }
+    
+    // Show back button if viewing a category
+    if (category) {
+      this.$('btnBackHome').classList.remove('hidden');
+    } else {
+      this.$('btnBackHome').classList.add('hidden');
     }
     
     if (brands.length === 0) {
@@ -615,6 +656,7 @@ const app = {
     this.$('brandFormId').value = '';
     this.$('brandName').value = '';
     this.$('brandDesc').value = '';
+    this.$('brandCategory').value = 'model';
     this.$('brandCoverPlaceholder').classList.remove('hidden');
     this.$('brandCoverPreview').classList.add('hidden');
     this.$('brandCoverPreview').src = '';
@@ -640,6 +682,7 @@ const app = {
     this.$('brandFormId').value = brand.id;
     this.$('brandName').value = brand.name;
     this.$('brandDesc').value = brand.description || '';
+    this.$('brandCategory').value = brand.category || 'model';
     
     if (brand.cover) {
       this._brandCoverData = brand.cover;
@@ -683,6 +726,7 @@ const app = {
       id,
       name,
       description: this.$('brandDesc').value.trim(),
+      category: this.$('brandCategory').value,
       cover: this._brandCoverData || null,
       sortOrder: existing ? existing.sortOrder : Date.now(),
       createdAt: existing ? existing.createdAt : Date.now(),
