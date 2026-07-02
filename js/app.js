@@ -168,7 +168,8 @@ const app = {
         this.currentSessionId = null;
         this.$('viewCategories').classList.add('active');
         this._renderCategories();
-        this._updateSidebar();
+        // 首页只展示三大板块，品牌列表在点进板块后显示
+        this.$('sidebarBrandList').innerHTML = '<div class="sidebar-empty">选择一个分类查看品牌</div>';
         break;
         
       case 'brands':
