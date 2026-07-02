@@ -168,6 +168,7 @@ const app = {
         this.currentSessionId = null;
         this.$('viewCategories').classList.add('active');
         this._renderCategories();
+        this._updateSidebar();
         break;
         
       case 'brands':
