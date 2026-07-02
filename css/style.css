@@ -273,6 +273,17 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
   z-index: 89;
 }
 
+/* Hide sidebar on home page */
+#sidebar.hidden {
+  display: none;
+}
+#sidebar.hidden + .sidebar-overlay {
+  display: none !important;
+}
+.main-content.no-sidebar {
+  margin-left: 0;
+}
+
 /* --- Main Content --- */
 .main-content {
   margin-left: var(--sidebar-width);

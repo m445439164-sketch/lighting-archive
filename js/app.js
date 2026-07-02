@@ -17,6 +17,11 @@ const app = {
     await store.init();
     this._bindUI();
     await this._renderAll();
+    // 首页隐藏侧边栏（初始加载时）
+    const sidebar = this.$('sidebar');
+    const mainContent = this.$('mainContent');
+    if (sidebar) sidebar.classList.add('hidden');
+    if (mainContent) mainContent.classList.add('no-sidebar');
     if (!localStorage.getItem('oss_ak_id')) localStorage.setItem('oss_ak_id', atob('TFRBSTV0NmR1R0hFWEYyVzRBV2FyZXpy'));
     if (!localStorage.getItem('oss_ak_secret')) localStorage.setItem('oss_ak_secret', atob('N0hvU1ZRb0JZYW9yRk5nRVRIdmxuM1ZXU1RxZkNR'));
     this._checkCloudData();
@@ -160,6 +165,9 @@ const app = {
   navigateTo(view, param1, param2) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     this.currentCategory = null;
+    const mainContent = this.$('mainContent');
+    // 显示或隐藏侧边栏
+    const sidebar = this.$('sidebar');
     
     switch (view) {
       case 'home':
@@ -168,8 +176,9 @@ const app = {
         this.currentSessionId = null;
         this.$('viewCategories').classList.add('active');
         this._renderCategories();
-        // 首页只展示三大板块，品牌列表在点进板块后显示
-        this.$('sidebarBrandList').innerHTML = '<div class="sidebar-empty">选择一个分类查看品牌</div>';
+        // 首页隐藏侧边栏
+        if (sidebar) sidebar.classList.add('hidden');
+        if (mainContent) mainContent.classList.add('no-sidebar');
         break;
         
       case 'brands':
@@ -179,6 +188,8 @@ const app = {
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid();
         this._updateSidebar();
+        if (sidebar) sidebar.classList.remove('hidden');
+        if (mainContent) mainContent.classList.remove('no-sidebar');
         break;
         
       case 'category':
@@ -189,6 +200,8 @@ const app = {
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid(param1);
         this._updateSidebar();
+        if (sidebar) sidebar.classList.remove('hidden');
+        if (mainContent) mainContent.classList.remove('no-sidebar');
         break;
         
       case 'brandDetail':
