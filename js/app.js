@@ -224,15 +224,20 @@ const app = {
   /* --- Rendering --- */
   
   async _renderAll() {
+    try {
     await this._updateSidebar();
     await this._renderBrandGrid();
     await this._renderCategories();
+    } catch(e) {
+      console.error('_renderAll error:', e);
+      try { await this._renderCategories(); } catch(e2) {}
+    }
   },
   
   async _updateSidebar() {
     const list = this.$('sidebarBrandList');
     const allBrands = await store.getAllBrands();
-    const brands = category ? allBrands.filter(b => b.category === category) : allBrands;
+    const brands = this.currentCategory ? allBrands.filter(b => b.category === this.currentCategory) : allBrands;
     
     if (brands.length === 0) {
       list.innerHTML = '<div class="sidebar-empty">暂无品牌</div>';
@@ -277,7 +282,10 @@ const app = {
 
   async _renderBrandGrid(category) {
     const grid = this.$('brandGrid');
-    const brands = await store.getAllBrands();
+    let brands = await store.getAllBrands();
+    if (category) {
+      brands = brands.filter(b => b.category === category);
+    }
     
     // Get session counts for each brand
     const counts = {};
