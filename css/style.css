@@ -330,6 +330,8 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 #viewCategories .view-header {
   border-bottom: none;
   padding-bottom: 0;
+  text-align: center;
+  margin-top: 24px;
 }
 
 /* --- Brand Grid --- */
@@ -1397,67 +1399,72 @@ textarea.form-input {
 /* --- Category Grid --- */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  max-width: 760px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 720px;
+  margin: 40px auto 0;
 }
 
 .category-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 36px 24px;
+  padding: 40px 20px;
   text-align: center;
   cursor: pointer;
   transition: all var(--transition);
   user-select: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .category-card:hover {
   border-color: var(--accent);
   background: var(--bg-elevated);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-md);
 }
 
 .category-card-icon {
-  font-size: 2.8rem;
-  margin-bottom: 12px;
+  font-size: 3.2rem;
+  margin-bottom: 16px;
   line-height: 1;
 }
+
 .category-card-name {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-
-
 .category-card-count {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
 /* Category-specific card accents */
 .category-card[data-category="model"] {
   border-left: 3px solid #27ae60;
+  background: linear-gradient(135deg, rgba(39,174,96,0.04) 0%, var(--bg-surface) 60%);
 }
 .category-card[data-category="still-life"] {
   border-left: 3px solid #2980b9;
+  background: linear-gradient(135deg, rgba(41,128,185,0.04) 0%, var(--bg-surface) 60%);
 }
 .category-card[data-category="video"] {
   border-left: 3px solid #8e44ad;
+  background: linear-gradient(135deg, rgba(142,68,173,0.04) 0%, var(--bg-surface) 60%);
 }
 .category-card[data-category="model"]:hover {
   border-color: #27ae60;
-  background: rgba(39, 174, 96, 0.06);
+  background: rgba(39, 174, 96, 0.08);
 }
 .category-card[data-category="still-life"]:hover {
   border-color: #2980b9;
-  background: rgba(41, 128, 185, 0.06);
+  background: rgba(41, 128, 185, 0.08);
 }
 .category-card[data-category="video"]:hover {
   border-color: #8e44ad;
-  background: rgba(142, 68, 173, 0.06);
+  background: rgba(142, 68, 173, 0.08);
 }
