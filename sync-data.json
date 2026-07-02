@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-02T10:01:06.313Z",
+  "exportedAt": "2026-07-02T10:05:13.164Z",
   "data": {
     "brands": [
       {
@@ -167,7 +167,7 @@
         "date": "2026-01-17",
         "client": null,
         "description": null,
-        "sortOrder": 5000,
+        "sortOrder": 6000,
         "createdAt": 1782891427829,
         "updatedAt": 1782891427829
       },
@@ -218,13 +218,13 @@
       {
         "id": "mr3c3ryh_fx8d6k7",
         "brandId": "mr1rhvbp_rkkbfbq",
-        "title": "20250426",
-        "date": "2025-04-26",
+        "title": "20260426",
+        "date": "2026-04-26",
         "client": null,
         "description": null,
-        "sortOrder": 1782986463305,
+        "sortOrder": 5000,
         "createdAt": 1782986463305,
-        "updatedAt": 1782986463305
+        "updatedAt": 1782986710157
       },
       {
         "id": "mr1s6770_okqgkw7",
@@ -506,6 +506,24 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782892135916_lr1yhu.jpg",
         "caption": "231018 DOB 0379",
         "createdAt": 1782892135961
+      },
+      {
+        "id": "mr3c4h0o_evbb7yg",
+        "sessionId": "mr3c3ryh_fx8d6k7",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782986489780_ef91r2.JPG",
+        "caption": "6F7C3FD3174961361CF865FB3FA24695",
+        "createdAt": 1782986495784
+      },
+      {
+        "id": "mr3c4k22_5dgon5v",
+        "sessionId": "mr3c3ryh_fx8d6k7",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782986495916_92qkb5.JPG",
+        "caption": "3597C002F93DDBD68D50E1ECDC1E6B45",
+        "createdAt": 1782986499723
       },
       {
         "id": "mr1s6va6_jrdx82q",
