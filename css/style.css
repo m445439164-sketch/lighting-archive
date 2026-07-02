@@ -307,11 +307,19 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 
 .view-header {
   margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .view-header h1 { margin-bottom: 4px; }
 
 .view-subtitle { font-size: 0.88rem; }
+
+/* View header for category page */
+#viewCategories .view-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
 
 /* --- Brand Grid --- */
 .brand-grid {
@@ -327,6 +335,7 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition);
+  position: relative;
 }
 
 .brand-card:hover {
@@ -358,7 +367,7 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
 }
 
 .brand-card-name {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -370,7 +379,7 @@ p  { font-size: 0.9rem; color: var(--text-secondary); }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .brand-card-meta {
@@ -1377,16 +1386,16 @@ textarea.form-input {
 /* --- Category Grid --- */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
-  max-width: 700px;
+  max-width: 760px;
 }
 
 .category-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 32px 24px;
+  padding: 36px 24px;
   text-align: center;
   cursor: pointer;
   transition: all var(--transition);
@@ -1396,24 +1405,48 @@ textarea.form-input {
 .category-card:hover {
   border-color: var(--accent);
   background: var(--bg-elevated);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
 
 .category-card-icon {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   margin-bottom: 12px;
   line-height: 1;
 }
-
 .category-card-name {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 6px;
 }
 
+
+
 .category-card-count {
   font-size: 0.82rem;
   color: var(--text-muted);
+}
+
+/* Category-specific card accents */
+.category-card[data-category="model"] {
+  border-left: 3px solid #27ae60;
+}
+.category-card[data-category="still-life"] {
+  border-left: 3px solid #2980b9;
+}
+.category-card[data-category="video"] {
+  border-left: 3px solid #8e44ad;
+}
+.category-card[data-category="model"]:hover {
+  border-color: #27ae60;
+  background: rgba(39, 174, 96, 0.06);
+}
+.category-card[data-category="still-life"]:hover {
+  border-color: #2980b9;
+  background: rgba(41, 128, 185, 0.06);
+}
+.category-card[data-category="video"]:hover {
+  border-color: #8e44ad;
+  background: rgba(142, 68, 173, 0.06);
 }
