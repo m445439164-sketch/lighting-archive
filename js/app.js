@@ -106,7 +106,7 @@ const app = {
     this.$('categoryTabs').addEventListener('click', (e) => {
       const tab = e.target.closest('.category-tab');
       if (tab && tab.dataset.category) {
-        this.navigateTo('category', tab.dataset.category);
+        this.navigateTo('category', tab.dataset.category, this.currentBrandId);
       }
     });
     
@@ -170,6 +170,17 @@ const app = {
   
   /* --- Navigation --- */
   
+  _updateCategoryTabs(category) {
+    const tabs = this.$('categoryTabs');
+    if (!tabs) return;
+    tabs.classList.remove('hidden');
+    tabs.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+    if (category) {
+      const activeTab = tabs.querySelector('.category-tab[data-category="' + category + '"]');
+      if (activeTab) activeTab.classList.add('active');
+    }
+  },
+  
   navigateTo(view, param1, param2) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     this.currentCategory = null;
@@ -194,7 +205,7 @@ const app = {
         this.currentView = 'brands';
         this.currentBrandId = null;
         this.currentSessionId = null;
-        this.$('categoryTabs').classList.add('hidden');
+        this._updateCategoryTabs();
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid();
         this._updateSidebar();
@@ -207,12 +218,7 @@ const app = {
         this.currentCategory = param1;
         this.currentBrandId = null;
         this.currentSessionId = null;
-        // 显示分类标签并高亮当前分类
-        const tabs = this.$('categoryTabs');
-        tabs.classList.remove('hidden');
-        tabs.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-        const activeTab = tabs.querySelector('.category-tab[data-category="' + param1 + '"]');
-        if (activeTab) activeTab.classList.add('active');
+        this._updateCategoryTabs(param1);
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid(param1);
         this._updateSidebar();
@@ -227,6 +233,11 @@ const app = {
         this.$('viewBrandDetail').classList.add('active');
         this._renderBrandDetail(param1);
         this._updateSidebar();
+        if (sidebar) sidebar.classList.remove('hidden');
+        if (mainContent) mainContent.classList.remove('no-sidebar');
+        store.getBrand(param1).then(brand => {
+          this._updateCategoryTabs(brand ? brand.category : null);
+        });
         break;
         
       case 'sessionDetail':
@@ -236,6 +247,11 @@ const app = {
         this.$('viewSessionDetail').classList.add('active');
         this._renderSessionDetail(param2);
         this._updateSidebar();
+        if (sidebar) sidebar.classList.remove('hidden');
+        if (mainContent) mainContent.classList.remove('no-sidebar');
+        store.getBrand(param1).then(brand => {
+          this._updateCategoryTabs(brand ? brand.category : null);
+        });
         break;
     }
   },
