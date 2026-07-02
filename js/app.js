@@ -102,6 +102,14 @@ const app = {
     this.$('brandCoverRemove').addEventListener('click', () => this._removeBrandCover());
     this.$('btnSelectCover').addEventListener('click', () => this._openCoverSelector());
     
+    // Category tabs navigation
+    this.$('categoryTabs').addEventListener('click', (e) => {
+      const tab = e.target.closest('.category-tab');
+      if (tab && tab.dataset.category) {
+        this.navigateTo('category', tab.dataset.category);
+      }
+    });
+    
     // Session form
     this.$('sessionFormSubmit').addEventListener('click', () => this._saveSession());
     
@@ -179,12 +187,14 @@ const app = {
         // 首页隐藏侧边栏
         if (sidebar) sidebar.classList.add('hidden');
         if (mainContent) mainContent.classList.add('no-sidebar');
+        this.$('categoryTabs').classList.add('hidden');
         break;
         
       case 'brands':
         this.currentView = 'brands';
         this.currentBrandId = null;
         this.currentSessionId = null;
+        this.$('categoryTabs').classList.add('hidden');
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid();
         this._updateSidebar();
@@ -197,6 +207,12 @@ const app = {
         this.currentCategory = param1;
         this.currentBrandId = null;
         this.currentSessionId = null;
+        // 显示分类标签并高亮当前分类
+        const tabs = this.$('categoryTabs');
+        tabs.classList.remove('hidden');
+        tabs.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        const activeTab = tabs.querySelector('.category-tab[data-category="' + param1 + '"]');
+        if (activeTab) activeTab.classList.add('active');
         this.$('viewBrands').classList.add('active');
         this._renderBrandGrid(param1);
         this._updateSidebar();
