@@ -50,7 +50,7 @@ const app = {
     this.$('sidebarOverlay').addEventListener('click', () => this._toggleSidebar());
     
     // Brand detail
-    this.$('btnBackHome').addEventListener('click', () => this.navigateTo('home'));
+    if (this.$('btnBackHome')) this.$('btnBackHome').addEventListener('click', () => this.navigateTo('home'));
     this.$('btnBackFromBrand').addEventListener('click', () => this.navigateTo('brands'));
     this.$('btnEditBrand').addEventListener('click', () => {
       if (this.currentBrandId) this.showBrandForm(this.currentBrandId);
@@ -287,10 +287,10 @@ const app = {
     }
     
     // Show back button if viewing a category
-    if (category) {
-      this.$('btnBackHome').classList.remove('hidden');
-    } else {
-      this.$('btnBackHome').classList.add('hidden');
+    const backBtn = this.$('btnBackHome');
+    if (backBtn) {
+      if (category) { backBtn.classList.remove('hidden'); }
+      else { backBtn.classList.add('hidden'); }
     }
     
     if (brands.length === 0) {
