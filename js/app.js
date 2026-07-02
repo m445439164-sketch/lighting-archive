@@ -166,6 +166,29 @@ const app = {
         });
       }
     });
+    
+    // Lightbox prev/next navigation
+    this.$('lightboxPrev').addEventListener('click', () => this._showLightboxImage(-1));
+    this.$('lightboxNext').addEventListener('click', () => this._showLightboxImage(1));
+    
+    // Lightbox keyboard: left/right arrows
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') this._showLightboxImage(-1);
+      if (e.key === 'ArrowRight') this._showLightboxImage(1);
+    });
+    
+    // Lightbox mobile: swipe down to close
+    let lboxTouchStartY = 0;
+    const lboxImg = this.$('lightboxImg');
+    if (lboxImg) {
+      lboxImg.addEventListener('touchstart', (e) => {
+        lboxTouchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      lboxImg.addEventListener('touchend', (e) => {
+        const dy = e.changedTouches[0].clientY - lboxTouchStartY;
+        if (dy > 80) this._closeModal('lightbox');
+      });
+    }
   },
   
   /* --- Navigation --- */
@@ -639,7 +662,7 @@ const app = {
       item.addEventListener('click', (e) => {
         if (e.target.closest('.asset-delete')) return;
         const asset = assets.find(a => a.id === item.dataset.assetId);
-        if (asset) this._openLightbox(asset);
+        if (asset) this._openLightbox(asset, assets, assets.indexOf(asset));
       });
     });
     
@@ -963,13 +986,33 @@ const app = {
   
   /* --- Lightbox --- */
   
-  _openLightbox(asset) {
+  
+  _openLightbox(asset, assets, index) {
+    this._lightboxAssets = assets || [];
+    this._lightboxIndex = index || 0;
     this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
     const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
-    this.$('lightboxInfo').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
+    this.$('lightboxLabel').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
+    this._updateLightboxCounter();
     this._openModal('lightbox');
   },
   
+  _updateLightboxCounter() {
+    const total = (this._lightboxAssets || []).length;
+    const idx = total > 0 ? (this._lightboxIndex + 1) : 0;
+    this.$('lightboxCounter').textContent = total > 0 ? `${idx} / ${total}` : '';
+  },
+  
+  _showLightboxImage(dir) {
+    const total = (this._lightboxAssets || []).length;
+    if (total === 0) return;
+    this._lightboxIndex = (this._lightboxIndex + dir + total) % total;
+    const asset = this._lightboxAssets[this._lightboxIndex];
+    this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
+    const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
+    this.$('lightboxLabel').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
+    this._updateLightboxCounter();
+  },
   /* --- Delete Confirmations --- */
   
   _pendingDeleteAction: null,
