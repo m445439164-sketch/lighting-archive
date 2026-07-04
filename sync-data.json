@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T05:15:32.232Z",
+  "exportedAt": "2026-07-04T05:17:17.183Z",
   "data": {
     "brands": [
       {
@@ -118,10 +118,10 @@
         "name": "尺寸比例表",
         "description": "",
         "category": "model",
-        "cover": null,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783142163160_71jtsy.png",
         "sortOrder": 1783142129216,
         "createdAt": 1783142129216,
-        "updatedAt": 1783142129216
+        "updatedAt": 1783142234171
       }
     ],
     "sessions": [
@@ -375,6 +375,17 @@
         "sortOrder": 1783140939434,
         "createdAt": 1783140939434,
         "updatedAt": 1783140939434
+      },
+      {
+        "id": "mr5wsj5i_3q6gas7",
+        "brandId": "mr5ws8jk_a5eu3vj",
+        "title": "尺寸比例表",
+        "date": "2026-07-04",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783142142966,
+        "createdAt": 1783142142966,
+        "updatedAt": 1783142142966
       }
     ],
     "assets": [
@@ -872,6 +883,15 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140837336_acg30n.jpg",
         "caption": "260107 LIEBERGO 灯位2",
         "createdAt": 1783140839116
+      },
+      {
+        "id": "mr5wt376_f2fzj64",
+        "sessionId": "mr5wsj5i_3q6gas7",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783142163160_71jtsy.png",
+        "caption": "品牌尺寸比例",
+        "createdAt": 1783142168946
       }
     ]
   }
