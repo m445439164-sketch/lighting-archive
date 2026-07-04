@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:42:41.583Z",
+  "exportedAt": "2026-07-04T04:43:49.519Z",
   "data": {
     "brands": [
       {
@@ -98,10 +98,20 @@
         "name": "OSSIDLEY 灯光",
         "description": "",
         "category": "model",
-        "cover": null,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140155352_jieocv.jpg",
         "sortOrder": 1783140025283,
         "createdAt": 1783140025284,
-        "updatedAt": 1783140025284
+        "updatedAt": 1783140172633
+      },
+      {
+        "id": "mr5vngek_3kli5u0",
+        "name": "LIEBERGO 灯光",
+        "description": "",
+        "category": "model",
+        "cover": null,
+        "sortOrder": 1783140226508,
+        "createdAt": 1783140226508,
+        "updatedAt": 1783140226508
       }
     ],
     "sessions": [
