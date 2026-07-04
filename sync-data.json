@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:55:42.443Z",
+  "exportedAt": "2026-07-04T04:56:52.904Z",
   "data": {
     "brands": [
       {
@@ -108,10 +108,10 @@
         "name": "LIEBERGO 灯光",
         "description": "",
         "category": "model",
-        "cover": null,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140606127_7pf5c6.jpg",
         "sortOrder": 1783140226508,
         "createdAt": 1783140226508,
-        "updatedAt": 1783140226508
+        "updatedAt": 1783141009892
       }
     ],
     "sessions": [
