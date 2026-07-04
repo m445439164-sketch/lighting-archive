@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:40:28.295Z",
+  "exportedAt": "2026-07-04T04:42:41.583Z",
   "data": {
     "brands": [
       {
@@ -311,6 +311,17 @@
         "sortOrder": 1783129971809,
         "createdAt": 1783129971809,
         "updatedAt": 1783129971809
+      },
+      {
+        "id": "mr5vjkat_y0qx8yj",
+        "brandId": "mr5vj54z_99uasjk",
+        "title": "260511 OSSIDLEY",
+        "date": "2026-05-11",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783140044933,
+        "createdAt": 1783140044933,
+        "updatedAt": 1783140044933
       }
     ],
     "assets": [
@@ -673,6 +684,51 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
         "caption": "240823 INLYRIC 0646-6 版-7",
         "createdAt": 1783130080674
+      },
+      {
+        "id": "mr5vk3p0_uqia8si",
+        "sessionId": "mr5vjkat_y0qx8yj",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140064520_sis7fb.JPG",
+        "caption": "1CBCD27834E945817FF250F312FF5E2A",
+        "createdAt": 1783140070068
+      },
+      {
+        "id": "mr5vk5r5_7anqnyw",
+        "sessionId": "mr5vjkat_y0qx8yj",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140070199_bq1zeq.JPG",
+        "caption": "CB3AF32F3A7F98B2F38223A0E6C810C1",
+        "createdAt": 1783140072737
+      },
+      {
+        "id": "mr5vlxdi_sqhmqmo",
+        "sessionId": "mr5vjkat_y0qx8yj",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140150847_co7ov5.jpg",
+        "caption": "260511 OSSIDLEY3214-3-版-6",
+        "createdAt": 1783140155190
+      },
+      {
+        "id": "mr5vlyjz_qbl1lvj",
+        "sessionId": "mr5vjkat_y0qx8yj",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140155352_jieocv.jpg",
+        "caption": "260511 OSSIDLEY1760-3-版----",
+        "createdAt": 1783140156719
+      },
+      {
+        "id": "mr5vlzzd_9t88nnh",
+        "sessionId": "mr5vjkat_y0qx8yj",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140156895_ilw5pv.jpg",
+        "caption": "260511 OSSIDLEY0646-8",
+        "createdAt": 1783140158569
       }
     ]
   }
