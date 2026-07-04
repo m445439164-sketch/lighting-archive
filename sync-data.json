@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-02T10:05:13.164Z",
+  "exportedAt": "2026-07-04T04:40:28.295Z",
   "data": {
     "brands": [
       {
@@ -75,13 +75,33 @@
       },
       {
         "id": "mr1vlx9h_iqv0zoi",
-        "name": "INLYRIC 灯位图",
+        "name": "INLYRIC 成衣灯光",
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782898390206_5x859e.jpg",
         "sortOrder": 1782898290341,
         "createdAt": 1782898290341,
-        "updatedAt": 1782965057419
+        "updatedAt": 1783130122029
+      },
+      {
+        "id": "mr5piy15_3lz0syg",
+        "name": "INLYRIC 棉感灯光",
+        "description": "",
+        "category": "model",
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
+        "sortOrder": 1783129938377,
+        "createdAt": 1783129938377,
+        "updatedAt": 1783130095801
+      },
+      {
+        "id": "mr5vj54z_99uasjk",
+        "name": "OSSIDLEY 灯光",
+        "description": "",
+        "category": "model",
+        "cover": null,
+        "sortOrder": 1783140025283,
+        "createdAt": 1783140025284,
+        "updatedAt": 1783140025284
       }
     ],
     "sessions": [
@@ -167,7 +187,7 @@
         "date": "2026-01-17",
         "client": null,
         "description": null,
-        "sortOrder": 6000,
+        "sortOrder": 5000,
         "createdAt": 1782891427829,
         "updatedAt": 1782891427829
       },
@@ -222,7 +242,7 @@
         "date": "2026-04-26",
         "client": null,
         "description": null,
-        "sortOrder": 5000,
+        "sortOrder": 6000,
         "createdAt": 1782986463305,
         "updatedAt": 1782986710157
       },
@@ -280,6 +300,17 @@
         "sortOrder": 1782898641468,
         "createdAt": 1782898641468,
         "updatedAt": 1782898641468
+      },
+      {
+        "id": "mr5pjntt_hfwozcw",
+        "brandId": "mr5piy15_3lz0syg",
+        "title": "INLYRIC 棉感灯光",
+        "date": "2026-07-04",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783129971809,
+        "createdAt": 1783129971809,
+        "updatedAt": 1783129971809
       }
     ],
     "assets": [
@@ -511,7 +542,6 @@
         "id": "mr3c4h0o_evbb7yg",
         "sessionId": "mr3c3ryh_fx8d6k7",
         "type": "lighting_diagram",
-        "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782986489780_ef91r2.JPG",
         "caption": "6F7C3FD3174961361CF865FB3FA24695",
         "createdAt": 1782986495784
@@ -520,7 +550,6 @@
         "id": "mr3c4k22_5dgon5v",
         "sessionId": "mr3c3ryh_fx8d6k7",
         "type": "lighting_diagram",
-        "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782986495916_92qkb5.JPG",
         "caption": "3597C002F93DDBD68D50E1ECDC1E6B45",
         "createdAt": 1782986499723
@@ -620,6 +649,30 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782898398913_5rpzq1.jpg",
         "caption": "230116 INLYRIC0330",
         "createdAt": 1782898398984
+      },
+      {
+        "id": "mr5pk1lb_kf82l8e",
+        "sessionId": "mr5pjntt_hfwozcw",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783129989427_bgnkby.jpg",
+        "caption": "INLYRIC螺纹棉面料款  灯位图",
+        "createdAt": 1783129989647
+      },
+      {
+        "id": "mr5pk1ss_kwus1lz",
+        "sessionId": "mr5pjntt_hfwozcw",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783129989839_ngibhw.png",
+        "caption": "INLYRIC棉螺纹灯光",
+        "createdAt": 1783129989916
+      },
+      {
+        "id": "mr5plztt_x5uifow",
+        "sessionId": "mr5pjntt_hfwozcw",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
+        "caption": "240823 INLYRIC 0646-6 版-7",
+        "createdAt": 1783130080674
       }
     ]
   }
