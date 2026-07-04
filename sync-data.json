@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:43:49.519Z",
+  "exportedAt": "2026-07-04T04:44:55.419Z",
   "data": {
     "brands": [
       {
@@ -332,6 +332,17 @@
         "sortOrder": 1783140044933,
         "createdAt": 1783140044933,
         "updatedAt": 1783140044933
+      },
+      {
+        "id": "mr5voccr_ldvp7k3",
+        "brandId": "mr5vngek_3kli5u0",
+        "title": "251219",
+        "date": "2025-12-19",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783140267915,
+        "createdAt": 1783140267915,
+        "updatedAt": 1783140267915
       }
     ],
     "assets": [
@@ -739,6 +750,24 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140156895_ilw5pv.jpg",
         "caption": "260511 OSSIDLEY0646-8",
         "createdAt": 1783140158569
+      },
+      {
+        "id": "mr5vos3m_p9d1m8t",
+        "sessionId": "mr5voccr_ldvp7k3",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140281686_k0lk9g.JPG",
+        "caption": "251219 (2)",
+        "createdAt": 1783140288322
+      },
+      {
+        "id": "mr5vov94_qdzkdxt",
+        "sessionId": "mr5voccr_ldvp7k3",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140288456_ayymsq.JPG",
+        "caption": "251219",
+        "createdAt": 1783140292408
       }
     ]
   }
