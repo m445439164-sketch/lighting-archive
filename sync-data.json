@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:48:53.838Z",
+  "exportedAt": "2026-07-04T04:50:17.419Z",
   "data": {
     "brands": [
       {
@@ -806,6 +806,33 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140438322_hhduol.jpg",
         "caption": "251219LIEBERGO（tina）2913",
         "createdAt": 1783140440077
+      },
+      {
+        "id": "mr5vvp2r_bvoc7so",
+        "sessionId": "mr5vtz7v_hh1mk9u",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140606127_7pf5c6.jpg",
+        "caption": "260210LIEBERGO1169",
+        "createdAt": 1783140610995
+      },
+      {
+        "id": "mr5vvq6z_ie54qf9",
+        "sessionId": "mr5vtz7v_hh1mk9u",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140611088_8m0y7p.jpg",
+        "caption": "260109 LIEBERGO 0539",
+        "createdAt": 1783140612443
+      },
+      {
+        "id": "mr5vvrph_53eaibh",
+        "sessionId": "mr5vtz7v_hh1mk9u",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140612520_yywuct.jpg",
+        "caption": "260210LIEBERGO0041",
+        "createdAt": 1783140614405
       }
     ]
   }
