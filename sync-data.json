@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:54:02.131Z",
+  "exportedAt": "2026-07-04T04:55:42.443Z",
   "data": {
     "brands": [
       {
@@ -354,6 +354,17 @@
         "sortOrder": 1783140530827,
         "createdAt": 1783140530827,
         "updatedAt": 1783140530827
+      },
+      {
+        "id": "mr5w2qi1_fmiart2",
+        "brandId": "mr5vngek_3kli5u0",
+        "title": "260330",
+        "date": "2026-03-30",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783140939434,
+        "createdAt": 1783140939434,
+        "updatedAt": 1783140939434
       }
     ],
     "assets": [
