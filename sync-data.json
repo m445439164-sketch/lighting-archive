@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:47:23.096Z",
+  "exportedAt": "2026-07-04T04:48:53.838Z",
   "data": {
     "brands": [
       {
@@ -343,6 +343,17 @@
         "sortOrder": 1783140267915,
         "createdAt": 1783140267915,
         "updatedAt": 1783140267915
+      },
+      {
+        "id": "mr5vtz7v_hh1mk9u",
+        "brandId": "mr5vngek_3kli5u0",
+        "title": "260109",
+        "date": "2026-01-09",
+        "client": null,
+        "description": null,
+        "sortOrder": 1783140530827,
+        "createdAt": 1783140530827,
+        "updatedAt": 1783140530827
       }
     ],
     "assets": [
