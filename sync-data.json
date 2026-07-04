@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:50:17.419Z",
+  "exportedAt": "2026-07-04T04:54:02.131Z",
   "data": {
     "brands": [
       {
@@ -833,6 +833,24 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140612520_yywuct.jpg",
         "caption": "260210LIEBERGO0041",
         "createdAt": 1783140614405
+      },
+      {
+        "id": "mr5w0jo4_oi69dhr",
+        "sessionId": "mr5vtz7v_hh1mk9u",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140831467_zloplw.jpg",
+        "caption": "260107 LIEBERGO 灯位1",
+        "createdAt": 1783140837268
+      },
+      {
+        "id": "mr5w0l3g_qjwr9m2",
+        "sessionId": "mr5vtz7v_hh1mk9u",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140837336_acg30n.jpg",
+        "caption": "260107 LIEBERGO 灯位2",
+        "createdAt": 1783140839116
       }
     ]
   }
