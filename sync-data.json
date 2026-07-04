@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-04T04:56:52.904Z",
+  "exportedAt": "2026-07-04T05:15:32.232Z",
   "data": {
     "brands": [
       {
@@ -112,6 +112,16 @@
         "sortOrder": 1783140226508,
         "createdAt": 1783140226508,
         "updatedAt": 1783141009892
+      },
+      {
+        "id": "mr5ws8jk_a5eu3vj",
+        "name": "尺寸比例表",
+        "description": "",
+        "category": "model",
+        "cover": null,
+        "sortOrder": 1783142129216,
+        "createdAt": 1783142129216,
+        "updatedAt": 1783142129216
       }
     ],
     "sessions": [
