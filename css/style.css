@@ -1652,3 +1652,37 @@ textarea.form-input {
     padding: 6px 14px;
   }
 }
+
+/* --- Asset Drag & Drop --- */
+.asset-drag-handle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #fff;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.asset-item:hover .asset-drag-handle {
+  opacity: 1;
+}
+.asset-drag-handle:active {
+  cursor: grabbing;
+}
+
+.asset-item.dragging {
+  opacity: 0.3;
+}
+.asset-item.drag-over {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-md);
+}

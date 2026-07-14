@@ -636,7 +636,7 @@ const app = {
     }
     
     // Sort by createdAt descending
-    assets.sort((a, b) => b.createdAt - a.createdAt);
+    assets.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
     
     if (assets.length === 0) {
       grid.innerHTML = `<div class="empty-state">
@@ -647,7 +647,10 @@ const app = {
     }
     
     grid.innerHTML = assets.map(a => `
-      <div class="asset-item" data-asset-id="${a.id}">
+      <div class="asset-item" data-asset-id="${a.id}" draggable="true">
+        <span class="asset-drag-handle" title="拖动排序">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>
+        </span>
         <span class="asset-badge ${a.type}">${a.type === 'photo' ? '成片' : '灯位图'}</span>
         <button class="asset-delete-btn asset-delete" data-asset-id="${a.id}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -672,6 +675,38 @@ const app = {
         e.stopPropagation();
         this._confirmDeleteAsset(btn.dataset.assetId);
       });
+    });
+    
+    // Drag & drop reorder
+    grid.querySelectorAll('.asset-item').forEach(item => {
+      item.addEventListener('dragstart', () => {
+        this._draggedAssetId = item.dataset.assetId;
+        item.classList.add('dragging');
+      });
+      item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+        grid.querySelectorAll('.asset-item').forEach(c => c.classList.remove('drag-over'));
+        this._draggedAssetId = null;
+      });
+    });
+    grid.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const card = e.target.closest('.asset-item');
+      if (card) card.classList.add('drag-over');
+    });
+    grid.addEventListener('dragleave', (e) => {
+      const card = e.target.closest('.asset-item');
+      if (card) card.classList.remove('drag-over');
+    });
+    grid.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const targetCard = e.target.closest('.asset-item');
+      if (!targetCard) return;
+      targetCard.classList.remove('drag-over');
+      const draggedId = this._draggedAssetId;
+      const targetId = targetCard.dataset.assetId;
+      if (draggedId && targetId && draggedId !== targetId) this._reorderAssets(draggedId, targetId);
+      this._draggedAssetId = null;
     });
   },
   
@@ -964,6 +999,7 @@ const app = {
         dataUrl: dataUrl,
         qiniuUrl: ossUrl,
         caption: file.name.replace(/\.[^.]+$/, ''),
+        sortOrder: Date.now(),
         createdAt: Date.now()
       };
       await store.saveAsset(asset);
@@ -1170,6 +1206,17 @@ const app = {
     sessions.splice(targetIdx, 0, moved);
     for (let i = 0; i < sessions.length; i++) { sessions[i].sortOrder = (sessions.length - i) * 1000; await store.saveSession(sessions[i]); }
     await this._renderBrandDetail(this.currentBrandId);
+  },
+  async _reorderAssets(draggedId, targetId) {
+    const assets = await store.getAssetsBySession(this.currentSessionId);
+    assets.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
+    const draggedIdx = assets.findIndex(a => a.id === draggedId);
+    const targetIdx = assets.findIndex(a => a.id === targetId);
+    if (draggedIdx < 0 || targetIdx < 0) return;
+    const [moved] = assets.splice(draggedIdx, 1);
+    assets.splice(targetIdx, 0, moved);
+    for (let i = 0; i < assets.length; i++) { assets[i].sortOrder = (assets.length - i) * 1000; await store.saveAsset(assets[i]); }
+    await this._renderAssets(this.currentSessionId, this.currentFilter);
   },
 
   async _exportBackup() {
