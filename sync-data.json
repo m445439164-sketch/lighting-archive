@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:25:29.163Z",
+  "exportedAt": "2026-07-16T02:26:35.717Z",
   "data": {
     "brands": [
       {
@@ -56,12 +56,12 @@
       {
         "id": "mr1rhvbp_rkkbfbq",
         "name": "DOBREVA 灯位图",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782891482841_wvp25e.jpg",
         "sortOrder": 1782891382741,
         "createdAt": 1782891382741,
-        "updatedAt": 1782965042513
+        "updatedAt": 1784168747841
       },
       {
         "id": "mr1s5gnf_yzpw5m3",
@@ -146,22 +146,22 @@
       {
         "id": "mrd440tj_sgd2n8c",
         "name": "SYROKAN",
-        "description": "",
+        "description": "尺寸5x7",
         "category": "model",
         "cover": null,
         "sortOrder": 1783577699623,
         "createdAt": 1783577699623,
-        "updatedAt": 1783577699623
+        "updatedAt": 1784168792699
       },
       {
         "id": "mrd44l4n_j0c77p4",
         "name": "UNISSU",
-        "description": "",
+        "description": "尺寸5x7",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199922_0lpugd.jpg",
         "sortOrder": 1783577725943,
         "createdAt": 1783577725943,
-        "updatedAt": 1784001586545
+        "updatedAt": 1784168779340
       }
     ],
     "sessions": [
