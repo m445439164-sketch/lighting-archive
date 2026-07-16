@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-14T03:59:49.559Z",
+  "exportedAt": "2026-07-16T02:22:33.725Z",
   "data": {
     "brands": [
       {
@@ -76,12 +76,12 @@
       {
         "id": "mr1vlx9h_iqv0zoi",
         "name": "INLYRIC 成衣灯光",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782898390206_5x859e.jpg",
         "sortOrder": 1782898290341,
         "createdAt": 1782898290341,
-        "updatedAt": 1783130122029
+        "updatedAt": 1784168550700
       },
       {
         "id": "mr5piy15_3lz0syg",
@@ -1470,7 +1470,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577809675_zz7lwx.jpg",
         "caption": "810DOB1585-修",
-        "createdAt": 1783577809720
+        "createdAt": 1783577809720,
+        "sortOrder": 4000
       },
       {
         "id": "mrd46e2d_67bv1ja",
@@ -1478,7 +1479,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577810058_bglggu.jpg",
         "caption": "810DOB2344-修",
-        "createdAt": 1783577810101
+        "createdAt": 1783577810101,
+        "sortOrder": 2000
       },
       {
         "id": "mrd46ejv_5s8vp17",
@@ -1486,7 +1488,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577810680_fq8usk.jpg",
         "caption": "810DOB0442-修",
-        "createdAt": 1783577810731
+        "createdAt": 1783577810731,
+        "sortOrder": 6000
       },
       {
         "id": "mrd46m10_fud5vrx",
@@ -1494,7 +1497,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820370_65tsnd.JPG",
         "caption": "2022-08-10 Unissu 4",
-        "createdAt": 1783577820420
+        "createdAt": 1783577820420,
+        "sortOrder": 3000
       },
       {
         "id": "mrd46m54_gx30u50",
@@ -1502,7 +1506,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820518_a19mp9.JPG",
         "caption": "2022-08-10 Unissu 1",
-        "createdAt": 1783577820568
+        "createdAt": 1783577820568,
+        "sortOrder": 5000
       },
       {
         "id": "mrd46mb3_ji6ev60",
@@ -1510,7 +1515,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820734_vd4pkq.JPG",
         "caption": "2022-08-10 Unissu 2",
-        "createdAt": 1783577820783
+        "createdAt": 1783577820783,
+        "sortOrder": 7000
       },
       {
         "id": "mrd46mge_rjxfgyk",
@@ -1518,7 +1524,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820928_4wq96o.JPG",
         "caption": "2022-08-10 Unissu 3",
-        "createdAt": 1783577820974
+        "createdAt": 1783577820974,
+        "sortOrder": 1000
       },
       {
         "id": "mrd47v9u_gexz2bo",
@@ -1614,7 +1621,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577994278_bfkex1.jpg",
         "caption": "230814 UNISSU0765",
-        "createdAt": 1783577994384
+        "createdAt": 1783577994384,
+        "sortOrder": 1000
       },
       {
         "id": "mrd4acmn_7nxohe8",
@@ -1622,7 +1630,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577994815_t1zout.jpg",
         "caption": "230814 UNISSU2295",
-        "createdAt": 1783577994863
+        "createdAt": 1783577994863,
+        "sortOrder": 3000
       },
       {
         "id": "mrd4aj8o_v54zhst",
@@ -1630,7 +1639,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578003381_woe80l.JPG",
         "caption": "IMG_4835",
-        "createdAt": 1783578003432
+        "createdAt": 1783578003432,
+        "sortOrder": 2000
       },
       {
         "id": "mrd4ajdw_fays6nn",
@@ -1638,7 +1648,8 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578003568_r678va.JPG",
         "caption": "IMG_4836",
-        "createdAt": 1783578003620
+        "createdAt": 1783578003620,
+        "sortOrder": 4000
       },
       {
         "id": "mrd4eily_hw8bbjd",
@@ -1646,7 +1657,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578189109_bn8hdw.jpg",
         "caption": "260123 UNISSU 1020（主图白底）",
-        "createdAt": 1783578189238
+        "createdAt": 1783578189238,
+        "sortOrder": 1000
       },
       {
         "id": "mrd4eisl_2679fyr",
@@ -1654,7 +1666,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578189431_a03gds.jpg",
         "caption": "260123 UNISSU 1693",
-        "createdAt": 1783578189477
+        "createdAt": 1783578189477,
+        "sortOrder": 3000
       },
       {
         "id": "mrd4eqpj_ucnrori",
@@ -1662,7 +1675,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199691_ojgii7.jpg",
         "caption": "260123 UNISSU 0095(主图白底)",
-        "createdAt": 1783578199735
+        "createdAt": 1783578199735,
+        "sortOrder": 4000
       },
       {
         "id": "mrd4eqw2_levs2r0",
@@ -1670,7 +1684,8 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199922_0lpugd.jpg",
         "caption": "260123 UNISSU 0337",
-        "createdAt": 1783578199970
+        "createdAt": 1783578199970,
+        "sortOrder": 2000
       }
     ]
   }
