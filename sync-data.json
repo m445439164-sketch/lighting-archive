@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T10:05:11.790Z",
+  "exportedAt": "2026-07-16T10:07:38.290Z",
   "data": {
     "brands": [
       {
@@ -641,6 +641,16 @@
         "caption": "260316 ESSENTHER春夏1096 1",
         "sortOrder": 1784196308775,
         "createdAt": 1784196308775
+      },
+      {
+        "id": "mrnci3qg_s2gs39q",
+        "sessionId": "mqnjy22w_kw51dn7",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784196396809_zh4o7b.HEIC",
+        "caption": "260107 LIEBERGO 灯位2",
+        "sortOrder": 1784196455272,
+        "createdAt": 1784196455272
       },
       {
         "id": "mqy16gde_p9zt7up",
