@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T10:07:38.290Z",
+  "exportedAt": "2026-07-16T10:11:35.447Z",
   "data": {
     "brands": [
       {
@@ -138,10 +138,10 @@
         "name": "INLYRIC 内衣灯光",
         "description": "尺寸4x5",
         "category": "model",
-        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563908984_x4csol.jpg",
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563962453_oqpegb.jpg",
         "sortOrder": 15000,
         "createdAt": 1783563883023,
-        "updatedAt": 1784169468532
+        "updatedAt": 1784168600546
       },
       {
         "id": "mrd440tj_sgd2n8c",
@@ -162,6 +162,16 @@
         "sortOrder": 12000,
         "createdAt": 1783577725943,
         "updatedAt": 1784168779340
+      },
+      {
+        "id": "mrncn6q8_0pigvwd",
+        "name": "内衣立体图",
+        "description": "",
+        "category": "still-life",
+        "cover": null,
+        "sortOrder": 1784196692434,
+        "createdAt": 1784196692434,
+        "updatedAt": 1784196692434
       }
     ],
     "sessions": [
@@ -631,26 +641,6 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782665096346_mii1vh.jpg",
         "caption": "260521HALOBLISS白底 0536",
         "createdAt": 1782665096421
-      },
-      {
-        "id": "mrnceyp3_dru5hzq",
-        "sessionId": "mqnjy22w_kw51dn7",
-        "type": "photo",
-        "dataUrl": "",
-        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784196276996_mp4mab.jpg",
-        "caption": "260316 ESSENTHER春夏1096 1",
-        "sortOrder": 1784196308775,
-        "createdAt": 1784196308775
-      },
-      {
-        "id": "mrnci3qg_s2gs39q",
-        "sessionId": "mqnjy22w_kw51dn7",
-        "type": "photo",
-        "dataUrl": "",
-        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784196396809_zh4o7b.HEIC",
-        "caption": "260107 LIEBERGO 灯位2",
-        "sortOrder": 1784196455272,
-        "createdAt": 1784196455272
       },
       {
         "id": "mqy16gde_p9zt7up",
