@@ -806,152 +806,60 @@ const app = {
       this.$('brandCoverRemove').classList.remove('hidden');
     }
   },
-  
   _handleBrandCover(file) {
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this._brandCoverData = e.target.result;
-      this.$('brandCoverPlaceholder').classList.add('hidden');
-      this.$('brandCoverPreview').src = e.target.result;
-      this.$('brandCoverPreview').classList.remove('hidden');
-      this.$('brandCoverRemove').classList.remove('hidden');
-    };
-    reader.readAsDataURL(file);
-  },
-  
-  _removeBrandCover() {
-    this._brandCoverData = null;
-    this.$('brandCoverPlaceholder').classList.remove('hidden');
-    this.$('brandCoverPreview').classList.add('hidden');
-    this.$('brandCoverPreview').src = '';
-    this.$('brandCoverRemove').classList.add('hidden');
-    this.$('brandCoverInput').value = '';
-  },
-  
-  async _saveBrand() {
-    const name = this.$('brandName').value.trim();
-    if (!name) return;
-    
-    const id = this.$('brandFormId').value || store.generateId();
-    const existing = this.$('brandFormId').value ? await store.getBrand(this.$('brandFormId').value) : null;
-    
-    const brand = {
-      id,
-      name,
-      description: this.$('brandDesc').value.trim(),
-      category: this.$('brandCategory').value,
-      cover: this._brandCoverData || null,
-      sortOrder: existing ? existing.sortOrder : Date.now(),
-      createdAt: existing ? existing.createdAt : Date.now(),
-      updatedAt: Date.now()
-    };
-    
-    await store.saveBrand(brand);
-    this._autoSync();
-    this._closeModal('brandFormModal');
-    
-    if (this.currentView === 'brandDetail' && this.currentBrandId === id) {
-      await this._renderBrandDetail(id);
-    }
-    await this._renderBrandGrid();
-    await this._updateSidebar();
-  },
-  
-  /* --- Session Form --- */
-  
-  showSessionForm(sessionId) {
-    this.$('sessionFormId').value = '';
-    this.$('sessionTitle').value = '';
-    this.$('sessionDate').value = '';
-    this.$('sessionClient').value = '';
-    this.$('sessionDesc').value = '';
-    
-    if (sessionId) {
-      this.$('sessionFormTitle').textContent = '编辑拍摄期次';
-      this._loadSessionForEdit(sessionId);
+    if (this._isHeic(file)) {
+      this._convertHeicToJpeg(file).then(jpegFile => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this._brandCoverData = e.target.result;
+          this.$('brandCoverPlaceholder').classList.add('hidden');
+          this.$('brandCoverPreview').src = e.target.result;
+          this.$('brandCoverPreview').classList.remove('hidden');
+          this.$('brandCoverRemove').classList.remove('hidden');
+        };
+        reader.readAsDataURL(jpegFile);
+      }).catch(err => {
+        console.warn('HEIC conversion failed, using original:', err);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this._brandCoverData = e.target.result;
+          this.$('brandCoverPlaceholder').classList.add('hidden');
+          this.$('brandCoverPreview').src = e.target.result;
+          this.$('brandCoverPreview').classList.remove('hidden');
+          this.$('brandCoverRemove').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      });
     } else {
-      this.$('sessionFormTitle').textContent = '新建拍摄期次';
-      // Set default date to today
-      this.$('sessionDate').value = new Date().toISOString().split('T')[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this._brandCoverData = e.target.result;
+        this.$('brandCoverPlaceholder').classList.add('hidden');
+        this.$('brandCoverPreview').src = e.target.result;
+        this.$('brandCoverPreview').classList.remove('hidden');
+        this.$('brandCoverRemove').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
     }
-    
-    this._openModal('sessionFormModal');
   },
-  
-  async _loadSessionForEdit(sessionId) {
-    const session = await store.getSession(sessionId);
-    if (!session) return;
-    
-    this.$('sessionFormId').value = session.id;
-    this.$('sessionTitle').value = session.title;
-    this.$('sessionDate').value = session.date || '';
-    this.$('sessionClient').value = session.client || '';
-    this.$('sessionDesc').value = session.description || '';
-  },
-  
-  async _saveSession() {
-    const title = this.$('sessionTitle').value.trim();
-    if (!title || !this.currentBrandId) return;
-    
-    const id = this.$('sessionFormId').value || store.generateId();
-    const existing = this.$('sessionFormId').value ? await store.getSession(this.$('sessionFormId').value) : null;
-    
-    const session = {
-      id,
-      brandId: existing ? existing.brandId : this.currentBrandId,
-      title,
-      date: this.$('sessionDate').value || null,
-      client: this.$('sessionClient').value.trim() || null,
-      description: this.$('sessionDesc').value.trim() || null,
-      sortOrder: existing ? existing.sortOrder : Date.now(),
-      createdAt: existing ? existing.createdAt : Date.now(),
-      updatedAt: Date.now()
-    };
-    
-    await store.saveSession(session);
-    this._autoSync();
-    this._closeModal('sessionFormModal');
-    
-    if (this.currentView === 'sessionDetail') {
-      await this._renderSessionDetail(id);
-    }
-    await this._renderBrandDetail(this.currentBrandId);
-    await this._updateSidebar();
-  },
-  
-  /* --- Upload --- */
-  
-  _openUpload() {
-    this.pendingUploadFiles = [];
-    this.$('uploadPreviewList').innerHTML = '';
-    this.$('uploadConfirm').disabled = true;
-    this.$('uploadConfirm').textContent = '上传 (0)';
-    this.$('uploadFileInput').value = '';
-    this._openModal('uploadModal');
-  },
-  
-  _handleUploadFiles(files) {
-    if (!files || files.length === 0) return;
-    
-    for (const file of files) {
-      if (!file.type.startsWith('image/')) continue;
-      this.pendingUploadFiles.push(file);
-    }
-    
-    this._renderUploadPreviews();
-  },
+
   
   _renderUploadPreviews() {
     const list = this.$('uploadPreviewList');
     
     const loadPromises = this.pendingUploadFiles.map((file, index) => {
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
+        let f = file;
+        if (this._isHeic(file)) {
+          try { f = await this._convertHeicToJpeg(file); }
+          catch(e) { console.warn('HEIC转换失败:', e); }
+        }
         const reader = new FileReader();
         reader.onload = (e) => {
-          resolve({ index, dataUrl: e.target.result, name: file.name });
+          resolve({ index, dataUrl: e.target.result, name: f.name });
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(f);
       });
     });
     
@@ -966,6 +874,17 @@ const app = {
       this.$('uploadConfirm').disabled = false;
       this.$('uploadConfirm').textContent = `上传 (${results.length})`;
     });
+  },
+  
+  _handleUploadFiles(files) {
+    if (!files || files.length === 0) return;
+    
+    for (const file of files) {
+      if (!file.type.startsWith('image/') && !/\.(heic|heif)$/i.test(file.name)) continue;
+      this.pendingUploadFiles.push(file);
+    }
+    
+    this._renderUploadPreviews();
   },
   
   async _confirmUpload() {
@@ -1013,13 +932,33 @@ const app = {
   },
   
   _fileToDataUrl(file) {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
+      let displayFile = file;
+      if (this._isHeic(file)) {
+        try { displayFile = await this._convertHeicToJpeg(file); }
+        catch(e) { console.warn('HEIC\u8f6c\u6362\u5931\u8d25:', e); }
+      }
       const reader = new FileReader();
       reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(displayFile);
     });
   },
-  
+
+  _convertHeicToJpeg(blob) {
+    return new Promise((resolve, reject) => {
+      if (typeof heic2any === 'undefined') {
+        reject(new Error('heic2any 库未加载'));
+        return;
+      }
+      heic2any({ blob, toType: 'image/jpeg', quality: 0.92 })
+        .then((resultBlob) => {
+          const jpegBlob = Array.isArray(resultBlob) ? resultBlob[0] : resultBlob;
+          resolve(new File([jpegBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), { type: 'image/jpeg' }));
+        })
+        .catch(reject);
+    });
+  },
+
   /* --- Lightbox --- */
   
   
@@ -1367,10 +1306,21 @@ const app = {
 
 
   async _compressImage(file) {
-    const toggle = this.$('compressToggle');
+    // Always convert HEIC to JPEG first - browsers can't display HEIC
+    if (this._isHeic(file)) {
+      try {
+        file = await this._convertHeicToJpeg(file);
+      } catch(e) {
+        console.warn('HEIC conversion failed, using original:', e);
+        return file;
+      }
+    }
+    
+    const toggle = document.getElementById('compressToggle');
     if (!toggle || !toggle.checked) return file;
     
-    const quality = parseInt((this.$('qualitySlider') || { value: 80 }).value) / 100;
+    const qualitySlider = document.getElementById('qualitySlider');
+    const quality = parseInt((qualitySlider || { value: 80 }).value) / 100;
     const maxDim = 2048;
     
     return new Promise((resolve) => {
@@ -1389,7 +1339,7 @@ const app = {
           resolve(new File([blob], file.name, { type: 'image/jpeg', lastModified: Date.now() }));
         }, 'image/jpeg', quality);
       };
-      img.onerror = () => resolve(file);
+      img.onerror = () => { console.warn('Image load failed'); resolve(file); };
       img.src = URL.createObjectURL(file);
     });
   },
