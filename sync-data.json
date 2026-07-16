@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:26:35.717Z",
+  "exportedAt": "2026-07-16T02:27:41.438Z",
   "data": {
     "brands": [
       {
@@ -36,22 +36,22 @@
       {
         "id": "mqz1bflx_uqxs3ov",
         "name": "SOULVOR 灯位图",
-        "description": "",
+        "description": "尺寸2x3",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782726645948_jq713r.jpg",
         "sortOrder": 1782726480069,
         "createdAt": 1782726480069,
-        "updatedAt": 1782965035020
+        "updatedAt": 1784168842373
       },
       {
         "id": "mqz1ix3t_rxjknsg",
         "name": "Momanda 灯位图",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782727050354_t6p13d.jpg",
         "sortOrder": 1782726829337,
         "createdAt": 1782726829337,
-        "updatedAt": 1782965038777
+        "updatedAt": 1784168858423
       },
       {
         "id": "mr1rhvbp_rkkbfbq",
