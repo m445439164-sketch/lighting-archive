@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:22:33.725Z",
+  "exportedAt": "2026-07-16T02:23:51.339Z",
   "data": {
     "brands": [
       {
@@ -86,12 +86,12 @@
       {
         "id": "mr5piy15_3lz0syg",
         "name": "INLYRIC 棉感灯光",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
         "sortOrder": 1783129938377,
         "createdAt": 1783129938377,
-        "updatedAt": 1783130095801
+        "updatedAt": 1784168571086
       },
       {
         "id": "mr5vj54z_99uasjk",
@@ -106,12 +106,12 @@
       {
         "id": "mr5vngek_3kli5u0",
         "name": "LIEBERGO 灯光",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140606127_7pf5c6.jpg",
         "sortOrder": 1783140226508,
         "createdAt": 1783140226508,
-        "updatedAt": 1783141009892
+        "updatedAt": 1784168628325
       },
       {
         "id": "mr5ws8jk_a5eu3vj",
@@ -136,12 +136,12 @@
       {
         "id": "mrcvvvv3_1jeb11t",
         "name": "INLYRIC 内衣灯光",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563962453_oqpegb.jpg",
         "sortOrder": 1783563883023,
         "createdAt": 1783563883023,
-        "updatedAt": 1783564275966
+        "updatedAt": 1784168600546
       },
       {
         "id": "mrd440tj_sgd2n8c",
