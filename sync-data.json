@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:27:41.438Z",
+  "exportedAt": "2026-07-16T02:37:51.554Z",
   "data": {
     "brands": [
       {
@@ -9,7 +9,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782665096346_mii1vh.jpg",
-        "sortOrder": 3000,
+        "sortOrder": 6000,
         "createdAt": 1782032161646,
         "updatedAt": 1784168654858
       },
@@ -19,7 +19,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782658666632_vb3559.jpg",
-        "sortOrder": 1000,
+        "sortOrder": 3000,
         "createdAt": 1782637873616,
         "updatedAt": 1782965026627
       },
@@ -29,7 +29,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782663545016_ltqm21.jpg",
-        "sortOrder": 2000,
+        "sortOrder": 4000,
         "createdAt": 1782651603421,
         "updatedAt": 1784168726142
       },
@@ -39,7 +39,7 @@
         "description": "尺寸2x3",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782726645948_jq713r.jpg",
-        "sortOrder": 1782726480069,
+        "sortOrder": 7000,
         "createdAt": 1782726480069,
         "updatedAt": 1784168842373
       },
@@ -49,7 +49,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782727050354_t6p13d.jpg",
-        "sortOrder": 1782726829337,
+        "sortOrder": 8000,
         "createdAt": 1782726829337,
         "updatedAt": 1784168858423
       },
@@ -59,7 +59,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782891482841_wvp25e.jpg",
-        "sortOrder": 1782891382741,
+        "sortOrder": 5000,
         "createdAt": 1782891382741,
         "updatedAt": 1784168747841
       },
@@ -69,7 +69,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782892640403_chkkpn.jpg",
-        "sortOrder": 1782892483467,
+        "sortOrder": 2000,
         "createdAt": 1782892483467,
         "updatedAt": 1782965046353
       },
@@ -79,7 +79,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782898390206_5x859e.jpg",
-        "sortOrder": 1782898290341,
+        "sortOrder": 13000,
         "createdAt": 1782898290341,
         "updatedAt": 1784168550700
       },
@@ -89,7 +89,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
-        "sortOrder": 1783129938377,
+        "sortOrder": 14000,
         "createdAt": 1783129938377,
         "updatedAt": 1784168571086
       },
@@ -99,7 +99,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140155352_jieocv.jpg",
-        "sortOrder": 1783140025283,
+        "sortOrder": 9000,
         "createdAt": 1783140025284,
         "updatedAt": 1784168640854
       },
@@ -109,7 +109,7 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140606127_7pf5c6.jpg",
-        "sortOrder": 1783140226508,
+        "sortOrder": 10000,
         "createdAt": 1783140226508,
         "updatedAt": 1784168628325
       },
@@ -119,7 +119,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783142163160_71jtsy.png",
-        "sortOrder": 1783142129216,
+        "sortOrder": 16000,
         "createdAt": 1783142129216,
         "updatedAt": 1783142234171
       },
@@ -129,7 +129,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563583552_3sbzul.jpg",
-        "sortOrder": 1783563537920,
+        "sortOrder": 11000,
         "createdAt": 1783563537920,
         "updatedAt": 1783563650616
       },
@@ -138,10 +138,10 @@
         "name": "INLYRIC 内衣灯光",
         "description": "尺寸4x5",
         "category": "model",
-        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563962453_oqpegb.jpg",
-        "sortOrder": 1783563883023,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563908984_x4csol.jpg",
+        "sortOrder": 15000,
         "createdAt": 1783563883023,
-        "updatedAt": 1784168600546
+        "updatedAt": 1784169468532
       },
       {
         "id": "mrd440tj_sgd2n8c",
@@ -149,7 +149,7 @@
         "description": "尺寸5x7",
         "category": "model",
         "cover": null,
-        "sortOrder": 1783577699623,
+        "sortOrder": 1000,
         "createdAt": 1783577699623,
         "updatedAt": 1784168792699
       },
@@ -159,7 +159,7 @@
         "description": "尺寸5x7",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199922_0lpugd.jpg",
-        "sortOrder": 1783577725943,
+        "sortOrder": 12000,
         "createdAt": 1783577725943,
         "updatedAt": 1784168779340
       }
