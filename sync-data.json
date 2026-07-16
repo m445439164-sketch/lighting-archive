@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:23:51.339Z",
+  "exportedAt": "2026-07-16T02:25:29.163Z",
   "data": {
     "brands": [
       {
         "id": "mqnjxs32_rjylgtr",
         "name": "Halobliss小胸品牌灯位位",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782665096346_mii1vh.jpg",
         "sortOrder": 3000,
         "createdAt": 1782032161646,
-        "updatedAt": 1782964994020
+        "updatedAt": 1784168654858
       },
       {
         "id": "mqxkkafk_l078e9p",
@@ -26,12 +26,12 @@
       {
         "id": "mqxsqkf1_2rrvooa",
         "name": "DELIMIRA 内衣 灯位图",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782663545016_ltqm21.jpg",
         "sortOrder": 2000,
         "createdAt": 1782651603421,
-        "updatedAt": 1782965031206
+        "updatedAt": 1784168726142
       },
       {
         "id": "mqz1bflx_uqxs3ov",
@@ -96,12 +96,12 @@
       {
         "id": "mr5vj54z_99uasjk",
         "name": "OSSIDLEY 灯光",
-        "description": "",
+        "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140155352_jieocv.jpg",
         "sortOrder": 1783140025283,
         "createdAt": 1783140025284,
-        "updatedAt": 1783140172633
+        "updatedAt": 1784168640854
       },
       {
         "id": "mr5vngek_3kli5u0",
