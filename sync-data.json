@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T02:37:51.554Z",
+  "exportedAt": "2026-07-16T10:05:11.790Z",
   "data": {
     "brands": [
       {
@@ -631,6 +631,16 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782665096346_mii1vh.jpg",
         "caption": "260521HALOBLISS白底 0536",
         "createdAt": 1782665096421
+      },
+      {
+        "id": "mrnceyp3_dru5hzq",
+        "sessionId": "mqnjy22w_kw51dn7",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784196276996_mp4mab.jpg",
+        "caption": "260316 ESSENTHER春夏1096 1",
+        "sortOrder": 1784196308775,
+        "createdAt": 1784196308775
       },
       {
         "id": "mqy16gde_p9zt7up",
