@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:37:57.342Z",
+  "exportedAt": "2026-07-17T09:39:10.232Z",
   "data": {
     "brands": [
       {
@@ -623,6 +623,17 @@
         "updatedAt": 1784280594230
       },
       {
+        "id": "mroqwy39_az1ytm6",
+        "brandId": "mrd440tj_sgd2n8c",
+        "title": "220919",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784281128597,
+        "createdAt": 1784281128597,
+        "updatedAt": 1784281128597
+      },
+      {
         "id": "mrd452gn_9e4ng2r",
         "brandId": "mrd44l4n_j0c77p4",
         "title": "220216",
@@ -859,7 +870,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280990635_lg514g.JPG",
         "caption": "2022-07-24 DILIMIRA 1",
-        "sortOrder": 1784280996191,
+        "sortOrder": 2000,
         "createdAt": 1784280996191
       },
       {
@@ -869,7 +880,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280996304_5e9qhi.JPG",
         "caption": "2022-07-24 DILIMIRA 2",
-        "sortOrder": 1784281001397,
+        "sortOrder": 3000,
         "createdAt": 1784281001397
       },
       {
@@ -879,7 +890,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281046795_mab29h.jpg",
         "caption": "724 营销三00315",
-        "sortOrder": 1784281054674,
+        "sortOrder": 4000,
         "createdAt": 1784281054674
       },
       {
@@ -889,7 +900,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281054845_mcy82w.jpg",
         "caption": "724 营销三00413",
-        "sortOrder": 1784281061586,
+        "sortOrder": 5000,
         "createdAt": 1784281061586
       },
       {
@@ -899,7 +910,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281061761_l1b4vi.jpg",
         "caption": "724 营销三00505",
-        "sortOrder": 1784281067904,
+        "sortOrder": 6000,
         "createdAt": 1784281067904
       },
       {
@@ -909,7 +920,7 @@
         "dataUrl": "",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281068076_zdtxpa.jpg",
         "caption": "724 营销三00689",
-        "sortOrder": 1784281074325,
+        "sortOrder": 1000,
         "createdAt": 1784281074325
       },
       {
@@ -1719,6 +1730,16 @@
         "caption": "428营销三1080(主图 白底 )修掉腰间裤带",
         "sortOrder": 1784280672126,
         "createdAt": 1784280672126
+      },
+      {
+        "id": "mroqxcg5_7mmylp8",
+        "sessionId": "mroqwy39_az1ytm6",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281135967_6nx19g.JPG",
+        "caption": "IMG_2061",
+        "sortOrder": 1784281147205,
+        "createdAt": 1784281147205
       },
       {
         "id": "mrd45fls_0swi601",
