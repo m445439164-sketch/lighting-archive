@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:40:17.397Z",
+  "exportedAt": "2026-07-17T09:42:57.661Z",
   "data": {
     "brands": [
       {
@@ -235,7 +235,8 @@
         "client": null,
         "description": null,
         "createdAt": 1782651615379,
-        "updatedAt": 1782717865422
+        "updatedAt": 1782717865422,
+        "sortOrder": 2000
       },
       {
         "id": "mroqt6jl_oflupa5",
@@ -244,7 +245,7 @@
         "date": "2026-07-17",
         "client": null,
         "description": null,
-        "sortOrder": 1784280952929,
+        "sortOrder": 1000,
         "createdAt": 1784280952929,
         "updatedAt": 1784280952929
       },
@@ -262,13 +263,13 @@
       {
         "id": "mroqys9w_d60rcjh",
         "brandId": "mqz1bflx_uqxs3ov",
-        "title": "2022-09-29 内裤灯位图",
+        "title": "2022-09-24内裤灯位图",
         "date": "2026-07-17",
         "client": null,
         "description": null,
         "sortOrder": 1000,
         "createdAt": 1784281214372,
-        "updatedAt": 1784281214372
+        "updatedAt": 1784281252943
       },
       {
         "id": "mqz1jjza_456n8zk",
@@ -935,6 +936,16 @@
         "createdAt": 1784281074325
       },
       {
+        "id": "mror27xe_0hdy8ug",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281367946_aazoe0.JPG",
+        "caption": "IMG_3081",
+        "sortOrder": 1784281374626,
+        "createdAt": 1784281374626
+      },
+      {
         "id": "mqz1c9n4_59db5ql",
         "sessionId": "mqz1bzao_hdf9lxw",
         "type": "lighting_diagram",
@@ -957,6 +968,26 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782726646223_xasrki.jpg",
         "caption": "260117 SOULVOR 2256-版",
         "createdAt": 1782726646293
+      },
+      {
+        "id": "mroqz3ii_jb0vjjq",
+        "sessionId": "mroqys9w_d60rcjh",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281223879_otjp7e.JPG",
+        "caption": "白底",
+        "sortOrder": 1784281228938,
+        "createdAt": 1784281228938
+      },
+      {
+        "id": "mroqzfdu_o7sk570",
+        "sessionId": "mroqys9w_d60rcjh",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281237902_8ozxhu.jpg",
+        "caption": "924 SOULVOR04515",
+        "sortOrder": 1784281244322,
+        "createdAt": 1784281244322
       },
       {
         "id": "mqz1k0m9_0hy652t",
