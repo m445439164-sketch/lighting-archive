@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:39:10.232Z",
+  "exportedAt": "2026-07-17T09:40:17.397Z",
   "data": {
     "brands": [
       {
@@ -255,9 +255,20 @@
         "date": "2026-01-17",
         "client": null,
         "description": null,
-        "sortOrder": 1782726505585,
+        "sortOrder": 2000,
         "createdAt": 1782726505585,
         "updatedAt": 1782726676315
+      },
+      {
+        "id": "mroqys9w_d60rcjh",
+        "brandId": "mqz1bflx_uqxs3ov",
+        "title": "2022-09-29 内裤灯位图",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1000,
+        "createdAt": 1784281214372,
+        "updatedAt": 1784281214372
       },
       {
         "id": "mqz1jjza_456n8zk",
@@ -1740,6 +1751,16 @@
         "caption": "IMG_2061",
         "sortOrder": 1784281147205,
         "createdAt": 1784281147205
+      },
+      {
+        "id": "mroqxsqc_3pozxwn",
+        "sessionId": "mroqwy39_az1ytm6",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281164004_dfpns7.jpg",
+        "caption": "919SYROKAN0375（主图，白底）",
+        "sortOrder": 1784281168308,
+        "createdAt": 1784281168308
       },
       {
         "id": "mrd45fls_0swi601",
