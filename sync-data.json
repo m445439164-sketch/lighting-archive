@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:28:00.679Z",
+  "exportedAt": "2026-07-17T09:29:33.117Z",
   "data": {
     "brands": [
       {
@@ -584,10 +584,10 @@
         "title": "20220408",
         "date": "2026-07-17",
         "client": null,
-        "description": null,
+        "description": "置景",
         "sortOrder": 1784280477663,
         "createdAt": 1784280477663,
-        "updatedAt": 1784280477663
+        "updatedAt": 1784280570100
       },
       {
         "id": "mrd452gn_9e4ng2r",
@@ -1546,6 +1546,26 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783564227884_41rhsk.JPG",
         "caption": "IMG_0484",
         "createdAt": 1783564228724
+      },
+      {
+        "id": "mroqjoj1_dzfotuw",
+        "sessionId": "mroqiztr_w83oi3q",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280492552_0ygkp2.JPG",
+        "caption": "2022-04-28 Syrokan 1",
+        "sortOrder": 1784280509677,
+        "createdAt": 1784280509677
+      },
+      {
+        "id": "mroqk57c_xkt3tmz",
+        "sessionId": "mroqiztr_w83oi3q",
+        "type": "photo",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280525439_yhpkcq.jpg",
+        "caption": "428营销三1474",
+        "sortOrder": 1784280531288,
+        "createdAt": 1784280531288
       },
       {
         "id": "mrd45fls_0swi601",
