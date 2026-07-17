@@ -875,7 +875,16 @@ const app = {
       this.$('uploadConfirm').textContent = `上传 (${results.length})`;
     });
   },
-  
+
+  _openUpload() {
+    this.pendingUploadFiles = [];
+    this.$('uploadPreviewList').innerHTML = '';
+    this.$('uploadConfirm').disabled = true;
+    this.$('uploadConfirm').textContent = '上传 (0)';
+    this.$('uploadFileInput').value = '';
+    this._openModal('uploadModal');
+  },
+
   _handleUploadFiles(files) {
     if (!files || files.length === 0) return;
     
