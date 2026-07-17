@@ -1167,25 +1167,28 @@ const app = {
     this.$('backupDataSize').textContent = sizeKB < 1024 ? `${sizeKB} KB` : `${(sizeKB / 1024).toFixed(1)} MB`;
   },
   async _moveBrandUp(id) {
-    const brands = await store.getAllBrands();
+    const allBrands = await store.getAllBrands();
+    const brands = this.currentCategory ? allBrands.filter(b => b.category === this.currentCategory) : allBrands;
     brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
     const idx = brands.findIndex(b => b.id === id);
     if (idx <= 0) return;
     [brands[idx-1], brands[idx]] = [brands[idx], brands[idx-1]];
     for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
-    await this._renderBrandGrid();
+    await this._renderBrandGrid(this.currentCategory);
   },
   async _moveBrandDown(id) {
-    const brands = await store.getAllBrands();
+    const allBrands = await store.getAllBrands();
+    const brands = this.currentCategory ? allBrands.filter(b => b.category === this.currentCategory) : allBrands;
     brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
     const idx = brands.findIndex(b => b.id === id);
     if (idx < 0 || idx >= brands.length - 1) return;
     [brands[idx], brands[idx+1]] = [brands[idx+1], brands[idx]];
     for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
-    await this._renderBrandGrid();
+    await this._renderBrandGrid(this.currentCategory);
   },
   async _reorderBrands(draggedId, targetId) {
-    const brands = await store.getAllBrands();
+    const allBrands = await store.getAllBrands();
+    const brands = this.currentCategory ? allBrands.filter(b => b.category === this.currentCategory) : allBrands;
     brands.sort((a, b) => (b.sortOrder || b.createdAt) - (a.sortOrder || a.createdAt));
     const draggedIdx = brands.findIndex(b => b.id === draggedId);
     const targetIdx = brands.findIndex(b => b.id === targetId);
@@ -1193,7 +1196,7 @@ const app = {
     const [moved] = brands.splice(draggedIdx, 1);
     brands.splice(targetIdx, 0, moved);
     for (let i = 0; i < brands.length; i++) { brands[i].sortOrder = (brands.length - i) * 1000; await store.saveBrand(brands[i]); }
-    await this._renderBrandGrid();
+    await this._renderBrandGrid(this.currentCategory);
   },
   async _reorderSessions(draggedId, targetId) {
     const sessions = await store.getSessionsByBrand(this.currentBrandId);
