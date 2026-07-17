@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:42:57.661Z",
+  "exportedAt": "2026-07-17T09:45:03.657Z",
   "data": {
     "brands": [
       {
@@ -148,10 +148,10 @@
         "name": "SYROKAN",
         "description": "",
         "category": "model",
-        "cover": null,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281164004_dfpns7.jpg",
         "sortOrder": 1000,
         "createdAt": 1783577699623,
-        "updatedAt": 1783577699623
+        "updatedAt": 1784281500635
       },
       {
         "id": "mrd44l4n_j0c77p4",
