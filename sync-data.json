@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:29:33.117Z",
+  "exportedAt": "2026-07-17T09:31:15.154Z",
   "data": {
     "brands": [
       {
@@ -588,6 +588,17 @@
         "sortOrder": 1784280477663,
         "createdAt": 1784280477663,
         "updatedAt": 1784280570100
+      },
+      {
+        "id": "mroqlhrq_jld4xfe",
+        "brandId": "mrd440tj_sgd2n8c",
+        "title": "20220408白底",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784280594230,
+        "createdAt": 1784280594230,
+        "updatedAt": 1784280594230
       },
       {
         "id": "mrd452gn_9e4ng2r",
@@ -1566,6 +1577,36 @@
         "caption": "428营销三1474",
         "sortOrder": 1784280531288,
         "createdAt": 1784280531288
+      },
+      {
+        "id": "mroqlwhg_1s7uymd",
+        "sessionId": "mroqlhrq_jld4xfe",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280602207_7lvb7l.JPG",
+        "caption": "2022-04-28 Syrokan 2",
+        "sortOrder": 1784280613300,
+        "createdAt": 1784280613300
+      },
+      {
+        "id": "mroqmd4o_5uwc9j6",
+        "sessionId": "mroqlhrq_jld4xfe",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280627453_ikb9sd.jpg",
+        "caption": "428营销三0736（主图，白底，内衣立体）",
+        "sortOrder": 1784280634872,
+        "createdAt": 1784280634872
+      },
+      {
+        "id": "mroqn5vi_2xc2m0o",
+        "sessionId": "mroqlhrq_jld4xfe",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280635010_291ffn.jpg",
+        "caption": "428营销三1080(主图 白底 )修掉腰间裤带",
+        "sortOrder": 1784280672126,
+        "createdAt": 1784280672126
       },
       {
         "id": "mrd45fls_0swi601",
