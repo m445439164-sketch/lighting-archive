@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:45:03.657Z",
+  "exportedAt": "2026-07-17T09:46:47.872Z",
   "data": {
     "brands": [
       {
@@ -146,12 +146,12 @@
       {
         "id": "mrd440tj_sgd2n8c",
         "name": "SYROKAN",
-        "description": "",
+        "description": "尺寸5x7",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281164004_dfpns7.jpg",
         "sortOrder": 1000,
         "createdAt": 1783577699623,
-        "updatedAt": 1784281500635
+        "updatedAt": 1784281518340
       },
       {
         "id": "mrd44l4n_j0c77p4",
@@ -611,6 +611,17 @@
         "sortOrder": 1783564209535,
         "createdAt": 1783564209535,
         "updatedAt": 1783564209535
+      },
+      {
+        "id": "mror75kg_n7eb1et",
+        "brandId": "mrcvvvv3_1jeb11t",
+        "title": "260603",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784281604848,
+        "createdAt": 1784281604848,
+        "updatedAt": 1784281604848
       },
       {
         "id": "mroqiztr_w83oi3q",
@@ -1522,6 +1533,16 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140438322_hhduol.jpg",
         "caption": "251219LIEBERGO（tina）2913",
         "createdAt": 1783140440077
+      },
+      {
+        "id": "mror65rv_1y0k7yz",
+        "sessionId": "mr5voccr_ldvp7k3",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281548949_7suioq.jpg",
+        "caption": "251219LIEBERGO（tina）2108",
+        "sortOrder": 1784281558459,
+        "createdAt": 1784281558459
       },
       {
         "id": "mr5vvp2r_bvoc7so",
