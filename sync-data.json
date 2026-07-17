@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-16T10:11:35.447Z",
+  "exportedAt": "2026-07-17T09:28:00.679Z",
   "data": {
     "brands": [
       {
@@ -9,9 +9,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782665096346_mii1vh.jpg",
-        "sortOrder": 6000,
+        "sortOrder": 5000,
         "createdAt": 1782032161646,
-        "updatedAt": 1784168654858
+        "updatedAt": 1784276648450
       },
       {
         "id": "mqxkkafk_l078e9p",
@@ -31,17 +31,17 @@
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782663545016_ltqm21.jpg",
         "sortOrder": 4000,
         "createdAt": 1782651603421,
-        "updatedAt": 1784168726142
+        "updatedAt": 1784276630117
       },
       {
         "id": "mqz1bflx_uqxs3ov",
         "name": "SOULVOR 灯位图",
-        "description": "尺寸2x3",
+        "description": "尺寸2x3 ，相机原比例",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782726645948_jq713r.jpg",
-        "sortOrder": 7000,
+        "sortOrder": 6000,
         "createdAt": 1782726480069,
-        "updatedAt": 1784168842373
+        "updatedAt": 1784276608501
       },
       {
         "id": "mqz1ix3t_rxjknsg",
@@ -49,9 +49,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782727050354_t6p13d.jpg",
-        "sortOrder": 8000,
+        "sortOrder": 9000,
         "createdAt": 1782726829337,
-        "updatedAt": 1784168858423
+        "updatedAt": 1784276575800
       },
       {
         "id": "mr1rhvbp_rkkbfbq",
@@ -59,9 +59,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782891482841_wvp25e.jpg",
-        "sortOrder": 5000,
+        "sortOrder": 8000,
         "createdAt": 1782891382741,
-        "updatedAt": 1784168747841
+        "updatedAt": 1784276558217
       },
       {
         "id": "mr1s5gnf_yzpw5m3",
@@ -79,9 +79,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782898390206_5x859e.jpg",
-        "sortOrder": 13000,
+        "sortOrder": 16000,
         "createdAt": 1782898290341,
-        "updatedAt": 1784168550700
+        "updatedAt": 1784276337850
       },
       {
         "id": "mr5piy15_3lz0syg",
@@ -91,7 +91,7 @@
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783130080436_mj31xz.jpg",
         "sortOrder": 14000,
         "createdAt": 1783129938377,
-        "updatedAt": 1784168571086
+        "updatedAt": 1784276383417
       },
       {
         "id": "mr5vj54z_99uasjk",
@@ -99,9 +99,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140155352_jieocv.jpg",
-        "sortOrder": 9000,
+        "sortOrder": 10000,
         "createdAt": 1783140025284,
-        "updatedAt": 1784168640854
+        "updatedAt": 1784276483583
       },
       {
         "id": "mr5vngek_3kli5u0",
@@ -109,9 +109,9 @@
         "description": "尺寸4x5",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783140606127_7pf5c6.jpg",
-        "sortOrder": 10000,
+        "sortOrder": 11000,
         "createdAt": 1783140226508,
-        "updatedAt": 1784168628325
+        "updatedAt": 1784276422916
       },
       {
         "id": "mr5ws8jk_a5eu3vj",
@@ -119,7 +119,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783142163160_71jtsy.png",
-        "sortOrder": 16000,
+        "sortOrder": 12000,
         "createdAt": 1783142129216,
         "updatedAt": 1783142234171
       },
@@ -129,7 +129,7 @@
         "description": "",
         "category": "model",
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563583552_3sbzul.jpg",
-        "sortOrder": 11000,
+        "sortOrder": 13000,
         "createdAt": 1783563537920,
         "updatedAt": 1783563650616
       },
@@ -141,37 +141,57 @@
         "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783563962453_oqpegb.jpg",
         "sortOrder": 15000,
         "createdAt": 1783563883023,
-        "updatedAt": 1784168600546
+        "updatedAt": 1784276363666
       },
       {
         "id": "mrd440tj_sgd2n8c",
         "name": "SYROKAN",
-        "description": "尺寸5x7",
+        "description": "",
         "category": "model",
         "cover": null,
         "sortOrder": 1000,
         "createdAt": 1783577699623,
-        "updatedAt": 1784168792699
+        "updatedAt": 1783577699623
       },
       {
         "id": "mrd44l4n_j0c77p4",
         "name": "UNISSU",
         "description": "尺寸5x7",
         "category": "model",
-        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199922_0lpugd.jpg",
-        "sortOrder": 12000,
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578189431_a03gds.jpg",
+        "sortOrder": 7000,
         "createdAt": 1783577725943,
-        "updatedAt": 1784168779340
+        "updatedAt": 1784276513134
       },
       {
-        "id": "mrncn6q8_0pigvwd",
-        "name": "内衣立体图",
+        "id": "mroa4m8m_pkrrdi7",
+        "name": "UNISSU",
+        "description": "",
+        "category": "video",
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253007857_kraan9.png",
+        "sortOrder": 1784252933014,
+        "createdAt": 1784252933014,
+        "updatedAt": 1784253122494
+      },
+      {
+        "id": "mroa95kd_liavvya",
+        "name": "SOLBRACE",
+        "description": "",
+        "category": "video",
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253165215_yu1csw.JPG",
+        "sortOrder": 1784253144685,
+        "createdAt": 1784253144685,
+        "updatedAt": 1784253202838
+      },
+      {
+        "id": "mroaa7ed_z8blh4e",
+        "name": "立体细节&面料",
         "description": "",
         "category": "still-life",
-        "cover": null,
-        "sortOrder": 1784196692434,
-        "createdAt": 1784196692434,
-        "updatedAt": 1784196692434
+        "cover": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254425499_qvqbp5.jpg",
+        "sortOrder": 1784253193717,
+        "createdAt": 1784253193717,
+        "updatedAt": 1784254520671
       }
     ],
     "sessions": [
@@ -559,6 +579,17 @@
         "updatedAt": 1783564209535
       },
       {
+        "id": "mroqiztr_w83oi3q",
+        "brandId": "mrd440tj_sgd2n8c",
+        "title": "20220408",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784280477663,
+        "createdAt": 1784280477663,
+        "updatedAt": 1784280477663
+      },
+      {
         "id": "mrd452gn_9e4ng2r",
         "brandId": "mrd44l4n_j0c77p4",
         "title": "220216",
@@ -623,6 +654,72 @@
         "sortOrder": 1783578178470,
         "createdAt": 1783578178470,
         "updatedAt": 1783578178470
+      },
+      {
+        "id": "mroa54ba_v14awll",
+        "brandId": "mroa4m8m_pkrrdi7",
+        "title": "260422",
+        "date": "2026-04-22",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784252956438,
+        "createdAt": 1784252956438,
+        "updatedAt": 1784252956438
+      },
+      {
+        "id": "mroa6qli_aqzzrhl",
+        "brandId": "mroa4m8m_pkrrdi7",
+        "title": "260618",
+        "date": "2026-06-18",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784253031974,
+        "createdAt": 1784253031974,
+        "updatedAt": 1784253031974
+      },
+      {
+        "id": "mroa9gzi_yv9gzmj",
+        "brandId": "mroa95kd_liavvya",
+        "title": "260713",
+        "date": "2026-07-13",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784253159486,
+        "createdAt": 1784253159486,
+        "updatedAt": 1784253159486
+      },
+      {
+        "id": "mroaazd1_y62nguu",
+        "brandId": "mroaa7ed_z8blh4e",
+        "title": "立体",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784253229957,
+        "createdAt": 1784253229957,
+        "updatedAt": 1784253229957
+      },
+      {
+        "id": "mroac8bh_8phw2nh",
+        "brandId": "mroaa7ed_z8blh4e",
+        "title": "细节",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784253288221,
+        "createdAt": 1784253288221,
+        "updatedAt": 1784253288221
+      },
+      {
+        "id": "mroadb3h_4z434lm",
+        "brandId": "mroaa7ed_z8blh4e",
+        "title": "面料",
+        "date": "2026-07-17",
+        "client": null,
+        "description": null,
+        "sortOrder": 1784253338477,
+        "createdAt": 1784253338477,
+        "updatedAt": 1784253338477
       }
     ],
     "assets": [
@@ -1481,7 +1578,7 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577809675_zz7lwx.jpg",
         "caption": "810DOB1585-修",
         "createdAt": 1783577809720,
-        "sortOrder": 4000
+        "sortOrder": 2000
       },
       {
         "id": "mrd46e2d_67bv1ja",
@@ -1490,7 +1587,7 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577810058_bglggu.jpg",
         "caption": "810DOB2344-修",
         "createdAt": 1783577810101,
-        "sortOrder": 2000
+        "sortOrder": 4000
       },
       {
         "id": "mrd46ejv_5s8vp17",
@@ -1508,7 +1605,7 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820370_65tsnd.JPG",
         "caption": "2022-08-10 Unissu 4",
         "createdAt": 1783577820420,
-        "sortOrder": 3000
+        "sortOrder": 5000
       },
       {
         "id": "mrd46m54_gx30u50",
@@ -1517,7 +1614,7 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577820518_a19mp9.JPG",
         "caption": "2022-08-10 Unissu 1",
         "createdAt": 1783577820568,
-        "sortOrder": 5000
+        "sortOrder": 3000
       },
       {
         "id": "mrd46mb3_ji6ev60",
@@ -1631,8 +1728,7 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577994278_bfkex1.jpg",
         "caption": "230814 UNISSU0765",
-        "createdAt": 1783577994384,
-        "sortOrder": 1000
+        "createdAt": 1783577994384
       },
       {
         "id": "mrd4acmn_7nxohe8",
@@ -1640,8 +1736,7 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783577994815_t1zout.jpg",
         "caption": "230814 UNISSU2295",
-        "createdAt": 1783577994863,
-        "sortOrder": 3000
+        "createdAt": 1783577994863
       },
       {
         "id": "mrd4aj8o_v54zhst",
@@ -1649,8 +1744,7 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578003381_woe80l.JPG",
         "caption": "IMG_4835",
-        "createdAt": 1783578003432,
-        "sortOrder": 2000
+        "createdAt": 1783578003432
       },
       {
         "id": "mrd4ajdw_fays6nn",
@@ -1658,8 +1752,7 @@
         "type": "lighting_diagram",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578003568_r678va.JPG",
         "caption": "IMG_4836",
-        "createdAt": 1783578003620,
-        "sortOrder": 4000
+        "createdAt": 1783578003620
       },
       {
         "id": "mrd4eily_hw8bbjd",
@@ -1667,8 +1760,7 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578189109_bn8hdw.jpg",
         "caption": "260123 UNISSU 1020（主图白底）",
-        "createdAt": 1783578189238,
-        "sortOrder": 1000
+        "createdAt": 1783578189238
       },
       {
         "id": "mrd4eisl_2679fyr",
@@ -1676,8 +1768,7 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578189431_a03gds.jpg",
         "caption": "260123 UNISSU 1693",
-        "createdAt": 1783578189477,
-        "sortOrder": 3000
+        "createdAt": 1783578189477
       },
       {
         "id": "mrd4eqpj_ucnrori",
@@ -1685,8 +1776,7 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199691_ojgii7.jpg",
         "caption": "260123 UNISSU 0095(主图白底)",
-        "createdAt": 1783578199735,
-        "sortOrder": 4000
+        "createdAt": 1783578199735
       },
       {
         "id": "mrd4eqw2_levs2r0",
@@ -1694,8 +1784,205 @@
         "type": "photo",
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1783578199922_0lpugd.jpg",
         "caption": "260123 UNISSU 0337",
-        "createdAt": 1783578199970,
-        "sortOrder": 2000
+        "createdAt": 1783578199970
+      },
+      {
+        "id": "mroa62tl_bqwxc0w",
+        "sessionId": "mroa54ba_v14awll",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253001040_chy3tn.JPG",
+        "caption": "260413 IG试光",
+        "sortOrder": 1784253001161,
+        "createdAt": 1784253001161
+      },
+      {
+        "id": "mroa6812_h4cr609",
+        "sessionId": "mroa54ba_v14awll",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253007857_kraan9.png",
+        "caption": "手机视频",
+        "sortOrder": 1784253007910,
+        "createdAt": 1784253007910
+      },
+      {
+        "id": "mroa86fm_8wnp8n0",
+        "sessionId": "mroa6qli_aqzzrhl",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253099033_x5c5oj.JPG",
+        "caption": "260618 UNISSU测试光",
+        "sortOrder": 1784253099154,
+        "createdAt": 1784253099154
+      },
+      {
+        "id": "mroa9lim_997r7wa",
+        "sessionId": "mroa9gzi_yv9gzmj",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253165215_yu1csw.JPG",
+        "caption": "260713 SOLBRACE",
+        "sortOrder": 1784253165358,
+        "createdAt": 1784253165358
+      },
+      {
+        "id": "mroabszp_hsu1gp4",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253268250_m7nkmn.JPG",
+        "caption": "260130 裤子立体",
+        "sortOrder": 1784253268357,
+        "createdAt": 1784253268357
+      },
+      {
+        "id": "mroabt4y_6dc1bet",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253268494_3kqsp4.JPG",
+        "caption": "230320 内衣立体图",
+        "sortOrder": 1784253268546,
+        "createdAt": 1784253268546
+      },
+      {
+        "id": "mroabtad_rphey9h",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253268684_nspg9t.JPG",
+        "caption": "230824 反光光面",
+        "sortOrder": 1784253268741,
+        "createdAt": 1784253268741
+      },
+      {
+        "id": "mroabtfe_y9yttrk",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253268875_7mzsv6.JPG",
+        "caption": "240527 DOB优化",
+        "sortOrder": 1784253268922,
+        "createdAt": 1784253268922
+      },
+      {
+        "id": "mrob0kbc_3hfr97q",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254423368_ejakuh.jpg",
+        "caption": "260130 立体图 007",
+        "sortOrder": 1784254423512,
+        "createdAt": 1784254423512
+      },
+      {
+        "id": "mrob0l6u_qlffuuc",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254424592_d1fn0c.jpg",
+        "caption": "260130 立体图 124",
+        "sortOrder": 1784254424646,
+        "createdAt": 1784254424646
+      },
+      {
+        "id": "mrob0lvx_q2imttf",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254425499_qvqbp5.jpg",
+        "caption": "230824 立体图148",
+        "sortOrder": 1784254425549,
+        "createdAt": 1784254425549
+      },
+      {
+        "id": "mrob0lyd_yvcu989",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254425586_bpdyx1.png",
+        "caption": "46538fac-f8be-4ebb-bd5f-25d49bb83a8a",
+        "sortOrder": 1784254425637,
+        "createdAt": 1784254425637
+      },
+      {
+        "id": "mrob0maa_tdmnj8w",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254426005_pgjykf.jpg",
+        "caption": "230525 立体图174",
+        "sortOrder": 1784254426066,
+        "createdAt": 1784254426066
+      },
+      {
+        "id": "mrob0mqi_xj1unnw",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254426598_68vv7p.jpg",
+        "caption": "240618 立体图 076",
+        "sortOrder": 1784254426650,
+        "createdAt": 1784254426650
+      },
+      {
+        "id": "mrob0n1p_v0rftdg",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254426999_5vh7x1.jpg",
+        "caption": "230925 立体图052",
+        "sortOrder": 1784254427053,
+        "createdAt": 1784254427053
+      },
+      {
+        "id": "mrob0ncp_xe8sxiu",
+        "sessionId": "mroaazd1_y62nguu",
+        "type": "photo",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784254427397_qdslr2.jpg",
+        "caption": "721裤子立体图0117",
+        "sortOrder": 1784254427449,
+        "createdAt": 1784254427449
+      },
+      {
+        "id": "mroad12z_fb6xqro",
+        "sessionId": "mroac8bh_8phw2nh",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253325453_spk7ba.JPG",
+        "caption": "260122 内衣细节",
+        "sortOrder": 1784253325499,
+        "createdAt": 1784253325499
+      },
+      {
+        "id": "mroad18d_3cirdne",
+        "sessionId": "mroac8bh_8phw2nh",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253325639_9kvb2g.JPG",
+        "caption": "230324 泳衣细节",
+        "sortOrder": 1784253325693,
+        "createdAt": 1784253325693
+      },
+      {
+        "id": "mroadxq2_ax1i19v",
+        "sessionId": "mroadb3h_4z434lm",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253367755_04z7dx.JPG",
+        "caption": "260506 裸感贴肤双面&Soft梭织涤纶面料",
+        "sortOrder": 1784253367802,
+        "createdAt": 1784253367802
+      },
+      {
+        "id": "mroadxys_px9w82e",
+        "sessionId": "mroadb3h_4z434lm",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253368069_vufb81.JPG",
+        "caption": "260608 基础贴合&弹性牛仔面料图",
+        "sortOrder": 1784253368116,
+        "createdAt": 1784253368116
+      },
+      {
+        "id": "mroady3p_l0fr1vl",
+        "sessionId": "mroadb3h_4z434lm",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253368240_51mxlk.JPG",
+        "caption": "230316 零感&裸感面料",
+        "sortOrder": 1784253368293,
+        "createdAt": 1784253368293
+      },
+      {
+        "id": "mroadycs_kvo2erp",
+        "sessionId": "mroadb3h_4z434lm",
+        "type": "lighting_diagram",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784253368578_xm8mcr.JPG",
+        "caption": "251216 T-零感Airsoft面料&三明治面料",
+        "sortOrder": 1784253368620,
+        "createdAt": 1784253368620
       }
     ]
   }
