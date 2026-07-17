@@ -150,6 +150,7 @@
               <button class="filter-tab active" data-filter="all">全部</button>
               <button class="filter-tab" data-filter="photo">成片</button>
               <button class="filter-tab" data-filter="lighting_diagram">灯位图</button>
+              <button class="filter-tab" data-filter="video">视频</button>
             </div>
 
             <div class="asset-upload-zone">
@@ -295,7 +296,7 @@
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <p>拖拽图片到此处，或点击选择文件</p>
           <span class="text-secondary" style="font-size:13px">支持 JPG / PNG / WebP</span>
-          <input type="file" accept="image/*" multiple id="uploadFileInput" hidden>
+          <input type="file" accept="image/*,.heic,.heif,video/*,.mp4,.mov,.avi,.webm,.mkv" multiple id="uploadFileInput" hidden>
         </div>
         <div class="upload-preview-list" id="uploadPreviewList"></div>
       </div>
@@ -308,6 +309,10 @@
           <label class="radio-label">
             <input type="radio" name="uploadType" value="lighting_diagram">
             <span>标记为灯位图</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="uploadType" value="video">
+            <span>标记为视频</span>
           </label>
         </div>
         <div class="upload-quality">
@@ -339,7 +344,8 @@
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
     <div class="lightbox-content">
-      <img id="lightboxImg" alt="">
+      <img id="lightboxImg" alt="" style="display:none">
+      <video id="lightboxVideo" controls style="display:none;max-width:100%;max-height:90vh"></video>
       <div class="lightbox-info" id="lightboxInfo">
         <span id="lightboxCounter"></span>
         <span id="lightboxLabel"></span>

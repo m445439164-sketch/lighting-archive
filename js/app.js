@@ -639,7 +639,7 @@ const app = {
     
     if (assets.length === 0) {
       grid.innerHTML = `<div class="empty-state">
-        <h3>${filter === 'all' ? '还没有图片' : filter === 'photo' ? '还没有成片' : '还没有灯位图'}</h3>
+        <h3>${filter === 'all' ? '还没有内容' : filter === 'photo' ? '还没有成片' : filter === 'video' ? '还没有视频' : '还没有灯位图'}</h3>
         <p>点击「上传」添加图片</p>
       </div>`;
       return;
@@ -650,11 +650,14 @@ const app = {
         <span class="asset-drag-handle" title="拖动排序">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/></svg>
         </span>
-        <span class="asset-badge ${a.type}">${a.type === 'photo' ? '成片' : '灯位图'}</span>
+        <span class="asset-badge ${a.type}">${a.type === 'photo' ? '成片' : a.type === 'video' ? '视频' : '灯位图'}</span>
         <button class="asset-delete-btn asset-delete" data-asset-id="${a.id}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <img src="${a.qiniuUrl || a.dataUrl || ''}" alt="${this._esc(a.caption || '')}" loading="lazy">
+        ${a.type === 'video'
+      ? `<div class="asset-video-wrapper"><video src="${a.qiniuUrl || a.dataUrl || ''}" muted preload="metadata"></video><div class="asset-play-icon">▶</div></div>`
+      : `<img src="${a.qiniuUrl || a.dataUrl || ''}" alt="${this._esc(a.caption || '')}" loading="lazy">`
+    }
         ${a.caption ? `<div class="asset-caption">${this._esc(a.caption)}</div>` : ''}
       </div>
     `).join('');
@@ -934,7 +937,7 @@ const app = {
     if (!files || files.length === 0) return;
     
     for (const file of files) {
-      if (!file.type.startsWith('image/')) continue;
+      if (!file.type.startsWith('image/') && !/\.(mp4|mov|avi|webm|mkv)$/i.test(file.name) && !file.type.startsWith('video/')) continue;
       this.pendingUploadFiles.push(file);
     }
     
@@ -1025,8 +1028,18 @@ const app = {
   _openLightbox(asset, assets, index) {
     this._lightboxAssets = assets || [];
     this._lightboxIndex = index || 0;
-    this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
-    const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
+    this.$('lightboxImg').style.display = 'none';
+    this.$('lightboxVideo').style.display = 'none';
+    this.$('lightboxVideo').removeAttribute('src');
+    if (asset.type === 'video') {
+      this.$('lightboxVideo').src = asset.qiniuUrl || asset.dataUrl || '';
+      this.$('lightboxVideo').style.display = 'block';
+      this.$('lightboxVideo').load();
+    } else {
+      this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
+      this.$('lightboxImg').style.display = 'block';
+    }
+    const typeLabel = asset.type === 'photo' ? '成片' : asset.type === 'video' ? '视频' : '灯位图';
     this.$('lightboxLabel').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
     this._updateLightboxCounter();
     this._openModal('lightbox');
@@ -1043,8 +1056,18 @@ const app = {
     if (total === 0) return;
     this._lightboxIndex = (this._lightboxIndex + dir + total) % total;
     const asset = this._lightboxAssets[this._lightboxIndex];
-    this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
-    const typeLabel = asset.type === 'photo' ? '成片' : '灯位图';
+    this.$('lightboxImg').style.display = 'none';
+    this.$('lightboxVideo').style.display = 'none';
+    this.$('lightboxVideo').removeAttribute('src');
+    if (asset.type === 'video') {
+      this.$('lightboxVideo').src = asset.qiniuUrl || asset.dataUrl || '';
+      this.$('lightboxVideo').style.display = 'block';
+      this.$('lightboxVideo').load();
+    } else {
+      this.$('lightboxImg').src = asset.qiniuUrl || asset.dataUrl || '';
+      this.$('lightboxImg').style.display = 'block';
+    }
+    const typeLabel = asset.type === 'photo' ? '成片' : asset.type === 'video' ? '视频' : '灯位图';
     this.$('lightboxLabel').textContent = `${typeLabel}${asset.caption ? ' · ' + asset.caption : ''}`;
     this._updateLightboxCounter();
   },
@@ -1108,6 +1131,10 @@ const app = {
   
   _closeModal(id) {
     this.$(id).classList.remove('open');
+    if (id === 'lightbox') {
+      const vid = this.$('lightboxVideo');
+      if (vid) { vid.pause(); vid.removeAttribute('src'); }
+    }
   },
   
   /* --- Utility --- */
@@ -1369,6 +1396,11 @@ const app = {
 
 
   async _compressImage(file) {
+    // Skip compression for video files
+    if (file.type.startsWith('video/') || /\.(mp4|mov|avi|webm|mkv)$/i.test(file.name)) {
+      return file;
+    }
+    
     const toggle = this.$('compressToggle');
     if (!toggle || !toggle.checked) return file;
     
