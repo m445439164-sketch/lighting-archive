@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-07-17T09:35:55.947Z",
+  "exportedAt": "2026-07-17T09:37:57.342Z",
   "data": {
     "brands": [
       {
@@ -851,6 +851,66 @@
         "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1782726354820_vv6tjf.JPG",
         "caption": "260409",
         "createdAt": 1782726354990
+      },
+      {
+        "id": "mroqu3xb_p8gojyr",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280990635_lg514g.JPG",
+        "caption": "2022-07-24 DILIMIRA 1",
+        "sortOrder": 1784280996191,
+        "createdAt": 1784280996191
+      },
+      {
+        "id": "mroqu7xx_cg312u3",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784280996304_5e9qhi.JPG",
+        "caption": "2022-07-24 DILIMIRA 2",
+        "sortOrder": 1784281001397,
+        "createdAt": 1784281001397
+      },
+      {
+        "id": "mroqvd1u_s4y41yh",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281046795_mab29h.jpg",
+        "caption": "724 营销三00315",
+        "sortOrder": 1784281054674,
+        "createdAt": 1784281054674
+      },
+      {
+        "id": "mroqvidu_u71y4vu",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281054845_mcy82w.jpg",
+        "caption": "724 营销三00413",
+        "sortOrder": 1784281061586,
+        "createdAt": 1784281061586
+      },
+      {
+        "id": "mroqvn9c_3huw83g",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281061761_l1b4vi.jpg",
+        "caption": "724 营销三00505",
+        "sortOrder": 1784281067904,
+        "createdAt": 1784281067904
+      },
+      {
+        "id": "mroqvs7p_lzt7ifa",
+        "sessionId": "mroqt6jl_oflupa5",
+        "type": "lighting_diagram",
+        "dataUrl": "",
+        "qiniuUrl": "https://lighting-photos.oss-cn-shenzhen.aliyuncs.com/lighting%2F1784281068076_zdtxpa.jpg",
+        "caption": "724 营销三00689",
+        "sortOrder": 1784281074325,
+        "createdAt": 1784281074325
       },
       {
         "id": "mqz1c9n4_59db5ql",
