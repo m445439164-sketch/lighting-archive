@@ -1526,6 +1526,9 @@ textarea.form-input {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .category-tab {
@@ -1608,6 +1611,9 @@ textarea.form-input {
     padding: 3px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
   .category-tab {
     padding: 8px 10px;
