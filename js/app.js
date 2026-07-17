@@ -226,9 +226,10 @@ const app = {
         this.currentView = 'brands';
         this.currentBrandId = null;
         this.currentSessionId = null;
-        this._updateCategoryTabs();
+        this.currentCategory = 'model';
+        this._updateCategoryTabs('model');
         this.$('viewBrands').classList.add('active');
-        this._renderBrandGrid();
+        this._renderBrandGrid('model');
         this._updateSidebar();
         if (sidebar) sidebar.classList.remove('hidden');
         if (mainContent) mainContent.classList.remove('no-sidebar');
