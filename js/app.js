@@ -806,6 +806,81 @@ const app = {
       this.$('brandCoverRemove').classList.remove('hidden');
     }
   },
+
+  async showSessionForm(sessionId) {
+    this.$('sessionFormId').value = '';
+    this.$('sessionTitle').value = '';
+    this.$('sessionDate').value = '';
+    this.$('sessionClient').value = '';
+    this.$('sessionDesc').value = '';
+    
+    if (sessionId) {
+      this.$('sessionFormTitle').textContent = '编辑拍摄期次';
+      const session = await store.getSession(sessionId);
+      if (session) {
+        this.$('sessionFormId').value = session.id;
+        this.$('sessionTitle').value = session.title || '';
+        this.$('sessionDate').value = session.date || '';
+        this.$('sessionClient').value = session.client || '';
+        this.$('sessionDesc').value = session.description || '';
+      }
+    } else {
+      this.$('sessionFormTitle').textContent = '新建拍摄期次';
+    }
+    
+    this._openModal('sessionFormModal');
+  },
+
+  async _saveSession() {
+    const title = this.$('sessionTitle').value.trim();
+    if (!title) { alert('请输入期次名称'); return; }
+    
+    const id = this.$('sessionFormId').value || store.generateId();
+    const existing = this.$('sessionFormId').value ? await store.getSession(this.$('sessionFormId').value) : null;
+    
+    const session = {
+      id,
+      brandId: this.currentBrandId,
+      title,
+      date: this.$('sessionDate').value || new Date().toISOString().split('T')[0],
+      client: this.$('sessionClient').value.trim(),
+      description: this.$('sessionDesc').value.trim(),
+      sortOrder: existing ? existing.sortOrder : Date.now(),
+      createdAt: existing ? existing.createdAt : Date.now()
+    };
+    
+    await store.saveSession(session);
+    this._closeModal('sessionFormModal');
+    await this._renderBrandDetail(this.currentBrandId);
+    this._autoSync();
+  },
+  },
+
+  async _saveBrand() {
+    const name = this.$('brandName').value.trim();
+    if (!name) { alert('请输入品牌名称'); return; }
+    
+    const id = this.$('brandFormId').value || store.generateId();
+    const existing = this.$('brandFormId').value ? await store.getBrand(this.$('brandFormId').value) : null;
+    
+    const brand = {
+      id,
+      name,
+      description: this.$('brandDesc').value.trim(),
+      category: this.$('brandCategory').value,
+      cover: this._brandCoverData || existing?.cover || '',
+      sortOrder: existing ? existing.sortOrder : Date.now(),
+      createdAt: existing ? existing.createdAt : Date.now()
+    };
+    
+    await store.saveBrand(brand);
+    this._closeModal('brandFormModal');
+    this.currentBrandId = brand.id;
+    await this._renderBrandDetail(brand.id);
+    await this._updateSidebar();
+    this._autoSync();
+  },
+
   _handleBrandCover(file) {
     if (!file) return;
     if (this._isHeic(file)) {
